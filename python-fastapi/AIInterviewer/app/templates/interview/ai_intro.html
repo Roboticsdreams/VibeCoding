@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+
+{% block title %}AI-Powered Technical Interviews{% endblock %}
+
+{% set show_sidebar = true %}
+{% set active_page = 'ai_interview' %}
+
+{% block sidebar %}
+{% include "includes/user_sidebar.html" %}
+{% endblock %}
+
+{% block main_content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Welcome to AI-Powered Technical Interviews</h3>
+                </div>
+                <div class="card-body">
+                    <div class="text-center mb-4">
+                        <img src="/static/img/ai-interview.svg" alt="AI Interview" class="img-fluid" style="max-width: 200px;">
+                    </div>
+
+                    <h4 class="mb-3">How It Works</h4>
+                    <p class="lead">Our AI-powered interview system uses OpenAI technology to create a dynamic, personalized interview experience.</p>
+
+                    <div class="row mt-4">
+                        <div class="col-md-4 text-center">
+                            <div class="mb-3">
+                                <i class="fas fa-brain fa-3x text-primary"></i>
+                            </div>
+                            <h5>Dynamic Questions</h5>
+                            <p>AI generates relevant technical questions based on your selected topics and difficulty level</p>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <div class="mb-3">
+                                <i class="fas fa-comment-dots fa-3x text-success"></i>
+                            </div>
+                            <h5>Real-time Evaluation</h5>
+                            <p>Get immediate feedback and scoring on candidate answers with detailed insights</p>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <div class="mb-3">
+                                <i class="fas fa-chart-line fa-3x text-info"></i>
+                            </div>
+                            <h5>Comprehensive Summary</h5>
+                            <p>Receive a detailed performance analysis with strengths and areas for improvement</p>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-info mt-4">
+                        <h5><i class="fas fa-info-circle me-2"></i> Getting Started</h5>
+                        <ol class="mb-0">
+                            <li>Click the button below to create a new AI-powered interview</li>
+                            <li>Select the technical topics you want to cover</li>
+                            <li>Choose the appropriate difficulty level</li>
+                            <li>Share the interview link with your candidate</li>
+                            <li>Review the comprehensive results after completion</li>
+                        </ol>
+                    </div>
+
+                    <div class="d-flex justify-content-center mt-4">
+                        <a href="/interview/create-dynamic" class="btn btn-primary btn-lg">
+                            <i class="fas fa-robot me-2"></i>Create AI-Powered Interview
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="fas fa-lightbulb text-warning me-2"></i>Benefits of AI-Powered Interviews</h5>
+                    <ul class="mb-0">
+                        <li>Save time with automated question generation and evaluation</li>
+                        <li>Ensure consistent and unbiased assessments</li>
+                        <li>Access deeper insights on candidate technical abilities</li>
+                        <li>Cover a wide range of topics with appropriate difficulty scaling</li>
+                        <li>Provide candidates with valuable learning feedback</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock main_content %}

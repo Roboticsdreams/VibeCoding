@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+
+{% block title %}Interview Evaluation - TechInterviewer{% endblock %}
+
+{% set show_sidebar = true %}
+{% set active_page = 'dashboard' %}
+
+{% block sidebar %}
+{% include "includes/user_sidebar.html" %}
+{% endblock %}
+
+{% block main_content %}
+<div class="container">
+    <div class="evaluation-header">
+        <h1 class="mb-3">Interview Evaluation</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <p><strong>Candidate:</strong> {{ interview.candidate_name }}</p>
+                <p><strong>Email:</strong> {{ interview.email }}</p>
+                <p><strong>Created:</strong> {{ interview.created_at.strftime('%Y-%m-%d %H:%M') }}</p>
+            </div>
+            <div class="col-md-6">
+                <p><strong>Topics:</strong> {% for topic in interview.topics %}{{ topic.name }}{% if not loop.last %}, {% endif %}{% endfor %}</p>
+                <p><strong>Difficulty:</strong> {{ interview.difficulty.name }}</p>
+                <p><strong>Duration:</strong> {{ interview.timing.name }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-4">
+        <div class="col-md-4 offset-md-4">
+            <div class="card score-card">
+                <div class="card-body">
+                    <div class="score-value">{{ average_score|round|int }}/100</div>
+                    <div class="score-text">Overall Score</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="card summary-card">
+        <div class="card-header">
+            <h2>Summary</h2>
+        </div>
+        <div class="card-body">
+            <div class="summary-content">
+                {{ interview.summary|safe|replace('\n', '<br>')|replace('\r', '') }}
+            </div>
+        </div>
+    </div>
+
+    <h2 class="mb-3">Question Details</h2>
+    
+    <div class="accordion" id="questionAccordion">
+        {% for question in questions %}
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading{{ question.id }}">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ question.id }}" aria-expanded="false" aria-controls="collapse{{ question.id }}">
+                    <div class="question-header w-100">
+                        <div>Q{{ loop.index }}: {{ question.question_text|truncate(80) }}</div>
+                        <span class="badge bg-primary badge-score">Score: {{ question.score|default(0) }}/100</span>
+                    </div>
+                </button>
+            </h2>
+            <div id="collapse{{ question.id }}" class="accordion-collapse collapse" aria-labelledby="heading{{ question.id }}" data-bs-parent="#questionAccordion">
+                <div class="accordion-body">
+                    <div class="mb-3">
+                        <h5>Question:</h5>
+                        <p>{{ question.question_text }}</p>
+                        <p class="text-muted">Topic: {{ question.topic.name }}</p>
+                    </div>
+                    
+                    {% if question.answer %}
+                    <div class="mb-3">
+                        <h5>Your Answer:</h5>
+                        <p>{{ question.answer }}</p>
+                    </div>
+                    {% else %}
+                    <div class="alert alert-warning">
+                        <p class="mb-0">No answer provided yet.</p>
+                    </div>
+                    {% endif %}
+                    
+                    {% if question.feedback %}
+                    <div class="mb-3">
+                        <h5>Feedback:</h5>
+                        <p>{{ question.feedback }}</p>
+                    </div>
+                    {% endif %}
+                    
+                    {% if question.score is not none %}
+                    <div>
+                        <h5>Score: <span class="badge bg-primary">{{ question.score }}/100</span></h5>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="d-flex justify-content-between mt-4">
+        <a href="/user/dashboard" class="btn btn-primary">Back to Dashboard</a>
+        <button class="btn btn-success" onclick="printEvaluation()">
+            <i class="fas fa-print me-2"></i>Print Evaluation
+        </button>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function printEvaluation() {
+        window.print();
+    }
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        // Open all accordions when printing
+        window.addEventListener('beforeprint', function() {
+            document.querySelectorAll('.accordion-button').forEach(button => {
+                button.classList.remove('collapsed');
+                button.setAttribute('aria-expanded', 'true');
+            });
+            
+            document.querySelectorAll('.accordion-collapse').forEach(collapse => {
+                collapse.classList.add('show');
+            });
+        });
+    });
+</script>
+{% endblock %}

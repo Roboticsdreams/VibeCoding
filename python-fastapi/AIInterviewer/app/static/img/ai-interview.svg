@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200px" height="200px" viewBox="0 0 200 200" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <!-- Robot head -->
+  <rect x="50" y="40" width="100" height="80" rx="10" fill="#4a90e2" />
+  
+  <!-- Robot eyes -->
+  <circle cx="75" cy="70" r="15" fill="white" />
+  <circle cx="125" cy="70" r="15" fill="white" />
+  <circle cx="75" cy="70" r="8" fill="#212529" />
+  <circle cx="125" cy="70" r="8" fill="#212529" />
+  
+  <!-- Robot mouth -->
+  <rect x="65" y="95" width="70" height="10" rx="5" fill="white" />
+  
+  <!-- Robot antennas -->
+  <line x1="70" y1="40" x2="60" y2="20" stroke="#4a90e2" stroke-width="5" />
+  <line x1="130" y1="40" x2="140" y2="20" stroke="#4a90e2" stroke-width="5" />
+  <circle cx="60" cy="20" r="5" fill="#ff5252" />
+  <circle cx="140" cy="20" r="5" fill="#ff5252" />
+  
+  <!-- Human silhouette -->
+  <circle cx="150" cy="140" r="20" fill="#7ed321" />
+  <rect x="140" y="160" width="20" height="30" fill="#7ed321" />
+  
+  <!-- Speech bubble -->
+  <path d="M50,130 L120,130 C125,130 130,135 130,140 L130,170 C130,175 125,180 120,180 L70,180 L60,190 L60,180 L50,180 C45,180 40,175 40,170 L40,140 C40,135 45,130 50,130 Z" fill="#f8f9fa" stroke="#ced4da" />
+  
+  <!-- Speech bubble text -->
+  <text x="85" y="155" font-family="Arial" font-size="10" text-anchor="middle" fill="#212529">Technical</text>
+  <text x="85" y="167" font-family="Arial" font-size="10" text-anchor="middle" fill="#212529">Interview</text>
+</svg>

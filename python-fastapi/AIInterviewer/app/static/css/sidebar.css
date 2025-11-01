@@ -1,0 +1,108 @@
+/* Sidebar styling */
+.sidebar {
+    position: fixed !important;
+    top: 56px !important; /* Match navbar height */
+    left: 0 !important;
+    bottom: 60px !important; /* Account for footer */
+    width: 250px !important;
+    z-index: 1020 !important;
+    background-color: #ffffff !important;
+    overflow-y: auto;
+    transition: all 0.3s;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.sidebar-sticky {
+    position: relative;
+    top: 0;
+    height: 100%;
+    padding-top: 20px;
+    overflow-x: hidden;
+    overflow-y: auto; /* Scrollable contents if viewport is shorter than content */
+}
+
+/* List group styling */
+.sidebar .list-group-item {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+    background-color: transparent;
+    color: #212529;
+    border-color: rgba(0,0,0,0.1);
+    transition: all 0.2s ease-in-out;
+    padding: 12px 20px;
+    margin: 2px 0;
+}
+
+.sidebar .list-group-item.active {
+    background-color: #0d6efd !important;
+    color: white !important;
+    border-color: #0d6efd !important;
+    box-shadow: 0 0 10px rgba(13, 110, 253, 0.5);
+}
+
+.sidebar .list-group-item:hover:not(.active) {
+    background-color: rgba(13, 110, 253, 0.1) !important;
+    color: #0d6efd !important;
+    transform: translateX(5px);
+    border-left: 3px solid #0d6efd;
+}
+
+/* For small screens */
+@media (max-width: 767.98px) {
+    .sidebar {
+        position: fixed !important;
+        width: 250px !important;
+        height: calc(100% - 116px) !important; /* Account for both header and footer */
+        top: 56px !important;
+        bottom: 60px !important;
+        transform: translateX(-100%);
+        transition: transform 0.3s ease;
+    }
+    
+    body.sidebar-active .sidebar {
+        transform: translateX(0);
+    }
+    
+    .main-content-with-sidebar {
+        margin-left: 0 !important;
+    }
+    
+    .sidebar .list-group-item:hover:not(.active) {
+        transform: none; /* Disable transform on small screens */
+    }
+}
+
+/* Icons in sidebar */
+.sidebar i {
+    width: 20px;
+    text-align: center;
+    margin-right: 10px;
+    transition: all 0.2s;
+    color: #495057;
+}
+
+/* Icon animation on hover */
+.sidebar .list-group-item:hover i {
+    transform: scale(1.2);
+    color: #0d6efd;
+}
+
+/* Add a subtle indicator for the active item */
+.sidebar .list-group-item.active::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background-color: white;
+}
+
+/* Add some spacing between sidebar sections if needed */
+.sidebar .list-group + .list-group {
+    margin-top: 15px;
+    border-top: 1px solid rgba(0,0,0,0.1);
+    padding-top: 15px;
+}

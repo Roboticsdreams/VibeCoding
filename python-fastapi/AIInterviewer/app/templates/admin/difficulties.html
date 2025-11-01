@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}Difficulties - Admin{% endblock %}
+
+{% set show_sidebar = true %}
+{% set active_page = 'difficulties' %}
+
+{% block sidebar %}
+{% include "includes/admin_sidebar.html" %}
+{% endblock %}
+
+{% block main_content %}
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1>Difficulty Levels</h1>
+            <p class="text-muted"><i class="fas fa-info-circle"></i> Difficulty levels are automatically managed from seed_questions.py</p>
+        </div>
+    </div>
+
+    {% if difficulties %}
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Difficulty Level</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for difficulty in difficulties %}
+                        <tr>
+                            <td>{{ difficulty.id }}</td>
+                            <td><strong>{{ difficulty.name }}</strong></td>
+                            <td>
+                                <span class="badge bg-primary">Auto-seeded</span>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <div class="alert alert-info">
+        <p class="mb-0">No difficulty levels found. Difficulties will be automatically created from seed_questions.py on startup.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

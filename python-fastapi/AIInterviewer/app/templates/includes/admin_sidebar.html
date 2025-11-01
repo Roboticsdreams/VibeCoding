@@ -1,0 +1,40 @@
+<div class="list-group">
+    <a href="/admin/dashboard" class="list-group-item list-group-item-action {% if active_page == 'dashboard' %}active{% endif %}">
+        <i class="fas fa-tachometer-alt"></i> Dashboard
+    </a>
+    <a href="/admin/users" class="list-group-item list-group-item-action {% if active_page == 'users' %}active{% endif %}">
+        <i class="fas fa-users"></i> Users
+    </a>
+    <a href="/admin/interviews" class="list-group-item list-group-item-action {% if active_page == 'interviews' %}active{% endif %}">
+        <i class="fas fa-comments"></i> Interviews
+    </a>
+    <a href="/admin/questions" class="list-group-item list-group-item-action {% if active_page == 'questions' %}active{% endif %}">
+        <i class="fas fa-question-circle"></i> Questions
+    </a>
+    <a href="/admin/topics" class="list-group-item list-group-item-action {% if active_page == 'topics' %}active{% endif %}">
+        <i class="fas fa-tags"></i> Topics
+    </a>
+    <a href="/admin/difficulties" class="list-group-item list-group-item-action {% if active_page == 'difficulties' %}active{% endif %}">
+        <i class="fas fa-chart-line"></i> Difficulties
+    </a>
+    <a href="/admin/timings" class="list-group-item list-group-item-action {% if active_page == 'timings' %}active{% endif %}">
+        <i class="fas fa-clock"></i> Timings
+    </a>
+    
+    <div class="mt-4 mb-2 px-3">
+        <h6 class="text-uppercase text-muted"><i class="fas fa-robot me-2"></i>AI Features</h6>
+    </div>
+    <a href="/admin/ai/interviews" class="list-group-item list-group-item-action {% if active_page == 'ai_interviews' %}active{% endif %}">
+        <i class="fas fa-microchip"></i> AI Interviews
+    </a>
+    <a href="/admin/ai/settings" class="list-group-item list-group-item-action {% if active_page == 'ai_settings' %}active{% endif %}">
+        <i class="fas fa-cog"></i> OpenAI Settings
+    </a>
+    
+    <div class="mt-4 mb-2 px-3">
+        <h6 class="text-uppercase text-muted"><i class="fas fa-server me-2"></i>System</h6>
+    </div>
+    <a href="/admin/system/status" class="list-group-item list-group-item-action {% if active_page == 'system_status' %}active{% endif %}">
+        <i class="fas fa-heartbeat"></i> System Status
+    </a>
+</div>

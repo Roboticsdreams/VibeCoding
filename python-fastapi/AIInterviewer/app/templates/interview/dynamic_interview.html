@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block title %}Create AI-Powered Dynamic Interview{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Create AI-Powered Dynamic Interview</h3>
+                </div>
+                <div class="card-body">
+                    <form id="dynamicInterviewForm">
+                        <div class="mb-3">
+                            <label for="candidateName" class="form-label">Candidate Name</label>
+                            <input type="text" class="form-control" id="candidateName" name="candidateName" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Select Topics</label>
+                            <div class="row">
+                                {% for topic in topics %}
+                                <div class="col-md-4 mb-2">
+                                    <div class="form-check">
+                                        <input class="form-check-input topic-checkbox" type="checkbox" name="topic_ids" value="{{ topic.id }}" id="topic{{ topic.id }}">
+                                        <label class="form-check-label" for="topic{{ topic.id }}">
+                                            {{ topic.name }}
+                                        </label>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                            <div class="invalid-feedback" id="topicError">
+                                Please select at least one topic.
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label">Select Difficulty</label>
+                            <div class="row">
+                                {% for difficulty in difficulties %}
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="difficulty_id" value="{{ difficulty.id }}" id="difficulty{{ difficulty.id }}" {% if loop.first %}checked{% endif %}>
+                                        <label class="form-check-label" for="difficulty{{ difficulty.id }}">
+                                            {{ difficulty.name }}
+                                        </label>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                        <div class="mt-4">
+                            <button type="submit" class="btn btn-primary" id="submitBtn">
+                                <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true" id="loadingSpinner"></span>
+                                Create Dynamic Interview
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="mt-4">
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle"></i> 
+                    <strong>About AI-Powered Dynamic Interviews:</strong>
+                    <p class="mb-0 mt-2">
+                        This feature uses OpenAI to dynamically generate technical questions based on the selected topics and difficulty.
+                        The AI will also evaluate candidate answers and provide personalized feedback and scoring.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('dynamicInterviewForm');
+    const submitBtn = document.getElementById('submitBtn');
+    const loadingSpinner = document.getElementById('loadingSpinner');
+    const topicCheckboxes = document.querySelectorAll('.topic-checkbox');
+
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Validate that at least one topic is selected
+        const selectedTopics = document.querySelectorAll('input[name="topic_ids"]:checked');
+        if (selectedTopics.length === 0) {
+            document.getElementById('topicError').style.display = 'block';
+            return;
+        } else {
+            document.getElementById('topicError').style.display = 'none';
+        }
+        
+        // Disable button and show loading state
+        submitBtn.disabled = true;
+        loadingSpinner.classList.remove('d-none');
+        
+        // Collect form data
+        const candidateName = document.getElementById('candidateName').value;
+        const email = document.getElementById('email').value;
+        const difficultyId = document.querySelector('input[name="difficulty_id"]:checked').value;
+        
+        const topicIds = Array.from(selectedTopics).map(checkbox => parseInt(checkbox.value));
+        
+        try {
+            // Send request to create interview
+            const response = await fetch('/api/openai/create-dynamic-interview', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    topic_ids: topicIds,
+                    difficulty_id: parseInt(difficultyId),
+                    candidate_name: candidateName,
+                    email: email
+                })
+            });
+            
+            const data = await response.json();
+            
+            if (response.ok) {
+                // Redirect to the share page for the interview
+                window.location.href = `/interview/share/${data.interview_uuid}`;
+            } else {
+                alert('Error creating interview: ' + (data.detail || 'Unknown error'));
+                submitBtn.disabled = false;
+                loadingSpinner.classList.add('d-none');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            alert('An error occurred while creating the interview.');
+            submitBtn.disabled = false;
+            loadingSpinner.classList.add('d-none');
+        }
+    });
+});
+</script>
+{% endblock %}

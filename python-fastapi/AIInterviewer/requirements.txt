@@ -1,0 +1,20 @@
+# Core dependencies
+fastapi==0.115.0
+uvicorn==0.30.0
+sqlalchemy==2.0.35
+jinja2==3.1.4
+pydantic==2.9.2
+python-dotenv==1.0.1
+python-multipart==0.0.9
+
+# Authentication
+passlib==1.7.4
+bcrypt==4.2.0
+python-jose==3.3.0
+itsdangerous==2.2.0
+
+# Validation
+email-validator==2.2.0
+
+# OpenAI Integration
+openai==1.19.0

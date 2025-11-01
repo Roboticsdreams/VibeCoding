@@ -1,0 +1,364 @@
+{% extends "base.html" %}
+
+{% block title %}System Status - Admin{% endblock %}
+
+{% set show_sidebar = true %}
+{% set active_page = 'system_status' %}
+
+{% block sidebar %}
+{% include "includes/admin_sidebar.html" %}
+{% endblock %}
+
+{% block main_content %}
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>System Status</h1>
+        <button class="btn btn-primary" id="refreshStatus">
+            <i class="fas fa-sync-alt me-2"></i>Refresh Status
+        </button>
+    </div>
+
+    <div class="row mb-4">
+        <!-- System Status Card -->
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0"><i class="fas fa-server me-2"></i>System</h5>
+                    <span class="badge bg-light text-dark" id="systemStatusBadge">Checking...</span>
+                </div>
+                <div class="card-body" id="systemStatusBody">
+                    <div class="text-center">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-2">Checking system status...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Database Status Card -->
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header bg-info text-white d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0"><i class="fas fa-database me-2"></i>Database</h5>
+                    <span class="badge bg-light text-dark" id="databaseStatusBadge">Checking...</span>
+                </div>
+                <div class="card-body" id="databaseStatusBody">
+                    <div class="text-center">
+                        <div class="spinner-border text-info" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-2">Checking database connection...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- OpenAI Status Card -->
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0"><i class="fas fa-robot me-2"></i>OpenAI API</h5>
+                    <span class="badge bg-light text-dark" id="openaiStatusBadge">Checking...</span>
+                </div>
+                <div class="card-body" id="openaiStatusBody">
+                    <div class="text-center">
+                        <div class="spinner-border text-success" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-2">Checking OpenAI API connection...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- System Information -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>System Information</h5>
+        </div>
+        <div class="card-body">
+            <div class="row" id="systemInfo">
+                <p class="text-center">Loading system information...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Interview Stats -->
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0"><i class="fas fa-chart-line me-2"></i>AI Interview Statistics</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="card bg-light">
+                        <div class="card-body text-center">
+                            <h2 class="display-4" id="totalInterviews">-</h2>
+                            <p class="mb-0">Total Interviews</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card bg-light">
+                        <div class="card-body text-center">
+                            <h2 class="display-4" id="completedInterviews">-</h2>
+                            <p class="mb-0">Completed</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card bg-light">
+                        <div class="card-body text-center">
+                            <h2 class="display-4" id="pendingInterviews">-</h2>
+                            <p class="mb-0">In Progress</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="card bg-light">
+                        <div class="card-body text-center">
+                            <h2 class="display-4" id="avgScore">-</h2>
+                            <p class="mb-0">Average Score</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Load all status information when the page loads
+    checkSystemStatus();
+    checkDatabaseStatus();
+    checkOpenAIStatus();
+    loadSystemInfo();
+    loadInterviewStats();
+    
+    // Set up refresh button
+    document.getElementById('refreshStatus').addEventListener('click', function() {
+        checkSystemStatus();
+        checkDatabaseStatus();
+        checkOpenAIStatus();
+        loadSystemInfo();
+        loadInterviewStats();
+    });
+});
+
+// Check system status
+async function checkSystemStatus() {
+    const statusBadge = document.getElementById('systemStatusBadge');
+    const statusBody = document.getElementById('systemStatusBody');
+    
+    try {
+        const response = await fetch('/api/status/system');
+        const data = await response.json();
+        
+        if (data.status === 'ok') {
+            statusBadge.className = 'badge bg-success';
+            statusBadge.textContent = 'OK';
+            
+            statusBody.innerHTML = `
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Python Version
+                        <span class="text-muted">${data.system.python_version.split(' ')[0]}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Platform
+                        <span class="text-muted">${data.system.platform}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Server Time
+                        <span class="text-muted">${data.system.time}</span>
+                    </li>
+                </ul>
+            `;
+        } else {
+            throw new Error('System status check failed');
+        }
+    } catch (error) {
+        statusBadge.className = 'badge bg-danger';
+        statusBadge.textContent = 'ERROR';
+        statusBody.innerHTML = `
+            <div class="alert alert-danger mb-0">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                ${error.message || 'Could not retrieve system status'}
+            </div>
+        `;
+    }
+}
+
+// Check database status
+async function checkDatabaseStatus() {
+    const statusBadge = document.getElementById('databaseStatusBadge');
+    const statusBody = document.getElementById('databaseStatusBody');
+    
+    try {
+        const response = await fetch('/api/status/database');
+        const data = await response.json();
+        
+        if (data.status === 'ok') {
+            statusBadge.className = 'badge bg-success';
+            statusBadge.textContent = 'CONNECTED';
+            
+            statusBody.innerHTML = `
+                <div class="text-center mb-3">
+                    <i class="fas fa-check-circle text-success fa-3x"></i>
+                </div>
+                <div class="alert alert-success mb-0">
+                    Database connection successful
+                </div>
+            `;
+        } else {
+            throw new Error(data.message || 'Database connection failed');
+        }
+    } catch (error) {
+        statusBadge.className = 'badge bg-danger';
+        statusBadge.textContent = 'ERROR';
+        statusBody.innerHTML = `
+            <div class="alert alert-danger mb-0">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                ${error.message || 'Could not connect to database'}
+            </div>
+            <div class="mt-3 text-center">
+                <a href="/admin/ai/settings" class="btn btn-sm btn-primary">
+                    <i class="fas fa-wrench me-1"></i>Database Settings
+                </a>
+            </div>
+        `;
+    }
+}
+
+// Check OpenAI API status
+async function checkOpenAIStatus() {
+    const statusBadge = document.getElementById('openaiStatusBadge');
+    const statusBody = document.getElementById('openaiStatusBody');
+    
+    try {
+        const response = await fetch('/api/status/openai');
+        const data = await response.json();
+        
+        if (data.status === 'ok') {
+            statusBadge.className = 'badge bg-success';
+            statusBadge.textContent = 'CONNECTED';
+            
+            statusBody.innerHTML = `
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Model
+                        <span class="badge bg-info">${data.model}</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Latency
+                        <span>${data.latency_seconds} seconds</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Status
+                        <span class="badge bg-success">Connected</span>
+                    </li>
+                </ul>
+            `;
+        } else {
+            throw new Error(data.message || 'OpenAI API connection failed');
+        }
+    } catch (error) {
+        statusBadge.className = 'badge bg-danger';
+        statusBadge.textContent = 'ERROR';
+        statusBody.innerHTML = `
+            <div class="alert alert-danger mb-0">
+                <i class="fas fa-exclamation-circle me-2"></i>
+                ${error.message || 'Could not connect to OpenAI API'}
+            </div>
+            <div class="mt-3 text-center">
+                <a href="/admin/ai/settings" class="btn btn-sm btn-primary">
+                    <i class="fas fa-key me-1"></i>API Settings
+                </a>
+            </div>
+        `;
+    }
+}
+
+// Load system information
+function loadSystemInfo() {
+    const systemInfo = document.getElementById('systemInfo');
+    
+    // Simple placeholder data - this would be replaced by actual API data
+    systemInfo.innerHTML = `
+        <div class="col-md-4">
+            <h6>Application</h6>
+            <table class="table table-sm table-striped">
+                <tbody>
+                    <tr>
+                        <td>Version</td>
+                        <td>1.0.0</td>
+                    </tr>
+                    <tr>
+                        <td>Framework</td>
+                        <td>FastAPI ${fastAPIVersion || '0.115.0'}</td>
+                    </tr>
+                    <tr>
+                        <td>Environment</td>
+                        <td>Development</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-4">
+            <h6>Features</h6>
+            <table class="table table-sm table-striped">
+                <tbody>
+                    <tr>
+                        <td>OpenAI Integration</td>
+                        <td><span class="badge bg-success">Enabled</span></td>
+                    </tr>
+                    <tr>
+                        <td>Dynamic Interviews</td>
+                        <td><span class="badge bg-success">Enabled</span></td>
+                    </tr>
+                    <tr>
+                        <td>Real-time Evaluation</td>
+                        <td><span class="badge bg-success">Enabled</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-4">
+            <h6>Resources</h6>
+            <table class="table table-sm table-striped">
+                <tbody>
+                    <tr>
+                        <td>Documentation</td>
+                        <td><a href="/docs" target="_blank">API Docs</a></td>
+                    </tr>
+                    <tr>
+                        <td>GitHub</td>
+                        <td><a href="https://github.com/yourusername/ai-interviewer" target="_blank">Repository</a></td>
+                    </tr>
+                    <tr>
+                        <td>Support</td>
+                        <td><a href="mailto:support@example.com">support@example.com</a></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    `;
+}
+
+// Load interview statistics
+function loadInterviewStats() {
+    // Here you would fetch actual statistics from your API
+    // This is placeholder data
+    document.getElementById('totalInterviews').textContent = '12';
+    document.getElementById('completedInterviews').textContent = '8';
+    document.getElementById('pendingInterviews').textContent = '4';
+    document.getElementById('avgScore').textContent = '76';
+}
+</script>
+{% endblock %}

@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% block title %}AI Interview Evaluation{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="card shadow mb-4">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h3 class="mb-0">AI Interview Evaluation</h3>
+                    <div>
+                        <span class="badge bg-light text-dark me-2">Topics: {{ topics|join(', ') }}</span>
+                        <span class="badge bg-info">{{ difficulty }}</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="mb-4">
+                        <h4>Candidate: {{ interview.candidate_name }}</h4>
+                        <p>Completed on: {{ interview.completed_at.strftime('%B %d, %Y at %I:%M %p') if interview.completed_at else 'N/A' }}</p>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <div class="card text-center">
+                                <div class="card-body">
+                                    <h1 class="display-1 fw-bold {% if overall_score >= 80 %}text-success{% elif overall_score >= 60 %}text-warning{% else %}text-danger{% endif %}">
+                                        {{ overall_score }}
+                                    </h1>
+                                    <p class="lead">Overall Score</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title">Topic Scores</h4>
+                                    {% for topic, score in topic_scores.items() %}
+                                    <div class="mb-2">
+                                        <div class="d-flex justify-content-between">
+                                            <span>{{ topic }}</span>
+                                            <span class="{% if score >= 80 %}text-success{% elif score >= 60 %}text-warning{% else %}text-danger{% endif %}">
+                                                {{ score }}/100
+                                            </span>
+                                        </div>
+                                        <div class="progress">
+                                            {% set bar_width = score %}
+                                            <div class="progress-bar {% if score >= 80 %}bg-success{% elif score >= 60 %}bg-warning{% else %}bg-danger{% endif %}" 
+                                                role="progressbar" 
+                                                style="width: {{ bar_width }}%;" 
+                                                aria-valuenow="{{ score }}" 
+                                                aria-valuemin="0" 
+                                                aria-valuemax="100">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h4 class="card-title">Interview Summary</h4>
+                            <div class="summary-text">
+                                {{ summary|safe|replace('\n', '<br>')|escape }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-4">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title text-success">Key Strengths</h4>
+                                    <ul>
+                                        {% for strength in strengths %}
+                                        <li>{{ strength }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <h4 class="card-title text-warning">Areas for Improvement</h4>
+                                    <ul>
+                                        {% for area in areas_for_improvement %}
+                                        <li>{{ area }}</li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h4 class="mb-3">Question-by-Question Analysis</h4>
+                    <div class="accordion" id="questionAccordion">
+                        {% for q in questions %}
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="heading{{ q.id }}">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                                        data-bs-target="#collapse{{ q.id }}" aria-expanded="false" 
+                                        aria-controls="collapse{{ q.id }}">
+                                    <div class="d-flex w-100 justify-content-between align-items-center">
+                                        <span>Question {{ loop.index }}: {{ q.topic.name }}</span>
+                                        <span class="badge {% if q.score >= 80 %}bg-success{% elif q.score >= 60 %}bg-warning{% else %}bg-danger{% endif %}">
+                                            {{ q.score }}/100
+                                        </span>
+                                    </div>
+                                </button>
+                            </h2>
+                            <div id="collapse{{ q.id }}" class="accordion-collapse collapse" 
+                                aria-labelledby="heading{{ q.id }}" data-bs-parent="#questionAccordion">
+                                <div class="accordion-body">
+                                    <h5>{{ q.question_text }}</h5>
+                                    <div class="card bg-light mb-3 mt-3">
+                                        <div class="card-body">
+                                            <h6 class="card-title">Candidate's Answer:</h6>
+                                            <p>{{ q.answer }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="card mb-3">
+                                        <div class="card-body">
+                                            <h6 class="card-title">AI Feedback:</h6>
+                                            <p>{{ q.feedback }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-center">
+                <a href="/" class="btn btn-primary me-2">Return Home</a>
+                <button onclick="window.print()" class="btn btn-outline-secondary">
+                    <i class="fas fa-print"></i> Print Results
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Any additional JS functionality for the evaluation page
+});
+</script>
+{% endblock %}

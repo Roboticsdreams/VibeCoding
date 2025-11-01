@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+
+{% block title %}OpenAI Settings - Admin{% endblock %}
+
+{% set show_sidebar = true %}
+{% set active_page = 'ai_settings' %}
+
+{% block sidebar %}
+{% include "includes/admin_sidebar.html" %}
+{% endblock %}
+
+{% block main_content %}
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>OpenAI Integration Settings</h1>
+    </div>
+
+    {% if request.query_params.get('updated') == 'true' %}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong>Success!</strong> API key updated successfully.
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+
+    {% if error %}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Error!</strong> {{ error }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endif %}
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title mb-0"><i class="fas fa-key me-2"></i>API Key Configuration</h5>
+                </div>
+                <div class="card-body">
+                    <form action="/admin/ai/update-api-key" method="post">
+                        <div class="mb-3">
+                            <label for="currentKey" class="form-label">Current API Key</label>
+                            <div class="input-group">
+                                <input type="text" class="form-control" id="currentKey" value="{{ api_key_status }}" disabled>
+                                <button class="btn btn-outline-secondary" type="button" id="validateKey">Validate</button>
+                            </div>
+                            <div id="keyStatus" class="form-text"></div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="apiKey" class="form-label">New API Key</label>
+                            <input type="password" class="form-control" id="apiKey" name="api_key" placeholder="Enter your OpenAI API key">
+                            <div class="form-text">Your API key is stored locally in the .env file and never shared.</div>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <button type="submit" class="btn btn-primary">Update API Key</button>
+                            <a href="https://platform.openai.com/api-keys" target="_blank" class="btn btn-link">Get an API key</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h5 class="card-title mb-0"><i class="fas fa-info-circle me-2"></i>About OpenAI Integration</h5>
+                </div>
+                <div class="card-body">
+                    <p>The AI Interviewer uses OpenAI's GPT models to:</p>
+                    <ul>
+                        <li>Generate dynamic interview questions based on topics and difficulty</li>
+                        <li>Evaluate candidate answers with detailed feedback</li>
+                        <li>Create comprehensive interview summaries</li>
+                    </ul>
+                    <p class="mb-0"><strong>Note:</strong> OpenAI API usage incurs costs based on the number of tokens processed. <a href="https://openai.com/pricing" target="_blank">View pricing details</a>.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card mb-4">
+                <div class="card-header bg-success text-white">
+                    <h5 class="card-title mb-0"><i class="fas fa-chart-bar me-2"></i>Usage Statistics</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="card bg-light">
+                                <div class="card-body text-center">
+                                    <h2 class="display-4 text-primary">{{ total_ai_interviews }}</h2>
+                                    <p class="mb-0">Total AI Interviews</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card bg-light">
+                                <div class="card-body text-center">
+                                    <h2 class="display-4 text-success">{{ completed_ai_interviews }}</h2>
+                                    <p class="mb-0">Completed Interviews</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-3">
+                        <h5>Recommended Settings</h5>
+                        <table class="table table-striped">
+                            <tbody>
+                                <tr>
+                                    <td>Model</td>
+                                    <td><code>gpt-4o</code></td>
+                                </tr>
+                                <tr>
+                                    <td>Temperature</td>
+                                    <td><code>0.7</code> for question generation, <code>0.3</code> for evaluations</td>
+                                </tr>
+                                <tr>
+                                    <td>Response Format</td>
+                                    <td><code>json_object</code></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="/admin/ai/interviews" class="btn btn-sm btn-primary">
+                        <i class="fas fa-list me-1"></i> View AI Interviews
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Validate API key
+    document.getElementById('validateKey').addEventListener('click', async function() {
+        const statusElem = document.getElementById('keyStatus');
+        statusElem.innerHTML = '<span class="text-info">Validating...</span>';
+        
+        try {
+            const response = await fetch('/api/openai/validate-key');
+            const data = await response.json();
+            
+            if (data.valid) {
+                statusElem.innerHTML = '<span class="text-success">API key is valid and working!</span>';
+            } else {
+                statusElem.innerHTML = `<span class="text-danger">Invalid API key: ${data.message || 'Unknown error'}</span>`;
+            }
+        } catch (error) {
+            statusElem.innerHTML = '<span class="text-danger">Error validating API key. Please try again.</span>';
+        }
+    });
+});
+</script>
+{% endblock %}

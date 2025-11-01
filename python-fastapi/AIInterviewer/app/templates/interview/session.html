@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+
+{% block title %}Interview Session - TechInterviewer{% endblock %}
+
+{% block extra_css %}
+<style>
+    .question-card {
+        margin-bottom: 20px;
+    }
+    .question-number {
+        display: inline-block;
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        text-align: center;
+        background-color: #4285F4;
+        color: white;
+        border-radius: 50%;
+        margin-right: 10px;
+    }
+    .answer-form {
+        margin-top: 20px;
+    }
+    .feedback-card {
+        margin-top: 20px;
+        background-color: #f8f9fa;
+        border-left: 5px solid #4285F4;
+    }
+    .timer {
+        font-size: 1.2rem;
+        font-weight: bold;
+        text-align: center;
+    }
+    .progress {
+        height: 10px;
+        margin-bottom: 20px;
+    }
+    .interview-header {
+        padding: 20px;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="interview-header">
+        <h1>Technical Interview</h1>
+        <div class="row">
+            <div class="col-md-6">
+                <p><strong>Candidate:</strong> {{ interview.candidate_name }}</p>
+                <p><strong>Topics:</strong> {% for topic in interview.topics %}{{ topic.name }}{% if not loop.last %}, {% endif %}{% endfor %}</p>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Time Remaining</h5>
+                        <div id="timer" class="timer" data-minutes="{{ interview.timing.minutes|default(30) }}">{{ interview.timing.minutes|default(30) }}:00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="progress">
+        {% set answered_count = questions|selectattr('answer', 'defined')|list|length %}
+        {% set progress_percentage = (answered_count / questions|length) * 100 %}
+        <div class="progress-bar" role="progressbar" style="width: {{ progress_percentage }}%" aria-valuenow="{{ progress_percentage }}" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+
+    {% if feedback is defined and current_question_id is defined %}
+    <div class="card feedback-card">
+        <div class="card-body">
+            <h5 class="card-title">Feedback for Previous Answer</h5>
+            <p class="card-text">{{ feedback }}</p>
+            <div class="text-end">
+                <span class="badge bg-primary">Score: {{ score }}/100</span>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {% for question in questions %}
+    <div class="card question-card {% if question.answer %}answered{% else %}active{% endif %}" id="question-{{ question.id }}">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <div>
+                <span class="question-number">{{ loop.index }}</span>
+                <span class="fw-bold">{{ question.topic.name }}</span>
+            </div>
+            {% if question.score is defined and question.score is not none %}
+            <span class="badge bg-primary">Score: {{ question.score }}/100</span>
+            {% endif %}
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{ question.question_text }}</h5>
+            
+            {% if question.answer %}
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted">Your Answer:</h6>
+                    <p class="card-text">{{ question.answer }}</p>
+                </div>
+            </div>
+            
+            {% if question.feedback %}
+            <div class="card">
+                <div class="card-body">
+                    <h6 class="card-subtitle mb-2 text-muted">Feedback:</h6>
+                    <p class="card-text">{{ question.feedback }}</p>
+                </div>
+            </div>
+            {% endif %}
+            
+            {% else %}
+            <form class="answer-form" method="post" action="/interview/session/{{ interview.uuid }}/submit">
+                <input type="hidden" name="question_id" value="{{ question.id }}">
+                <div class="mb-3">
+                    <label for="answer-{{ question.id }}" class="form-label">Your Answer:</label>
+                    <textarea class="form-control" id="answer-{{ question.id }}" name="answer" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit Answer</button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Hide all answered questions except the current one
+        const answeredQuestions = document.querySelectorAll('.answered');
+        answeredQuestions.forEach(function(question) {
+            if (question.id !== 'question-{{ current_question_id }}') {
+                question.style.display = 'none';
+            }
+        });
+        
+        // Find the first unanswered question
+        const unansweredQuestions = document.querySelectorAll('.question-card:not(.answered)');
+        if (unansweredQuestions.length > 0) {
+            const firstUnanswered = unansweredQuestions[0];
+            firstUnanswered.scrollIntoView({behavior: 'smooth'});
+            
+            // Hide all other unanswered questions
+            unansweredQuestions.forEach(function(question) {
+                if (question !== firstUnanswered) {
+                    question.style.display = 'none';
+                }
+            });
+        }
+        
+        // Interview timer
+        const timerElement = document.getElementById('timer');
+        const minutes = parseInt(timerElement.dataset.minutes) || 30;
+        let timeLeft = minutes * 60; // Convert to seconds
+        
+        function updateTimer() {
+            const minutes = Math.floor(timeLeft / 60);
+            const seconds = timeLeft % 60;
+            timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                alert('Time is up! Please submit your current answer.');
+            } else {
+                timeLeft--;
+            }
+        }
+        
+        const timerInterval = setInterval(updateTimer, 1000);
+        updateTimer();
+    });
+</script>
+{% endblock %}

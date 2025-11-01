@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Interview Completed - TechInterviewer{% endblock %}
+
+{% block extra_css %}
+<style>
+    .completed-container {
+        max-width: 600px;
+        margin: 80px auto;
+        text-align: center;
+    }
+    .completed-icon {
+        font-size: 4rem;
+        color: #4285F4;
+        margin-bottom: 20px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="completed-container">
+    <div class="card">
+        <div class="card-body">
+            <i class="fas fa-check-circle completed-icon"></i>
+            <h2 class="mb-4">Interview Already Completed</h2>
+            <p class="lead">This interview has already been completed and cannot be accessed again.</p>
+            
+            <p class="mt-4">The results of this interview are available to the interview organizer.</p>
+            
+            <div class="mt-4">
+                <a href="/" class="btn btn-primary">Back to Home</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
