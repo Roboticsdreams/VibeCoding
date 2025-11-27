@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}TechInterviewer - Your Technical Interview Practice Platform{% endblock %}
+
+{% block extra_css %}
+<style>
+    .hero {
+        background: linear-gradient(135deg, #4285F4, #0F9D58);
+        color: white;
+        padding: 80px 0;
+        margin-bottom: 30px;
+    }
+    .feature-icon {
+        font-size: 3rem;
+        color: #4285F4;
+        margin-bottom: 20px;
+    }
+    .feature-card {
+        padding: 30px;
+        text-align: center;
+        transition: transform 0.3s;
+    }
+    .feature-card:hover {
+        transform: translateY(-10px);
+    }
+</style>
+
+
+
+<div class="hero text-center">
+    <div class="container-fluid">
+        <h1 class="display-4 fw-bold">Welcome to TechInterviewer</h1>
+        <p class="lead">Your Technical Interview Practice Platform</p>
+        <div class="mt-4">
+            {% if request.session.get('user_id') %}
+            <a href="/user/dashboard" class="btn btn-light btn-lg me-3">Go to Dashboard</a>
+            {% else %}
+            <a href="/register" class="btn btn-light btn-lg me-3">Get Started</a>
+            <a href="/login" class="btn btn-outline-light btn-lg">Login</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <div class="row text-center mb-5">
+        <div class="col-md-12">
+            <h2 class="fw-bold">Prepare for Technical Interviews</h2>
+            <p class="lead text-muted">TechInterviewer helps you practice and improve your technical interview skills with curated questions and instant feedback</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card feature-card h-100">
+                <div class="card-body">
+                    <i class="fas fa-question-circle feature-icon"></i>
+                    <h3 class="card-title">Curated Questions</h3>
+                    <p class="card-text">Access a comprehensive bank of interview questions across various technical topics and difficulty levels.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card feature-card h-100">
+                <div class="card-body">
+                    <i class="fas fa-chart-line feature-icon"></i>
+                    <h3 class="card-title">Detailed Feedback</h3>
+                    <p class="card-text">Receive comprehensive analysis and personalized feedback on your answers to improve your skills.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card feature-card h-100">
+                <div class="card-body">
+                    <i class="fas fa-sliders-h feature-icon"></i>
+                    <h3 class="card-title">Customizable Interviews</h3>
+                    <p class="card-text">Choose from a wide range of topics, difficulty levels, and interview durations to match your needs.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5 pt-5 pb-5 text-center">
+        <div class="col-md-8 offset-md-2">
+            <h2 class="mb-4">Ready to ace your next interview?</h2>
+            <p class="lead mb-4">Join TechInterviewer today and start practicing with our comprehensive question bank.</p>
+            {% if not request.session.get('user_id') %}
+            <a href="/register" class="btn btn-primary btn-lg">Sign Up Now</a>
+            {% else %}
+            <a href="/user/schedule-interview" class="btn btn-primary btn-lg">Schedule an Interview</a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

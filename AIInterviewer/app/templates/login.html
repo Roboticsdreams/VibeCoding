@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Login - TechInterviewer{% endblock %}
+
+{% block extra_css %}
+<style>
+    .login-container {
+        max-width: 450px;
+        margin: 100px auto;
+    }
+    .login-card {
+        padding: 30px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        border: none;
+    }
+    .login-title {
+        margin-bottom: 30px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <div class="card login-card">
+        <div class="card-body">
+            <h2 class="text-center login-title">Log In</h2>
+            
+            <form method="post" action="/login">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary btn-lg">Login</button>
+                </div>
+            </form>
+            
+            <div class="text-center mt-3">
+                <p>Don't have an account? <a href="/register">Register</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

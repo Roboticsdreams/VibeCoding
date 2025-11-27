@@ -1,0 +1,178 @@
+{% extends "base.html" %}
+
+{% block title %}Interview Details - TechInterviewer{% endblock %}
+
+{% set show_sidebar = true %}
+{% set active_page = 'dashboard' %}
+
+{% block sidebar %}
+{% include "includes/user_sidebar.html" %}
+{% endblock %}
+
+{% block main_content %}
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Interview Details</h1>
+        <a href="/user/dashboard" class="btn btn-secondary">
+            <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+        </a>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Interview Information</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-borderless">
+                        <tbody>
+                            <tr>
+                                <th>Candidate Name:</th>
+                                <td>{{ interview.candidate_name }}</td>
+                            </tr>
+                            <tr>
+                                <th>Email:</th>
+                                <td>{{ interview.email }}</td>
+                            </tr>
+                            <tr>
+                                <th>Created:</th>
+                                <td>{{ interview.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                            </tr>
+                            <tr>
+                                <th>Status:</th>
+                                <td>
+                                    {% if interview.status == 'pending' %}
+                                    <span class="badge bg-secondary">Ready</span>
+                                    {% elif interview.status == 'in_progress' %}
+                                    <span class="badge bg-primary">In Progress</span>
+                                    {% elif interview.status == 'completed' %}
+                                    <span class="badge bg-success">Completed</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Approval Status:</th>
+                                <td>
+                                    {% if interview.approval_status == 'requested' %}
+                                    <span class="badge bg-warning">Pending Approval</span>
+                                    <p class="text-muted small mt-1">Your interview request is being reviewed by an admin.</p>
+                                    {% elif interview.approval_status == 'approved' %}
+                                    <span class="badge bg-success">Approved</span>
+                                    <p class="text-muted small mt-1">Your interview has been approved and is ready to start.</p>
+                                    {% elif interview.approval_status == 'rejected' %}
+                                    <span class="badge bg-danger">Rejected</span>
+                                    <p class="text-muted small mt-1">Your interview request was not approved.</p>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Difficulty:</th>
+                                <td>{{ interview.difficulty.name }}</td>
+                            </tr>
+                            <tr>
+                                <th>Duration:</th>
+                                <td>{{ interview.timing.name }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            {% if interview.admin_notes and interview.approval_status in ['approved', 'rejected'] %}
+            <div class="card mt-3">
+                <div class="card-header">
+                    <h5 class="mb-0">Admin Feedback</h5>
+                </div>
+                <div class="card-body">
+                    <p>{{ interview.admin_notes|safe|replace('\n', '<br>')|replace('\r', '') }}</p>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="col-md-6">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <h5 class="mb-0">Topics</h5>
+                </div>
+                <div class="card-body">
+                    <div class="d-flex flex-wrap">
+                        {% for topic in topics %}
+                        <span class="badge bg-primary me-2 mb-2">{{ topic.name }}</span>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Actions</h5>
+                </div>
+                <div class="card-body">
+                    {% if interview.approval_status == 'approved' %}
+                        {% if interview.status == 'pending' %}
+                        <a href="/user/start-interview/{{ interview.id }}" class="btn btn-success btn-block mb-2 w-100">
+                            <i class="fas fa-play-circle me-2"></i>Start Interview
+                        </a>
+                        {% elif interview.status == 'in_progress' %}
+                        <a href="/user/start-interview/{{ interview.id }}" class="btn btn-primary btn-block mb-2 w-100">
+                            <i class="fas fa-arrow-right me-2"></i>Continue Interview
+                        </a>
+                        {% elif interview.status == 'completed' %}
+                        <a href="/user/interview-evaluation/{{ interview.id }}" class="btn btn-info btn-block mb-2 w-100">
+                            <i class="fas fa-chart-bar me-2"></i>View Results
+                        </a>
+                        {% endif %}
+                    {% elif interview.approval_status == 'requested' %}
+                        <div class="alert alert-warning">
+                            <i class="fas fa-clock me-2"></i> Your interview request is waiting for admin approval.
+                        </div>
+                    {% elif interview.approval_status == 'rejected' %}
+                        <div class="alert alert-danger">
+                            <i class="fas fa-times-circle me-2"></i> This interview request was not approved.
+                        </div>
+                        <a href="/user/request-interview" class="btn btn-primary btn-block mb-2 w-100">
+                            <i class="fas fa-paper-plane me-2"></i>Request New Interview
+                        </a>
+                    {% endif %}
+                    
+                    <a href="/interview/share/{{ interview.uuid }}" class="btn btn-outline-secondary btn-block w-100">
+                        <i class="fas fa-share me-2"></i>Share Interview Link
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if questions %}
+    <div class="card mt-3">
+        <div class="card-header">
+            <h5 class="mb-0">Questions ({{ questions|length }})</h5>
+        </div>
+        <div class="card-body">
+            <div class="list-group">
+                {% for question in questions %}
+                <div class="list-group-item">
+                    <h6>{{ loop.index }}. {{ question.question_text }}</h6>
+                    <p class="text-muted small">Topic: {{ question.topic.name }}</p>
+                    
+                    {% if question.answer %}
+                    <div class="alert alert-info">
+                        <p class="mb-0"><strong>Your Answer:</strong> {{ question.answer|truncate(150) }}</p>
+                    </div>
+                    {% endif %}
+                    
+                    {% if question.score is not none %}
+                    <div class="text-end">
+                        <span class="badge bg-primary">Score: {{ question.score }}/100</span>
+                    </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

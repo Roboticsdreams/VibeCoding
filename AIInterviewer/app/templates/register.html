@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Register - TechInterviewer{% endblock %}
+
+{% block extra_css %}
+<style>
+    .register-container {
+        max-width: 450px;
+        margin: 100px auto;
+    }
+    .register-card {
+        padding: 30px;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        border: none;
+    }
+    .register-title {
+        margin-bottom: 30px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="register-container">
+    <div class="card register-card">
+        <div class="card-body">
+            <h2 class="text-center register-title">Create Account</h2>
+            
+            <form method="post" action="/register">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                    <div class="form-text">Password should be at least 8 characters long.</div>
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                </div>
+            </form>
+            
+            <div class="text-center mt-3">
+                <p>Already have an account? <a href="/login">Login</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

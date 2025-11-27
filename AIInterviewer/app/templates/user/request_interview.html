@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+
+{% block title %}Request Interview - TechInterviewer{% endblock %}
+
+{% set show_sidebar = true %}
+{% set active_page = 'request_interview' %}
+
+{% block sidebar %}
+{% include "includes/user_sidebar.html" %}
+{% endblock %}
+
+{% block main_content %}
+<div class="container-fluid">
+    <h1 class="mb-4">Request a New Interview</h1>
+    <div class="alert alert-info mb-4">
+        <i class="fas fa-info-circle"></i> Submit your interview request below. An admin will review and approve it before you can start the interview.
+    </div>
+    
+    <div class="card">
+        <div class="card-body">
+            <form method="post" action="/user/request-interview">
+                <!-- Candidate info is auto-filled from logged in user -->
+                <div class="alert alert-success mb-3">
+                    <i class="fas fa-user-circle me-2"></i> 
+                    <strong>Interview will be scheduled for:</strong> {{ user.username }} ({{ user.email }})
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Select Topics</label>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                {% for topic in topics %}
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="topic_ids" value="{{ topic.id }}" id="topic_{{ topic.id }}">
+                                        <label class="form-check-label" for="topic_{{ topic.id }}">
+                                            {{ topic.name }}
+                                        </label>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-text">Select at least one topic for the interview.</div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="difficulty_id" class="form-label">Difficulty Level</label>
+                        <select class="form-select" id="difficulty_id" name="difficulty_id" required>
+                            <option value="">Select Difficulty</option>
+                            {% for difficulty in difficulties %}
+                            <option value="{{ difficulty.id }}">{{ difficulty.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="timing_id" class="form-label">Interview Duration</label>
+                        <select class="form-select" id="timing_id" name="timing_id" required>
+                            <option value="">Select Duration</option>
+                            {% for timing in timings %}
+                            <option value="{{ timing.id }}">{{ timing.name }} ({{ timing.minutes }} minutes)</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="text-end">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane me-2"></i>Submit Request
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

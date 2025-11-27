@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}My Profile - TechInterviewer{% endblock %}
+
+{% set show_sidebar = true %}
+{% set active_page = 'profile' %}
+
+{% block sidebar %}
+{% include "includes/user_sidebar.html" %}
+{% endblock %}
+
+{% block main_content %}
+<div class="container-fluid">
+    <h1 class="mb-4">My Profile</h1>
+    
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">Account Information</h5>
+        </div>
+        <div class="card-body">
+            <form method="post" action="/user/profile/update">
+                <div class="mb-3">
+                    <label for="username" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="username" name="username" value="{{ user.username }}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="email" name="email" value="{{ user.email }}" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">New Password</label>
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Leave blank to keep current password">
+                    <div class="form-text">Enter a new password only if you want to change it.</div>
+                </div>
+                <div class="mb-3">
+                    <label for="confirm_password" class="form-label">Confirm New Password</label>
+                    <input type="password" class="form-control" id="confirm_password" name="confirm_password" placeholder="Confirm new password">
+                </div>
+                <button type="submit" class="btn btn-primary">Update Profile</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

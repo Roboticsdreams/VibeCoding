@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}{% if action == 'add' %}Add Timing{% else %}Edit Timing{% endif %} - Admin{% endblock %}
+
+{% set show_sidebar = true %}
+{% set active_page = 'timings' %}
+
+{% block sidebar %}
+{% include "includes/admin_sidebar.html" %}
+{% endblock %}
+
+{% block main_content %}
+<div class="container-fluid">
+    <h1 class="mb-4">{% if action == 'add' %}Add New Timing{% else %}Edit Timing{% endif %}</h1>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <form method="post" action="{% if action == 'add' %}/admin/timings/add{% else %}/admin/timings/edit/{{ timing.id }}{% endif %}">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Timing Name *</label>
+                            <input type="text" class="form-control" id="name" name="name" value="{% if timing %}{{ timing.name }}{% endif %}" required>
+                            <div class="form-text">Enter a descriptive name for this timing (e.g., 30 Minutes, 1 Hour)</div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="minutes" class="form-label">Duration in Minutes *</label>
+                            <input type="number" class="form-control" id="minutes" name="minutes" min="5" max="240" value="{% if timing %}{{ timing.minutes }}{% endif %}" required>
+                            <div class="form-text">Enter the duration in minutes (e.g., 30, 60, 90)</div>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a href="/admin/timings" class="btn btn-secondary">Cancel</a>
+                            <button type="submit" class="btn btn-primary">
+                                {% if action == 'add' %}Add Timing{% else %}Save Changes{% endif %}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

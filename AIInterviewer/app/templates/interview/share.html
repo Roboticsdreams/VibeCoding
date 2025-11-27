@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block title %}Share Interview Link - TechInterviewer{% endblock %}
+
+{% block extra_css %}
+<style>
+    .share-container {
+        max-width: 600px;
+        margin: 50px auto;
+        text-align: center;
+    }
+    .share-card {
+        padding: 30px;
+    }
+    .link-container {
+        background-color: #f8f9fa;
+        padding: 15px;
+        border-radius: 5px;
+        margin: 20px 0;
+    }
+    .interview-link {
+        font-size: 1.1rem;
+        word-break: break-all;
+    }
+    .copy-button {
+        margin-top: 10px;
+    }
+    .confirmation {
+        display: none;
+        color: green;
+        margin-top: 10px;
+    }
+    .details-container {
+        margin-top: 20px;
+        text-align: left;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="share-container">
+    <div class="card share-card">
+        <div class="card-body">
+            <h2 class="card-title mb-4">Share Interview Link</h2>
+            
+            <p class="card-text">Share this unique link with your candidate to start the interview:</p>
+            
+            <div class="link-container">
+                <p id="interviewLink" class="interview-link">{{ interview_link }}</p>
+                <button class="btn btn-primary copy-button" onclick="copyLink()">
+                    <i class="fas fa-copy me-2"></i>Copy Link
+                </button>
+                <p id="confirmation" class="confirmation">Link copied to clipboard!</p>
+            </div>
+            
+            <div class="details-container">
+                <h5>Interview Details</h5>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>Candidate:</th>
+                            <td>{{ interview.candidate_name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Email:</th>
+                            <td>{{ interview.email }}</td>
+                        </tr>
+                        <tr>
+                            <th>Topics:</th>
+                            <td>{% for topic in interview.topics %}{{ topic.name }}{% if not loop.last %}, {% endif %}{% endfor %}</td>
+                        </tr>
+                        <tr>
+                            <th>Difficulty:</th>
+                            <td>{{ interview.difficulty.name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Duration:</th>
+                            <td>{{ interview.timing.name }}</td>
+                        </tr>
+                        <tr>
+                            <th>Scheduled Date:</th>
+                            <td>{{ interview.scheduled_date.strftime('%Y-%m-%d %H:%M') }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="mt-4">
+                <a href="/user/dashboard" class="btn btn-outline-secondary">Back to Dashboard</a>
+                <a href="mailto:{{ interview.email }}?subject=Technical Interview Link&body=Hello {{ interview.candidate_name }}, %0D%0A%0D%0AHere is your technical interview link: {{ interview_link }} %0D%0A%0D%0APlease click on the link at the scheduled time to start your interview. %0D%0A%0D%0AThanks," class="btn btn-success ms-2">
+                    <i class="fas fa-envelope me-2"></i>Email to Candidate
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    function copyLink() {
+        const linkElement = document.getElementById('interviewLink');
+        const confirmation = document.getElementById('confirmation');
+        
+        // Create a temporary input element
+        const tempInput = document.createElement('input');
+        tempInput.value = linkElement.textContent;
+        document.body.appendChild(tempInput);
+        
+        // Select and copy the text
+        tempInput.select();
+        document.execCommand('copy');
+        
+        // Remove the temporary input
+        document.body.removeChild(tempInput);
+        
+        // Show confirmation
+        confirmation.style.display = 'block';
+        
+        // Hide confirmation after 3 seconds
+        setTimeout(() => {
+            confirmation.style.display = 'none';
+        }, 3000);
+    }
+</script>
+{% endblock %}

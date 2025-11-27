@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}{% if action == 'add' %}Add Difficulty{% else %}Edit Difficulty{% endif %} - Admin{% endblock %}
+
+{% set show_sidebar = true %}
+{% set active_page = 'difficulties' %}
+
+{% block sidebar %}
+{% include "includes/admin_sidebar.html" %}
+{% endblock %}
+
+{% block main_content %}
+<div class="container-fluid">
+    <h1 class="mb-4">{% if action == 'add' %}Add New Difficulty Level{% else %}Edit Difficulty Level{% endif %}</h1>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <form method="post" action="{% if action == 'add' %}/admin/difficulties/add{% else %}/admin/difficulties/edit/{{ difficulty.id }}{% endif %}">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Difficulty Level Name *</label>
+                            <input type="text" class="form-control" id="name" name="name" value="{% if difficulty %}{{ difficulty.name }}{% endif %}" required>
+                            <div class="form-text">Enter a unique name for this difficulty level (e.g., Easy, Medium, Hard)</div>
+                        </div>
+
+                        <div class="d-flex justify-content-between">
+                            <a href="/admin/difficulties" class="btn btn-secondary">Cancel</a>
+                            <button type="submit" class="btn btn-primary">
+                                {% if action == 'add' %}Add Difficulty{% else %}Save Changes{% endif %}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

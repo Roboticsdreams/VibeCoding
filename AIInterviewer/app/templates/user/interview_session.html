@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+
+{% block title %}Interview Session - TechInterviewer{% endblock %}
+
+{% set show_sidebar = false %}
+
+{% block content %}
+<div class="container">
+    <!-- Debug Information (hidden by default, can be shown with Ctrl+Shift+D) -->
+    <div class="debug-info">
+        <strong>Debug Info:</strong> 
+        Question ID: {{ current_question.id }} | 
+        Has Answer: {{ current_question.answer != None and current_question.answer != "" }} |
+        Answer Length: {{ current_question.answer|length if current_question.answer else 0 }}
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-8">
+            <h1>Interview Session</h1>
+            <p>Candidate: {{ interview.candidate_name }}</p>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Time Remaining</h5>
+                    <div id="timer" class="timer" data-minutes="{{ interview.timing.minutes|default(30) }}">{{ interview.timing.minutes|default(30) }}:00</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="progress">
+        {% set answered_count = questions|selectattr('answer', 'defined')|list|length %}
+        {% set total_questions = questions|length if questions else 1 %}
+        {% set progress_percentage = ((answered_count / total_questions) * 100)|round|int %}
+        <div class="progress-bar" role="progressbar" style="width: {{ progress_percentage }}%;" aria-valuenow="{{ progress_percentage }}" aria-valuemin="0" aria-valuemax="100">
+            {{ answered_count }}/{{ total_questions }} Questions
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-lg-4">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0">Questions</h5>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        {% for question in questions %}
+                        <a href="/user/answer-question/{{ interview.id }}/{{ question.id }}" class="list-group-item list-group-item-action {% if current_question.id == question.id %}active{% endif %}">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>Q{{ loop.index }}:</strong>
+                                    {% if question.answer %}
+                                    <span class="text-success"><i class="fas fa-check-circle me-1"></i>Answered</span>
+                                    {% else %}
+                                    <span class="text-muted"><i class="far fa-circle me-1"></i>Pending</span>
+                                    {% endif %}
+                                </div>
+                                <span class="badge bg-primary">{{ question.topic.name }}</span>
+                            </div>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <a href="/user/finish-interview/{{ interview.id }}" class="btn btn-primary w-100" onclick="return confirm('Are you sure you want to finish this interview? You will not be able to change your answers after this.')">
+                        Finish Interview
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0">Question {{ current_question_index + 1 }}/{{ questions|length }}</h5>
+                        <span class="badge bg-info">{{ current_question.topic.name }}</span>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h5 class="mb-3">{{ current_question.question_text }}</h5>
+                    <form method="post" action="/user/answer-question/{{ interview.id }}/{{ current_question.id }}" id="answer-form">
+                        <div class="form-group mb-3">
+                            <label for="answer" class="form-label">Your Answer</label>
+                            <textarea class="form-control" id="answer" name="answer" rows="8" required>{{ current_question.answer if current_question.answer else '' }}</textarea>
+                        </div>
+                        <div class="d-flex justify-content-between">
+                            <a href="/user/dashboard" class="btn btn-outline-secondary">Save & Exit</a>
+                            <div>
+                                {% if prev_question %}
+                                <a href="/user/answer-question/{{ interview.id }}/{{ prev_question.id }}" class="btn btn-secondary me-2">Previous</a>
+                                {% endif %}
+                                
+                                <button type="submit" class="btn btn-primary">
+                                    {% if next_question %}
+                                    Save & Next
+                                    {% else %}
+                                    Save & Finish
+                                    {% endif %}
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Timer functionality
+        const timerElement = document.getElementById('timer');
+        const startMinutes = parseInt(timerElement.dataset.minutes);
+        let timeLeft = startMinutes * 60;
+        
+        function updateTimer() {
+            const minutes = Math.floor(timeLeft / 60);
+            let seconds = timeLeft % 60;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+            
+            timerElement.innerHTML = `${minutes}:${seconds}`;
+            
+            if (timeLeft <= 0) {
+                clearInterval(timerInterval);
+                timerElement.innerHTML = '0:00';
+                timerElement.classList.add('text-danger');
+                alert('Time is up! Please submit your current answer.');
+            } else {
+                timeLeft--;
+            }
+        }
+        
+        const timerInterval = setInterval(updateTimer, 1000);
+        updateTimer();
+        
+        // Answer form improvements
+        const answerForm = document.getElementById('answer-form');
+        if (answerForm) {
+            // Auto-save answer every 30 seconds
+            let autoSaveInterval;
+            const autoSave = () => {
+                const answer = document.getElementById('answer').value.trim();
+                if (answer) {
+                    // Store in localStorage as backup
+                    localStorage.setItem(
+                        `interview_${answerForm.action.split('/').slice(-2).join('_')}_answer`, 
+                        answer
+                    );
+                    console.log('Answer auto-saved to localStorage');
+                }
+            };
+            
+            // Start auto-save
+            autoSaveInterval = setInterval(autoSave, 30000);
+            
+            // Check for saved answer in localStorage
+            const savedAnswer = localStorage.getItem(
+                `interview_${answerForm.action.split('/').slice(-2).join('_')}_answer`
+            );
+            
+            // If there's a saved answer and the form is empty, offer to restore it
+            const answerField = document.getElementById('answer');
+            if (savedAnswer && !answerField.value && confirm('We found a previously saved answer. Would you like to restore it?')) {
+                answerField.value = savedAnswer;
+            }
+            
+            // Clear localStorage when form is submitted
+            answerForm.addEventListener('submit', function() {
+                localStorage.removeItem(
+                    `interview_${answerForm.action.split('/').slice(-2).join('_')}_answer`
+                );
+                clearInterval(autoSaveInterval);
+            });
+        }
+    });
+</script>
+{% endblock %}

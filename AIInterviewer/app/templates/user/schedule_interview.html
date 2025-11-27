@@ -1,0 +1,99 @@
+<div class="container-fluid">
+    <h1 class="mb-4">Schedule a New Interview</h1>
+    
+    <div class="card">
+        <div class="card-body">
+            <form method="post" action="/user/schedule-interview">
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="candidate_name" class="form-label">Candidate Name</label>
+                        <input type="text" class="form-control" id="candidate_name" name="candidate_name" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="email" name="email" required>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label">Select Topics</label>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                {% for topic in topics %}
+                                <div class="col-md-4">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" name="topic_ids" value="{{ topic.id }}" id="topic_{{ topic.id }}">
+                                        <label class="form-check-label" for="topic_{{ topic.id }}">
+                                            {{ topic.name }}
+                                        </label>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-text">Select at least one topic for the interview.</div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="difficulty_id" class="form-label">Difficulty Level</label>
+                        <select class="form-select" id="difficulty_id" name="difficulty_id" required>
+                            <option value="">Select Difficulty</option>
+                            {% for difficulty in difficulties %}
+                            <option value="{{ difficulty.id }}">{{ difficulty.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="timing_id" class="form-label">Interview Duration</label>
+                        <select class="form-select" id="timing_id" name="timing_id" required>
+                            <option value="">Select Duration</option>
+                            {% for timing in timings %}
+                            <option value="{{ timing.id }}">{{ timing.name }} ({{ timing.minutes }} minutes)</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mb-3">
+                    <div class="col-md-6">
+                        <label for="scheduled_date" class="form-label">Date</label>
+                        <input type="date" class="form-control" id="scheduled_date" name="scheduled_date" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="scheduled_time" class="form-label">Time</label>
+                        <input type="time" class="form-control" id="scheduled_time" name="scheduled_time" required>
+                    </div>
+                </div>
+
+                <div class="d-flex justify-content-between">
+                    <a href="/user/dashboard" class="btn btn-secondary">Cancel</a>
+                    <button type="submit" class="btn btn-primary">Schedule Interview</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Set minimum date to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('scheduled_date').setAttribute('min', today);
+        
+        // Form validation for topics
+        const form = document.querySelector('form');
+        form.addEventListener('submit', function(event) {
+            const topicCheckboxes = document.querySelectorAll('input[name="topic_ids"]:checked');
+            if (topicCheckboxes.length === 0) {
+                event.preventDefault();
+                alert('Please select at least one topic for the interview.');
+            }
+        });
+    });
+</script>
+{% endblock %}

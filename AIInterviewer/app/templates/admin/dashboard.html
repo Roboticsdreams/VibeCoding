@@ -1,0 +1,275 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Admin{% endblock %}
+
+{% block scripts %}
+<script>
+// Check OpenAI API key status
+async function checkApiKeyStatus() {
+    const statusElem = document.getElementById('apiKeyStatus');
+    
+    try {
+        const response = await fetch('/api/openai/validate-key');
+        const data = await response.json();
+        
+        if (data.valid) {
+            statusElem.innerHTML = '<span class="badge bg-success">✓ API Key Valid</span>';
+        } else {
+            statusElem.innerHTML = '<span class="badge bg-danger">✗ API Key Invalid</span><br>' +
+                                  '<small class="text-danger">' + (data.message || 'Configuration needed') + '</small><br>' +
+                                  '<a href="/admin/ai/settings" class="btn btn-sm btn-outline-danger mt-2">Configure API Key</a>';
+        }
+    } catch (error) {
+        statusElem.innerHTML = '<span class="badge bg-warning">⚠ Status Unknown</span><br>' +
+                             '<small class="text-muted">Could not verify API key</small>';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    checkApiKeyStatus();
+});
+</script>
+{% endblock %}
+
+{% set show_sidebar = true %}
+{% set active_page = 'dashboard' %}
+
+{% block sidebar %}
+{% include "includes/admin_sidebar.html" %}
+{% endblock %}
+
+{% block main_content %}
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Admin Dashboard</h1>
+        <div>
+            <span class="text-muted">Last updated: {{ datetime.now().strftime('%Y-%m-%d %H:%M') }}</span>
+        </div>
+    </div>
+
+    <!-- Dashboard Stats -->
+    <div class="row mb-4">
+        <div class="col-md-4 mb-3 mb-md-0">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body bg-primary text-white rounded">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="card-title fw-bold">Total Users</h5>
+                            <h2 class="display-4 mt-3 mb-0">{{ user_count }}</h2>
+                        </div>
+                        <div class="display-4">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-white d-flex justify-content-between align-items-center py-2">
+                    <a href="/admin/users" class="text-primary text-decoration-none small">View all users</a>
+                    <i class="fas fa-arrow-right text-primary"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3 mb-md-0">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body bg-success text-white rounded">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="card-title fw-bold">Total Interviews</h5>
+                            <h2 class="display-4 mt-3 mb-0">{{ interview_count }}</h2>
+                        </div>
+                        <div class="display-4">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-white d-flex justify-content-between align-items-center py-2">
+                    <a href="/admin/interviews" class="text-success text-decoration-none small">View all interviews</a>
+                    <i class="fas fa-arrow-right text-success"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3 mb-md-0">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body bg-info text-white rounded">
+                    <div class="d-flex justify-content-between align-items-center">
+                        <div>
+                            <h5 class="card-title fw-bold">Pending Approval</h5>
+                            <h2 class="display-4 mt-3 mb-0">{{ requested_interviews_count }}</h2>
+                        </div>
+                        <div class="display-4">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer bg-white d-flex justify-content-between align-items-center py-2">
+                    <a href="/admin/interviews" class="text-info text-decoration-none small">Review pending</a>
+                    <i class="fas fa-arrow-right text-info"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Integration Stats -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card border-success shadow-sm">
+                <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+                    <h5 class="mb-0"><i class="fas fa-robot me-2"></i>AI Interview System</h5>
+                    <a href="/admin/ai/settings" class="btn btn-sm btn-light"><i class="fas fa-cog me-1"></i>Settings</a>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <p>The AI Interviewer system uses OpenAI's GPT models to generate dynamic questions, evaluate answers, and create comprehensive interview summaries.</p>
+                            <div class="d-flex">
+                                <a href="/admin/ai/interviews" class="btn btn-outline-primary me-2">
+                                    <i class="fas fa-list me-1"></i> View AI Interviews
+                                </a>
+                                <a href="/interview/ai-intro" class="btn btn-outline-success">
+                                    <i class="fas fa-plus-circle me-1"></i> Create AI Interview
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-md-4 border-start">
+                            <div class="text-center mb-3">
+                                <h5>API Key Status</h5>
+                                <div id="apiKeyStatus" class="mt-2">
+                                    <div class="spinner-border spinner-border-sm text-primary" role="status">
+                                        <span class="visually-hidden">Loading...</span>
+                                    </div>
+                                    <span class="ms-2">Checking API key...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Second row with additional stats -->
+    <div class="row mb-4">
+        <div class="col-md-6 mb-3 mb-md-0">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">Interview Statistics</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-4 text-center mb-3">
+                            <div class="bg-light rounded p-3">
+                                <h3 class="text-primary mb-0">{{ completed_count|default(0) }}</h3>
+                                <small class="text-muted">Completed</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 text-center mb-3">
+                            <div class="bg-light rounded p-3">
+                                <h3 class="text-warning mb-0">{{ in_progress_count|default(0) }}</h3>
+                                <small class="text-muted">In Progress</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 text-center mb-3">
+                            <div class="bg-light rounded p-3">
+                                <h3 class="text-danger mb-0">{{ rejected_count|default(0) }}</h3>
+                                <small class="text-muted">Rejected</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card shadow-sm h-100">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">Question Bank</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-4 text-center mb-3">
+                            <div class="bg-light rounded p-3">
+                                <h3 class="text-primary mb-0">{{ question_count|default(0) }}</h3>
+                                <small class="text-muted">Questions</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 text-center mb-3">
+                            <div class="bg-light rounded p-3">
+                                <h3 class="text-success mb-0">{{ topic_count|default(0) }}</h3>
+                                <small class="text-muted">Topics</small>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 text-center mb-3">
+                            <div class="bg-light rounded p-3">
+                                <h3 class="text-info mb-0">{{ difficulty_count|default(0) }}</h3>
+                                <small class="text-muted">Difficulties</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Interviews -->
+    <div class="card shadow-sm">
+        <div class="card-header bg-white d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Recent Interviews</h5>
+            <a href="/admin/interviews" class="btn btn-sm btn-outline-primary">View All</a>
+        </div>
+        <div class="card-body">
+            {% if recent_interviews %}
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Candidate</th>
+                            <th>Email</th>
+                            <th>Created</th>
+                            <th>Status</th>
+                            <th>Approval</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for interview in recent_interviews %}
+                        <tr>
+                            <td><strong>{{ interview.candidate_name }}</strong></td>
+                            <td>{{ interview.email }}</td>
+                            <td>{{ interview.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                            <td>
+                                {% if interview.status == 'pending' %}
+                                <span class="badge bg-secondary">Ready</span>
+                                {% elif interview.status == 'in_progress' %}
+                                <span class="badge bg-primary">In Progress</span>
+                                {% elif interview.status == 'completed' %}
+                                <span class="badge bg-success">Completed</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if interview.approval_status == 'requested' %}
+                                <span class="badge bg-warning">Pending</span>
+                                {% elif interview.approval_status == 'approved' %}
+                                <span class="badge bg-success">Approved</span>
+                                {% elif interview.approval_status == 'rejected' %}
+                                <span class="badge bg-danger">Rejected</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                <a href="/admin/interviews/{{ interview.id }}" class="btn btn-sm btn-outline-primary">
+                                    <i class="fas fa-eye"></i> View
+                                </a>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            {% else %}
+            <div class="text-center py-4">
+                <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                <p class="mb-0 text-muted">No interviews available yet.</p>
+                <a href="/admin/interviews" class="btn btn-sm btn-primary mt-3">Schedule an Interview</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

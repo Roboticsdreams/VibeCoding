@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - TechInterviewer{% endblock %}
+
+{% set show_sidebar = true %}
+{% set active_page = 'dashboard' %}
+
+{% block sidebar %}
+{% include "includes/user_sidebar.html" %}
+{% endblock %}
+
+{% block main_content %}
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Welcome, {{ user.username }}!</h1>
+        <div>
+            <a href="/interview/ai-intro" class="btn btn-success me-2">
+                <i class="fas fa-robot me-2"></i>AI-Powered Interview
+            </a>
+            <a href="/user/request-interview" class="btn btn-primary">
+                <i class="fas fa-paper-plane me-2"></i>Request New Interview
+            </a>
+        </div>
+    </div>
+
+    <!-- Dashboard Stats -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Total Interviews</h5>
+                    <h2 class="card-text">{{ interviews|length }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-success text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Completed</h5>
+                    <h2 class="card-text">{{ interviews|selectattr('status', 'eq', 'completed')|list|length }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card bg-warning text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Pending Approval</h5>
+                    <h2 class="card-text">{{ interviews|selectattr('approval_status', 'eq', 'requested')|list|length }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="mb-3">Your Interviews</h2>
+    {% if interviews %}
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Candidate</th>
+                    <th>Email</th>
+                    <th>Created</th>
+                    <th>Approval</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for interview in interviews %}
+                <tr>
+                    <td>{{ interview.candidate_name }}</td>
+                    <td>{{ interview.email }}</td>
+                    <td>{{ interview.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                    <td>
+                        {% if interview.approval_status == 'requested' %}
+                        <span class="badge bg-warning">Pending</span>
+                        {% elif interview.approval_status == 'approved' %}
+                        <span class="badge bg-success">Approved</span>
+                        {% elif interview.approval_status == 'rejected' %}
+                        <span class="badge bg-danger">Rejected</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if interview.status == 'pending' %}
+                        <span class="badge bg-secondary">Ready</span>
+                        {% elif interview.status == 'in_progress' %}
+                        <span class="badge bg-primary">In Progress</span>
+                        {% elif interview.status == 'completed' %}
+                        <span class="badge bg-success">Completed</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <a href="/user/interviews/{{ interview.id }}" class="btn btn-sm btn-outline-primary">
+                                <i class="fas fa-eye"></i> View
+                            </a>
+                            {% if interview.approval_status == 'approved' %}
+                                {% if interview.status == 'pending' %}
+                                <a href="/user/start-interview/{{ interview.id }}" class="btn btn-sm btn-success">
+                                    <i class="fas fa-play"></i> Start
+                                </a>
+                                {% elif interview.status == 'in_progress' %}
+                                <a href="/user/start-interview/{{ interview.id }}" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-arrow-right"></i> Continue
+                                </a>
+                                {% elif interview.status == 'completed' %}
+                                <a href="/user/interview-evaluation/{{ interview.id }}" class="btn btn-sm btn-info">
+                                    <i class="fas fa-chart-bar"></i> Results
+                                </a>
+                                {% endif %}
+                            {% endif %}
+                            <a href="/interview/share/{{ interview.uuid }}" class="btn btn-sm btn-outline-secondary">
+                                <i class="fas fa-share"></i> Share
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="alert alert-info">
+        <p class="mb-0">You don't have any interviews yet. <a href="/user/request-interview">Request your first interview</a> now!</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

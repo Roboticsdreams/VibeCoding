@@ -1,0 +1,47 @@
+/* Fixed navbar dropdown styles */
+.navbar-nav .dropdown-menu {
+    position: absolute !important;
+    top: 100% !important;
+    right: 0 !important;
+    left: auto !important;
+    margin-top: 0 !important;
+    border-radius: 0.25rem !important;
+    border: 1px solid rgba(0,0,0,0.15) !important;
+    z-index: 2000 !important;
+    min-width: 10rem;
+    padding: 0.5rem 0;
+    background-color: #fff;
+    box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.175) !important;
+    display: none;
+}
+
+.navbar-nav .dropdown-menu.show {
+    display: block !important;
+}
+
+.navbar-nav .dropdown {
+    position: relative !important;
+}
+
+.navbar .dropdown-item {
+    clear: both;
+    white-space: nowrap;
+    padding: 0.5rem 1.5rem;
+    color: #212529;
+    background-color: transparent;
+}
+
+.navbar .dropdown-item:hover {
+    background-color: #f8f9fa;
+}
+
+/* Force dropdown to be visible when debugging */
+.debug-dropdown .dropdown-menu {
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    position: absolute !important;
+    top: 100% !important;
+    left: auto !important;
+    right: 0 !important;
+}

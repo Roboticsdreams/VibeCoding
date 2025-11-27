@@ -1,0 +1,194 @@
+/* Global styles */
+html {
+    position: relative;
+    height: 100%;
+    overflow-x: hidden;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding-top: 56px; /* Space for fixed navbar */
+    margin: 0;
+    overflow-x: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Fixed navbar styles */
+.navbar {
+    position: fixed !important;
+    top: 0 !important;
+    right: 0 !important;
+    left: 0 !important;
+    z-index: 1030 !important;
+    height: 56px !important;
+    width: 100% !important;
+}
+
+/* Content area */
+main {
+    flex: 1 0 auto; /* Don't shrink, allow grow, initial auto */
+    width: 100%;
+    position: relative;
+}
+
+.content-wrapper {
+    width: 100%;
+    position: relative;
+    min-height: 100%;
+}
+
+/* Footer styles - Fixed and on top of all content */
+.footer-overlay {
+    position: fixed !important;
+    bottom: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    z-index: 1040 !important; /* Higher than sidebar (1020) but lower than modals (1050) */
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Fixed sidebar layout */
+.main-content-with-sidebar {
+    margin-left: 250px; /* Match sidebar width */
+    padding: 20px;
+    width: calc(100% - 250px);
+    transition: margin-left 0.3s ease;
+}
+
+/* Enhanced styles for admin dashboard */
+.display-4 {
+    font-size: 2.5rem;
+    font-weight: 300;
+}
+
+.card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+}
+
+.card-footer {
+    border-top: none;
+}
+
+/* Ensure tables don't overflow on small screens */
+.table-responsive {
+    overflow-x: auto;
+}
+
+/* Ensure consistent card heights for empty states */
+.card-body.text-center.py-5 {
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Fixed positioning for sidebar and main content */
+@media (min-width: 768px) {
+    .main-content-with-sidebar {
+        margin-left: 250px;
+        transition: all 0.3s;
+    }
+
+    /* Fix for content not being pushed right enough */
+    body.sidebar-active {
+        padding-left: 250px;
+    }
+}
+
+/* Responsive adjustments */
+@media (max-width: 767.98px) {
+    .main-content-with-sidebar {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .content-wrapper {
+        padding: 15px;
+    }
+    
+    .sidebar {
+        transform: translateX(-100%);
+    }
+    
+    body.sidebar-active .sidebar {
+        transform: translateX(0);
+    }
+}
+
+/* Fix for content overflow */
+.container-fluid {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    overflow-x: hidden;
+}
+
+/* Fixing padding to ensure consistent layout */
+.py-3 {
+    padding-top: 1rem!important;
+    padding-bottom: 1rem!important;
+}
+
+/* Dropdown menu styles - FIXED */
+.dropdown-menu {
+    position: absolute;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    z-index: 1031 !important; /* Higher than navbar */
+    right: 0;
+    left: auto;
+}
+
+.dropdown-item {
+    padding: 0.5rem 1rem;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.dropdown-item:hover {
+    background-color: rgba(13, 110, 253, 0.1);
+}
+
+.dropdown-item-text {
+    color: #6c757d;
+}
+
+.dropdown-divider {
+    margin: 0.5rem 0;
+}
+
+/* Fix for dropdown positioning */
+.dropdown {
+    position: relative !important;
+}
+
+/* Fix for hover dropdown */
+@media (min-width: 992px) {
+    .dropdown:hover .dropdown-menu {
+        display: block;
+    }
+}
+
+/* Loading overlay styles */
+#loading-overlay {
+    background: rgba(255, 255, 255, 0.7);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease;
+}
+
+.spinner-border {
+    width: 3rem;
+    height: 3rem;
+}
