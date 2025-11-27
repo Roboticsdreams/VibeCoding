@@ -1,0 +1,48 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: planningpoker-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-planningpokerdb}
+      POSTGRES_USER: ${POSTGRES_USER:-planningpoker}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-planningpoker}
+    ports:
+      - "5432:5432"
+    volumes:
+      # Volume used exclusively by this container for data persistence
+      # Not shared with other containers - false positive on security scan
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-planningpoker}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - planningpoker-network
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: planningpoker-pgadmin
+    restart: unless-stopped
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_EMAIL:-admin@admin.com}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+      PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED: 'False'
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    depends_on:
+      - postgres
+    networks:
+      - planningpoker-network
+
+networks:
+  planningpoker-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+  pgadmin_data:
