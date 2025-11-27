@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    font-family: 'Inter', sans-serif;
+  }
+  body {
+    @apply bg-white text-gray-900;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply px-4 py-2 rounded font-medium transition-colors duration-200;
+  }
+  .btn-primary {
+    @apply bg-primary text-white hover:bg-blue-700;
+  }
+  .btn-secondary {
+    @apply bg-secondary text-gray-700 hover:bg-gray-200;
+  }
+  .card {
+    @apply rounded-lg shadow p-4 bg-white;
+  }
+  .sidebar-item {
+    @apply flex items-center p-2 text-white/80 hover:bg-white/10 rounded-md cursor-pointer;
+  }
+  .sidebar-item.active {
+    @apply bg-white/10 text-white;
+  }
+  .task-card {
+    @apply rounded-md p-3 mb-2 cursor-pointer;
+  }
+}
