@@ -185,3 +185,110 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+
+# =========================
+# Language Specific Ignores
+# =========================
+
+# Java
+*.class
+*.log
+*.jar
+*.war
+*.ear
+*.rar
+hs_err_pid*
+*.ctxt
+.mtj.tmp/
+*.class
+*.jar
+*.war
+*.ear
+*.zip
+*.tar.gz
+*.classpath
+.project
+.settings/
+bin/
+build/
+dist/
+target/
+.gradle/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.nox/
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.npm
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# React
+.cache/
+.next/
+out/
+.nuxt/
+.nitro/
+
+# Perl
+*.o
+*.pm.tdy
+*.bundle
+*.bs
+*.c
+*.x
+*.t
+
+# VS Code
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# IntelliJ
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
