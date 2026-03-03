@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}My Profile - Course Platform{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0"><i class="bi bi-person-circle"></i> My Profile</h4>
+                </div>
+                <div class="card-body">
+                    <div class="text-center mb-4">
+                        <i class="bi bi-person-circle display-1 text-primary"></i>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Username</label>
+                        <p class="form-control-plaintext">{{ user.username }}</p>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Full Name</label>
+                        <p class="form-control-plaintext">{{ user.get_full_name|default:"Not set" }}</p>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Email</label>
+                        <p class="form-control-plaintext">{{ user.email }}</p>
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Member Since</label>
+                        <p class="form-control-plaintext">{{ user.date_joined|date:"F d, Y" }}</p>
+                    </div>
+                    
+                    <hr>
+                    
+                    <div class="d-grid gap-2">
+                        <a href="{% url 'accounts:dashboard' %}" class="btn btn-primary">
+                            <i class="bi bi-grid"></i> Go to Dashboard
+                        </a>
+                        <a href="{% url 'accounts:payment_history' %}" class="btn btn-outline-primary">
+                            <i class="bi bi-receipt"></i> View Payment History
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

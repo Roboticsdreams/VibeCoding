@@ -1,0 +1,154 @@
+{% extends 'custom_admin/dashboard.html' %}
+
+{% block title %}{% if is_edit %}Edit{% else %}Create{% endif %} Course - Admin Portal{% endblock %}
+
+{% block extra_css %}
+<style>
+    .form-section {
+        background: white;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .form-label {
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+    .form-control, .form-select {
+        border-radius: 6px;
+    }
+    .btn-group-form {
+        display: flex;
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+</style>
+{% endblock %}
+
+{% block admin_content %}
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>
+            <i class="bi bi-{% if is_edit %}pencil-square{% else %}plus-circle{% endif %}"></i>
+            {% if is_edit %}Edit Course{% else %}Create New Course{% endif %}
+        </h2>
+        <a href="{% url 'custom_admin:course_list' %}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left"></i> Back to Courses
+        </a>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="form-section">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-danger">
+                            {{ form.non_field_errors }}
+                        </div>
+                    {% endif %}
+
+                    <div class="mb-3">
+                        <label for="{{ form.title.id_for_label }}" class="form-label">
+                            Course Title <span class="text-danger">*</span>
+                        </label>
+                        {{ form.title }}
+                        {% if form.title.errors %}
+                            <div class="text-danger small mt-1">{{ form.title.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ form.short_description.id_for_label }}" class="form-label">
+                            Short Description <span class="text-danger">*</span>
+                        </label>
+                        <small class="text-muted d-block mb-1">Brief description shown on course cards</small>
+                        {{ form.short_description }}
+                        {% if form.short_description.errors %}
+                            <div class="text-danger small mt-1">{{ form.short_description.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="{{ form.description.id_for_label }}" class="form-label">
+                            Full Description <span class="text-danger">*</span>
+                        </label>
+                        <small class="text-muted d-block mb-1">Detailed course description</small>
+                        {{ form.description }}
+                        {% if form.description.errors %}
+                            <div class="text-danger small mt-1">{{ form.description.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.price.id_for_label }}" class="form-label">
+                                Price (₹) <span class="text-danger">*</span>
+                            </label>
+                            {{ form.price }}
+                            {% if form.price.errors %}
+                                <div class="text-danger small mt-1">{{ form.price.errors }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="{{ form.thumbnail.id_for_label }}" class="form-label">
+                                Course Thumbnail
+                            </label>
+                            {{ form.thumbnail }}
+                            {% if form.thumbnail.errors %}
+                                <div class="text-danger small mt-1">{{ form.thumbnail.errors }}</div>
+                            {% endif %}
+                            {% if is_edit and course.thumbnail %}
+                                <div class="mt-2">
+                                    <small class="text-muted">Current:</small><br>
+                                    <img src="{{ course.thumbnail.url }}" alt="Current thumbnail" style="max-width: 150px; border-radius: 4px;">
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    <div class="mb-3">
+                        <div class="form-check">
+                            {{ form.is_active }}
+                            <label class="form-check-label" for="{{ form.is_active.id_for_label }}">
+                                Active (visible to users)
+                            </label>
+                        </div>
+                        {% if form.is_active.errors %}
+                            <div class="text-danger small mt-1">{{ form.is_active.errors }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="btn-group-form">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="bi bi-save"></i>
+                            {% if is_edit %}Update Course{% else %}Create Course{% endif %}
+                        </button>
+                        <a href="{% url 'custom_admin:course_list' %}" class="btn btn-outline-secondary btn-lg">
+                            Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-info-circle"></i> Course Guidelines</h5>
+                    <ul class="small">
+                        <li><strong>Title:</strong> Clear and descriptive course name</li>
+                        <li><strong>Short Description:</strong> Max 300 characters for card display</li>
+                        <li><strong>Description:</strong> Full course details, what students will learn</li>
+                        <li><strong>Price:</strong> Set course price in rupees</li>
+                        <li><strong>Thumbnail:</strong> Recommended size: 800x450px</li>
+                        <li><strong>Active:</strong> Uncheck to hide course from users</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Overview - {{ pull_request.title }}{% endblock %}
+{% block content %}
+<div class="pull-request-header">
+    <div class="pr-title-section">
+        <h1>{{ pull_request.title }}</h1>
+        <div class="pr-meta">
+            <span class="pr-id">{{ pull_request.id }}</span>
+            <span class="pr-author">Created by {{ pull_request.author }}</span>
+            <span class="pr-date">{{ pull_request.created }}</span>
+        </div>
+    </div>
+    <div class="pr-actions">
+        <button class="btn-merge">Merge</button>
+        <button class="btn-secondary">Decline</button>
+    </div>
+</div>
+
+<div class="pr-content">
+    <div class="pr-description">
+        <h3>Description</h3>
+        <p>{{ pull_request.description }}</p>
+    </div>
+
+    <div class="pr-activity">
+        <h3>Activity</h3>
+        <div class="activity-item">
+            <div class="activity-avatar">
+                <img src="{% static 'images/user-avatar.png' %}"
+                     alt="{{ pull_request.author }}"
+                     data-name="{{ pull_request.author }}"
+                     onerror="handleAvatarError(this)">
+            </div>
+            <div class="activity-content">
+                <div class="activity-header">
+                    <strong>{{ pull_request.author }}</strong>
+                    <span class="activity-action">created this pull request</span>
+                    <span class="activity-time">{{ pull_request.created }}</span>
+                </div>
+                <div class="activity-body">
+                    <p>Added procedure code display functionality with enhanced patient liability management features.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="activity-item">
+            <div class="activity-avatar">
+                <div class="activity-icon">
+                    <i class="fas fa-code-branch"></i>
+                </div>
+            </div>
+            <div class="activity-content">
+                <div class="activity-header">
+                    <span class="activity-action">2 commits added</span>
+                    <span class="activity-time">2 hours ago</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="activity-item">
+            <div class="activity-avatar">
+                <div class="activity-icon build-icon">
+                    <i class="fas fa-cog"></i>
+                </div>
+            </div>
+            <div class="activity-content">
+                <div class="activity-header">
+                    <span class="activity-action">Build started</span>
+                    <span class="activity-time">1 hour ago</span>
+                </div>
+                <div class="build-status in-progress">
+                    <i class="fas fa-clock"></i>
+                    <span>Build in progress</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

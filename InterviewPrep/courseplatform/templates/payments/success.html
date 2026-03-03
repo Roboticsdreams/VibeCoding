@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Payment Successful{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 text-center">
+            <div class="card shadow-sm">
+                <div class="card-body p-5">
+                    <i class="bi bi-check-circle display-1 text-success"></i>
+                    <h2 class="mt-4">Payment Successful!</h2>
+                    <p class="lead">Thank you for your purchase. You now have access to the course.</p>
+                    
+                    <div class="mt-4">
+                        <a href="{% url 'accounts:dashboard' %}" class="btn btn-primary me-2">
+                            <i class="bi bi-grid"></i> Go to Dashboard
+                        </a>
+                        <a href="{% url 'courses:list' %}" class="btn btn-outline-primary">
+                            Browse More Courses
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

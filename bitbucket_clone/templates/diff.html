@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block title %}Diff - COLPLM-7828 procedure code display{% endblock %}
+
+{% block content %}
+<div class="diff-header">
+    <h1>Diff</h1>
+    <div class="diff-stats">
+        <span class="stats-item">
+            <i class="fas fa-plus text-green"></i>
+            <span>145 additions</span>
+        </span>
+        <span class="stats-item">
+            <i class="fas fa-minus text-red"></i>
+            <span>23 deletions</span>
+        </span>
+        <span class="stats-item">
+            <i class="fas fa-file"></i>
+            <span>3 files changed</span>
+        </span>
+    </div>
+</div>
+
+<div class="diff-files">
+    <div class="diff-file">
+        <div class="file-header">
+            <div class="file-info">
+                <i class="fas fa-file-code"></i>
+                <span class="file-path">src/components/ProcedureCodeDisplay.js</span>
+                <span class="file-status added">Added</span>
+            </div>
+            <div class="file-actions">
+                <button class="btn-view-file">View file</button>
+            </div>
+        </div>
+        <div class="file-diff">
+            <div class="diff-line">
+                <span class="line-number">+1</span>
+                <span class="line-content added">import React from 'react';</span>
+            </div>
+            <div class="diff-line">
+                <span class="line-number">+2</span>
+                <span class="line-content added">import { ProcedureCode } from './types';</span>
+            </div>
+            <div class="diff-line">
+                <span class="line-number">+3</span>
+                <span class="line-content added"></span>
+            </div>
+            <div class="diff-line">
+                <span class="line-number">+4</span>
+                <span class="line-content added">const ProcedureCodeDisplay = ({ code }) => {</span>
+            </div>
+            <div class="diff-line">
+                <span class="line-number">+5</span>
+                <span class="line-content added">  return (</span>
+            </div>
+            <div class="diff-line">
+                <span class="line-number">+6</span>
+                <span class="line-content added">    &lt;div className="procedure-code"&gt;</span>
+            </div>
+            <div class="diff-line">
+                <span class="line-number">+7</span>
+                <span class="line-content added">      &lt;span&gt;{code}&lt;/span&gt;</span>
+            </div>
+            <div class="diff-line">
+                <span class="line-number">+8</span>
+                <span class="line-content added">    &lt;/div&gt;</span>
+            </div>
+            <div class="diff-line">
+                <span class="line-number">+9</span>
+                <span class="line-content added">  );</span>
+            </div>
+            <div class="diff-line">
+                <span class="line-number">+10</span>
+                <span class="line-content added">};</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="diff-file">
+        <div class="file-header">
+            <div class="file-info">
+                <i class="fas fa-file-code"></i>
+                <span class="file-path">src/components/PatientLiability.js</span>
+                <span class="file-status modified">Modified</span>
+            </div>
+            <div class="file-actions">
+                <button class="btn-view-file">View file</button>
+            </div>
+        </div>
+        <div class="file-diff">
+            <div class="diff-line unchanged">
+                <span class="line-number">15</span>
+                <span class="line-content">import { calculateLiability } from './utils';</span>
+            </div>
+            <div class="diff-line">
+                <span class="line-number">-16</span>
+                <span class="line-content removed">import { OldProcedureDisplay } from './OldProcedureDisplay';</span>
+            </div>
+            <div class="diff-line">
+                <span class="line-number">+16</span>
+                <span class="line-content added">import { ProcedureCodeDisplay } from './ProcedureCodeDisplay';</span>
+            </div>
+            <div class="diff-line unchanged">
+                <span class="line-number">17</span>
+                <span class="line-content"></span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

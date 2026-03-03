@@ -1,0 +1,131 @@
+/* WealthTracker Beta - Main CSS */
+
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2c3e50;
+    --accent-color: #f39c12;
+    --light-color: #f8f9fa;
+    --dark-color: #343a40;
+    --success-color: #2ecc71;
+    --danger-color: #e74c3c;
+    --warning-color: #f1c40f;
+    --info-color: #17a2b8;
+}
+
+/* Global Styles */
+body {
+    font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f5f7fa;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.navbar-dark.bg-primary {
+    background-color: var(--primary-color) !important;
+}
+
+main {
+    flex: 1;
+}
+
+/* Card Styling */
+.card {
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.card:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    transform: translateY(-5px);
+}
+
+.card-header {
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+    padding: 1rem 1.25rem;
+}
+
+/* Button Styling */
+.btn-primary {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: #2980b9;
+    border-color: #2980b9;
+}
+
+/* Form Styling */
+.form-control:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
+
+/* Footer Styling */
+footer {
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 2rem 0;
+    margin-top: 2rem;
+}
+
+/* Dashboard Specific Styling */
+.border-left-primary {
+    border-left: 4px solid var(--primary-color);
+}
+
+.border-left-success {
+    border-left: 4px solid var(--success-color);
+}
+
+.border-left-info {
+    border-left: 4px solid var(--info-color);
+}
+
+.border-left-warning {
+    border-left: 4px solid var(--warning-color);
+}
+
+/* Progress Bar Styling */
+.progress {
+    height: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.progress-bar-50 {
+    width: 50%;
+}
+
+.progress-bar-25 {
+    width: 25%;
+}
+
+.progress-bar-18 {
+    width: 18%;
+}
+
+.progress-bar-7 {
+    width: 7%;
+}
+
+/* Landing Page Styling */
+.hero-section {
+    padding: 5rem 0;
+    background: linear-gradient(to right, #ffffff, #f5f7fa);
+}
+
+.feature-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+/* Authentication Pages */
+.auth-card {
+    max-width: 500px;
+    margin: 0 auto;
+}

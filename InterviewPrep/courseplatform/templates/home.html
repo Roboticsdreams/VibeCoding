@@ -1,0 +1,240 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Master Your Skills - Learn & Grow{% endblock %}
+
+{% block content %}
+<style>
+.hero-modern {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 100px 0 80px;
+    position: relative;
+    overflow: hidden;
+}
+.hero-modern::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)" /></svg>');
+    opacity: 0.3;
+}
+.hero-content-modern {
+    position: relative;
+    z-index: 2;
+}
+.course-card-modern {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    height: 100%;
+    background: white;
+}
+.course-card-modern:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 24px rgba(0,0,0,0.15) !important;
+}
+.course-img {
+    height: 200px;
+    object-fit: cover;
+    width: 100%;
+}
+.course-img-placeholder {
+    height: 200px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 3rem;
+}
+.course-category {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #667eea;
+    margin-bottom: 8px;
+}
+.stats-section {
+    background: #f8f9fa;
+    padding: 60px 0;
+}
+.stat-card {
+    text-align: center;
+    padding: 30px 20px;
+}
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #667eea;
+    margin-bottom: 8px;
+}
+.btn-modern-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    color: white;
+    padding: 12px 32px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+.btn-modern-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 16px rgba(102, 126, 234, 0.4);
+    color: white;
+}
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: #2d3748;
+}
+.section-subtitle {
+    font-size: 1.1rem;
+    color: #718096;
+    margin-bottom: 48px;
+}
+</style>
+
+<div class="hero-modern">
+    <div class="container hero-content-modern">
+        <div class="row align-items-center">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="display-3 fw-bold mb-4">Master New Skills Online</h1>
+                <p class="lead mb-4">Discover courses from expert instructors and achieve your career goals with our comprehensive learning platform</p>
+                <div class="d-flex gap-3 justify-content-center">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'courses:list' %}" class="btn btn-light btn-lg px-5">Browse Courses</a>
+                    {% else %}
+                        <a href="{% url 'accounts:signup' %}" class="btn btn-light btn-lg px-5">Get Started Free</a>
+                        <a href="{% url 'accounts:login' %}" class="btn btn-outline-light btn-lg px-5">Login</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="stats-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <div class="stat-number">{{ total_courses }}+</div>
+                    <div class="text-muted">Active Courses</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <div class="stat-number">10K+</div>
+                    <div class="text-muted">Students Enrolled</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <div class="stat-number">50+</div>
+                    <div class="text-muted">Expert Instructors</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container my-5 py-5">
+    <div class="text-center mb-5">
+        <h2 class="section-title">Featured Courses</h2>
+        <p class="section-subtitle">Explore our most popular courses and start your learning journey today</p>
+    </div>
+    
+    {% if featured_courses %}
+    <div class="row g-4">
+        {% for course in featured_courses %}
+        <div class="col-lg-4 col-md-6">
+            <div class="card course-card-modern shadow-sm">
+                {% if course.thumbnail %}
+                    <img src="{{ course.thumbnail.url }}" class="course-img" alt="{{ course.title }}">
+                {% else %}
+                    <div class="course-img-placeholder">
+                        <i class="bi bi-book"></i>
+                    </div>
+                {% endif %}
+                <div class="card-body">
+                    <div class="course-category">Featured Course</div>
+                    <h5 class="card-title fw-bold mb-2">
+                        <a href="{% url 'courses:detail' course.slug %}" class="text-decoration-none text-dark">
+                            {{ course.title }}
+                        </a>
+                    </h5>
+                    <p class="card-text text-muted small mb-3">{{ course.short_description|truncatewords:15 }}</p>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <span class="h5 mb-0 text-primary fw-bold">₹{{ course.price }}</span>
+                        <a href="{% url 'courses:detail' course.slug %}" class="btn btn-sm btn-outline-primary">View Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="text-center mt-5">
+        <a href="{% url 'courses:list' %}" class="btn btn-modern-primary btn-lg">View All Courses <i class="bi bi-arrow-right ms-2"></i></a>
+    </div>
+    {% else %}
+    <div class="text-center py-5">
+        <i class="bi bi-inbox display-1 text-muted"></i>
+        <p class="text-muted mt-3">No courses available yet. Check back soon!</p>
+    </div>
+    {% endif %}
+</div>
+
+{% if recent_blogs %}
+<div class="bg-light py-5">
+    <div class="container my-4">
+        <div class="text-center mb-5">
+            <h2 class="section-title">Latest from Our Blog</h2>
+            <p class="section-subtitle">Stay updated with industry insights and learning tips</p>
+        </div>
+        
+        <div class="row g-4">
+            {% for blog in recent_blogs %}
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100">
+                    {% if blog.cover_image %}
+                        <img src="{{ blog.cover_image.url }}" class="card-img-top" alt="{{ blog.title }}" style="height: 200px; object-fit: cover;">
+                    {% else %}
+                        <div style="height: 200px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; color: white; font-size: 2rem;">
+                            <i class="bi bi-newspaper"></i>
+                        </div>
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ blog.title }}</h5>
+                        <p class="card-text text-muted small">{{ blog.excerpt|truncatewords:20 }}</p>
+                        <a href="{% url 'blog:detail' blog.slug %}" class="btn btn-link p-0">Read More <i class="bi bi-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-5">
+            <a href="{% url 'blog:list' %}" class="btn btn-outline-primary btn-lg">View All Articles</a>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<div class="container my-5 py-5 text-center">
+    <h2 class="section-title mb-4">Ready to Transform Your Career?</h2>
+    <p class="section-subtitle">Join thousands of students already learning on our platform</p>
+    {% if not user.is_authenticated %}
+        <a href="{% url 'accounts:signup' %}" class="btn btn-modern-primary btn-lg me-3">Sign Up Now</a>
+        <a href="{% url 'accounts:login' %}" class="btn btn-outline-secondary btn-lg">Login</a>
+    {% else %}
+        <a href="{% url 'accounts:dashboard' %}" class="btn btn-modern-primary btn-lg">Go to Dashboard</a>
+    {% endif %}
+</div>
+{% endblock %}

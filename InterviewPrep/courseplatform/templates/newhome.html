@@ -1,0 +1,252 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="max-image-preview:large">
+    <title>Turitor</title>
+    <link rel="icon" href="https://demo-themewinter.com/turitor/wp-content/uploads/2023/11/fav_icon.png" sizes="32x32">
+    <link rel="icon" href="https://demo-themewinter.com/turitor/wp-content/uploads/2023/11/fav_icon.png" sizes="192x192">
+    <link rel="apple-touch-icon" href="https://demo-themewinter.com/turitor/wp-content/uploads/2023/11/fav_icon.png">
+    <meta name="msapplication-TileImage" content="https://demo-themewinter.com/turitor/wp-content/uploads/2023/11/fav_icon.png">
+    <link href="https://fonts.googleapis.com/css?family=Rubik:400,700,900|Roboto:400,700,900" rel="stylesheet">
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="stylesheet" href="https://demo-themewinter.com/turitor/wp-content/litespeed/css/1/cb8c82ef4492c633a12ccfbaf5a9b853.css?ver=fe86b">
+    <style>
+        /* Core variables */
+        :root {
+            --lp-container-max-width: 1290px;
+            --lp-cotainer-padding: 1rem;
+            --lp-primary-color: #0eb582;
+            --lp-secondary-color: #273c66;
+        }
+
+        /* Image sizing */
+        img:is([sizes=auto i], [sizes^="auto," i]) {
+            contain-intrinsic-size: 3000px 1500px;
+        }
+
+        /* Emoji styles */
+        img.wp-smiley,
+        img.emoji {
+            display: inline !important;
+            border: none !important;
+            box-shadow: none !important;
+            height: 1em !important;
+            width: 1em !important;
+            margin: 0 0.07em !important;
+            vertical-align: -0.1em !important;
+            background: none !important;
+            padding: 0 !important;
+        }
+
+        /* Button styles */
+        .wp-block-button__link {
+            color: #fff;
+            background-color: #32373c;
+            border-radius: 9999px;
+            box-shadow: none;
+            text-decoration: none;
+            padding: calc(.667em + 2px) calc(1.333em + 2px);
+            font-size: 1.125em;
+        }
+
+        .wp-block-file__button {
+            background: #32373c;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        /* Essential layout styles */
+        :where(.is-layout-flex) {
+            gap: 0.5em;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        :where(.is-layout-grid) {
+            gap: 0.5em;
+            display: grid;
+        }
+    </style>
+
+    <!-- Consolidated Turitor styles -->
+    <style id="turitor-consolidated-css">
+        /* Base styles */
+        body {
+            font-family: "Rubik";
+            font-size: 16px;
+            background-color: #fff;
+        }
+
+        /* Headings */
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: "Roboto";
+            font-weight: 700;
+        }
+
+        /* Link styles */
+        a,
+        .post-meta span i,
+        .entry-header .entry-title a:hover,
+        .sidebar ul li a:hover {
+            color: #0eb582;
+        }
+
+        .entry-header .entry-title a,
+        .course-tab-panel-faqs .course-faqs-box__title {
+            color: #333333;
+        }
+
+        /* Background styles */
+        .btn-primary,
+        .BackTo,
+        .pagination li.active a,
+        .pagination li:hover a,
+        .single-intro-text .count-number,
+        .sticky.post .meta-featured-post,
+        .header-nav-right-info li.header-login-user a:hover {
+            background: #0eb582;
+            border-color: #0eb582;
+        }
+
+        /* Secondary color */
+        .header-standard,
+        .kindergarten-nav .elementskit-navbar-nav-default>ul>li>a:before {
+            background-color: #273c66;
+        }
+
+        /* Footer */
+        .ts-footer {
+            background-color: #273c66;
+            padding-top: 200px;
+        }
+
+        .copyright .copyright-text {
+            color: #fff;
+        }
+
+        /* Header styles */
+        .header .navbar-container .navbar-light .main-menu>li>a,
+        .header-transparent .header-nav-right-info li,
+        .header .navbar-light .main-menu li ul.dropdown-menu li a {
+            font-family: "Roboto";
+            font-size: 14px;
+            font-weight: 700;
+        }
+        .e-con.e-parent:nth-of-type(n+4):not(.e-lazyloaded):not(.e-no-lazyload),
+        .e-con.e-parent:nth-of-type(n+4):not(.e-lazyloaded):not(.e-no-lazyload) * {
+            background-image: none !important;
+        }
+
+        @media screen and (max-height: 1024px) {
+
+            .e-con.e-parent:nth-of-type(n+3):not(.e-lazyloaded):not(.e-no-lazyload),
+            .e-con.e-parent:nth-of-type(n+3):not(.e-lazyloaded):not(.e-no-lazyload) * {
+                background-image: none !important;
+            }
+        }
+
+        @media screen and (max-height: 640px) {
+            .e-con.e-parent:nth-of-type(n+2):not(.e-lazyloaded):not(.e-no-lazyload),
+            .e-con.e-parent:nth-of-type(n+2):not(.e-lazyloaded):not(.e-no-lazyload) * {
+                background-image: none !important;
+            }
+        }
+    </style>
+
+    <!-- Essential JS libraries -->
+    <script type="text/javascript" src="{% static 'js/jquery.min.js'%}"></script>
+    <script type="text/javascript" src="{% static 'js/jarallax.js'%}"></script>
+</head>
+<body>
+    <div data-elementor-type="wp-page" data-elementor-id="1652" class="elementor elementor-1652">
+        <section class="elementor-section elementor-top-section elementor-element elementor-element-0f44996 elementor-section-height-min-height elementor-section-content-middle ts-responsive-none elementor-section-boxed elementor-section-height-default elementor-section-items-middle elementskit-parallax-multi-container" data-id="0f44996" data-element_type="section" data-e-type="section" data-settings="{&quot;background_background&quot;:&quot;gradient&quot;,&quot;ekit_section_parallax_multi_items&quot;:[{&quot;parallax_style&quot;:&quot;mousemove&quot;,&quot;item_source&quot;:&quot;image&quot;,&quot;image&quot;:{&quot;url&quot;:&quot;https:\/\/demo-themewinter.com\/turitor\/wp-content\/uploads\/2019\/12\/image1.png&quot;,&quot;id&quot;:3688,&quot;size&quot;:&quot;&quot;},&quot;shape&quot;:null,&quot;shape_color&quot;:null,&quot;width_type&quot;:&quot;custom&quot;,&quot;width_type_tablet&quot;:&quot;custom&quot;,&quot;width_type_mobile&quot;:&quot;&quot;,&quot;custom_width&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;custom_width_tablet&quot;:null,&quot;custom_width_mobile&quot;:null,&quot;source_rotate&quot;:{&quot;unit&quot;:&quot;deg&quot;,&quot;size&quot;:0,&quot;sizes&quot;:[]},&quot;source_rotate_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;source_rotate_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_x&quot;:{&quot;unit&quot;:&quot;%&quot;,&quot;size&quot;:75,&quot;sizes&quot;:[]},&quot;pos_x_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_x_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_y&quot;:{&quot;unit&quot;:&quot;%&quot;,&quot;size&quot;:35,&quot;sizes&quot;:[]},&quot;pos_y_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_y_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;animation&quot;:null,&quot;animation_tablet&quot;:null,&quot;animation_mobile&quot;:null,&quot;item_opacity&quot;:&quot;1&quot;,&quot;animation_speed&quot;:null,&quot;animation_iteration_count&quot;:null,&quot;animation_direction&quot;:null,&quot;parallax_speed&quot;:&quot;100&quot;,&quot;parallax_transform&quot;:null,&quot;parallax_transform_value&quot;:null,&quot;smoothness&quot;:null,&quot;offsettop&quot;:null,&quot;offsetbottom&quot;:null,&quot;maxtilt&quot;:null,&quot;scale&quot;:null,&quot;disableaxis&quot;:null,&quot;zindex&quot;:&quot;2&quot;,&quot;_id&quot;:&quot;ae7bc19&quot;,&quot;parallax_blur_effect&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:0,&quot;sizes&quot;:[]},&quot;parallax_blur_effect_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;parallax_blur_effect_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]}},{&quot;parallax_style&quot;:&quot;mousemove&quot;,&quot;item_source&quot;:&quot;image&quot;,&quot;image&quot;:{&quot;url&quot;:&quot;https:\/\/demo-themewinter.com\/turitor\/wp-content\/uploads\/2019\/12\/image2.png&quot;,&quot;id&quot;:3691,&quot;size&quot;:&quot;&quot;},&quot;shape&quot;:null,&quot;shape_color&quot;:null,&quot;width_type&quot;:&quot;&quot;,&quot;width_type_tablet&quot;:&quot;&quot;,&quot;width_type_mobile&quot;:&quot;&quot;,&quot;custom_width&quot;:null,&quot;custom_width_tablet&quot;:null,&quot;custom_width_mobile&quot;:null,&quot;source_rotate&quot;:{&quot;unit&quot;:&quot;deg&quot;,&quot;size&quot;:0,&quot;sizes&quot;:[]},&quot;source_rotate_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;source_rotate_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;parallax_blur_effect&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:0,&quot;sizes&quot;:[]},&quot;parallax_blur_effect_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;parallax_blur_effect_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_x&quot;:{&quot;unit&quot;:&quot;%&quot;,&quot;size&quot;:72,&quot;sizes&quot;:[]},&quot;pos_x_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_x_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_y&quot;:{&quot;unit&quot;:&quot;%&quot;,&quot;size&quot;:46,&quot;sizes&quot;:[]},&quot;pos_y_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_y_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;animation&quot;:null,&quot;animation_tablet&quot;:null,&quot;animation_mobile&quot;:null,&quot;item_opacity&quot;:&quot;1&quot;,&quot;animation_speed&quot;:null,&quot;animation_iteration_count&quot;:null,&quot;animation_direction&quot;:null,&quot;parallax_speed&quot;:40,&quot;parallax_transform&quot;:null,&quot;parallax_transform_value&quot;:null,&quot;smoothness&quot;:null,&quot;offsettop&quot;:null,&quot;offsetbottom&quot;:null,&quot;maxtilt&quot;:null,&quot;scale&quot;:null,&quot;disableaxis&quot;:null,&quot;zindex&quot;:9,&quot;_id&quot;:&quot;ba9dbc3&quot;},{&quot;parallax_style&quot;:&quot;animation&quot;,&quot;item_source&quot;:&quot;image&quot;,&quot;image&quot;:{&quot;url&quot;:&quot;https:\/\/demo-themewinter.com\/turitor\/wp-content\/uploads\/2019\/12\/image3.png&quot;,&quot;id&quot;:3692,&quot;size&quot;:&quot;&quot;},&quot;shape&quot;:null,&quot;shape_color&quot;:null,&quot;width_type&quot;:&quot;&quot;,&quot;width_type_tablet&quot;:&quot;&quot;,&quot;width_type_mobile&quot;:&quot;&quot;,&quot;custom_width&quot;:null,&quot;custom_width_tablet&quot;:null,&quot;custom_width_mobile&quot;:null,&quot;source_rotate&quot;:{&quot;unit&quot;:&quot;deg&quot;,&quot;size&quot;:0,&quot;sizes&quot;:[]},&quot;source_rotate_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;source_rotate_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;parallax_blur_effect&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:0,&quot;sizes&quot;:[]},&quot;parallax_blur_effect_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;parallax_blur_effect_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_x&quot;:{&quot;unit&quot;:&quot;%&quot;,&quot;size&quot;:60,&quot;sizes&quot;:[]},&quot;pos_x_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_x_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_y&quot;:{&quot;unit&quot;:&quot;%&quot;,&quot;size&quot;:25,&quot;sizes&quot;:[]},&quot;pos_y_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_y_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;animation&quot;:&quot;ekit-fade&quot;,&quot;animation_tablet&quot;:&quot;&quot;,&quot;animation_mobile&quot;:&quot;&quot;,&quot;item_opacity&quot;:&quot;1&quot;,&quot;animation_speed&quot;:&quot;5&quot;,&quot;animation_iteration_count&quot;:&quot;infinite&quot;,&quot;animation_direction&quot;:&quot;normal&quot;,&quot;parallax_speed&quot;:null,&quot;parallax_transform&quot;:null,&quot;parallax_transform_value&quot;:null,&quot;smoothness&quot;:null,&quot;offsettop&quot;:null,&quot;offsetbottom&quot;:null,&quot;maxtilt&quot;:null,&quot;scale&quot;:null,&quot;disableaxis&quot;:null,&quot;zindex&quot;:1,&quot;_id&quot;:&quot;86be4b2&quot;},{&quot;parallax_style&quot;:&quot;mousemove&quot;,&quot;item_source&quot;:&quot;image&quot;,&quot;image&quot;:{&quot;url&quot;:&quot;https:\/\/demo-themewinter.com\/turitor\/wp-content\/uploads\/2019\/12\/image4.png&quot;,&quot;id&quot;:3693,&quot;size&quot;:&quot;&quot;},&quot;shape&quot;:null,&quot;shape_color&quot;:null,&quot;width_type&quot;:&quot;&quot;,&quot;width_type_tablet&quot;:&quot;&quot;,&quot;width_type_mobile&quot;:&quot;&quot;,&quot;custom_width&quot;:null,&quot;custom_width_tablet&quot;:null,&quot;custom_width_mobile&quot;:null,&quot;source_rotate&quot;:{&quot;unit&quot;:&quot;deg&quot;,&quot;size&quot;:0,&quot;sizes&quot;:[]},&quot;source_rotate_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;source_rotate_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;parallax_blur_effect&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:0,&quot;sizes&quot;:[]},&quot;parallax_blur_effect_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;parallax_blur_effect_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_x&quot;:{&quot;unit&quot;:&quot;%&quot;,&quot;size&quot;:66,&quot;sizes&quot;:[]},&quot;pos_x_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_x_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_y&quot;:{&quot;unit&quot;:&quot;%&quot;,&quot;size&quot;:26,&quot;sizes&quot;:[]},&quot;pos_y_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_y_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;animation&quot;:null,&quot;animation_tablet&quot;:null,&quot;animation_mobile&quot;:null,&quot;item_opacity&quot;:&quot;1&quot;,&quot;animation_speed&quot;:null,&quot;animation_iteration_count&quot;:null,&quot;animation_direction&quot;:null,&quot;parallax_speed&quot;:40,&quot;parallax_transform&quot;:null,&quot;parallax_transform_value&quot;:null,&quot;smoothness&quot;:null,&quot;offsettop&quot;:null,&quot;offsetbottom&quot;:null,&quot;maxtilt&quot;:null,&quot;scale&quot;:null,&quot;disableaxis&quot;:null,&quot;zindex&quot;:3,&quot;_id&quot;:&quot;13967bb&quot;},{&quot;parallax_style&quot;:&quot;mousemove&quot;,&quot;item_source&quot;:&quot;image&quot;,&quot;image&quot;:{&quot;url&quot;:&quot;https:\/\/demo-themewinter.com\/turitor\/wp-content\/uploads\/2019\/12\/image5.png&quot;,&quot;id&quot;:3694,&quot;size&quot;:&quot;&quot;},&quot;shape&quot;:null,&quot;shape_color&quot;:null,&quot;width_type&quot;:&quot;&quot;,&quot;width_type_tablet&quot;:&quot;&quot;,&quot;width_type_mobile&quot;:&quot;&quot;,&quot;custom_width&quot;:null,&quot;custom_width_tablet&quot;:null,&quot;custom_width_mobile&quot;:null,&quot;source_rotate&quot;:{&quot;unit&quot;:&quot;deg&quot;,&quot;size&quot;:0,&quot;sizes&quot;:[]},&quot;source_rotate_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;source_rotate_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;parallax_blur_effect&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:0,&quot;sizes&quot;:[]},&quot;parallax_blur_effect_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;parallax_blur_effect_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_x&quot;:{&quot;unit&quot;:&quot;%&quot;,&quot;size&quot;:71,&quot;sizes&quot;:[]},&quot;pos_x_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_x_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_y&quot;:{&quot;unit&quot;:&quot;%&quot;,&quot;size&quot;:24,&quot;sizes&quot;:[]},&quot;pos_y_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_y_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;animation&quot;:null,&quot;animation_tablet&quot;:null,&quot;animation_mobile&quot;:null,&quot;item_opacity&quot;:&quot;1&quot;,&quot;animation_speed&quot;:null,&quot;animation_iteration_count&quot;:null,&quot;animation_direction&quot;:null,&quot;parallax_speed&quot;:60,&quot;parallax_transform&quot;:null,&quot;parallax_transform_value&quot;:null,&quot;smoothness&quot;:null,&quot;offsettop&quot;:null,&quot;offsetbottom&quot;:null,&quot;maxtilt&quot;:null,&quot;scale&quot;:null,&quot;disableaxis&quot;:null,&quot;zindex&quot;:&quot;2&quot;,&quot;_id&quot;:&quot;c9d0402&quot;},{&quot;parallax_style&quot;:&quot;animation&quot;,&quot;item_source&quot;:&quot;image&quot;,&quot;image&quot;:{&quot;url&quot;:&quot;https:\/\/demo-themewinter.com\/turitor\/wp-content\/uploads\/2019\/12\/image6.png&quot;,&quot;id&quot;:3695,&quot;size&quot;:&quot;&quot;},&quot;shape&quot;:null,&quot;shape_color&quot;:null,&quot;width_type&quot;:&quot;&quot;,&quot;width_type_tablet&quot;:&quot;&quot;,&quot;width_type_mobile&quot;:&quot;&quot;,&quot;custom_width&quot;:null,&quot;custom_width_tablet&quot;:null,&quot;custom_width_mobile&quot;:null,&quot;source_rotate&quot;:{&quot;unit&quot;:&quot;deg&quot;,&quot;size&quot;:0,&quot;sizes&quot;:[]},&quot;source_rotate_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;source_rotate_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;parallax_blur_effect&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:0,&quot;sizes&quot;:[]},&quot;parallax_blur_effect_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;parallax_blur_effect_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_x&quot;:{&quot;unit&quot;:&quot;%&quot;,&quot;size&quot;:75,&quot;sizes&quot;:[]},&quot;pos_x_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_x_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_y&quot;:{&quot;unit&quot;:&quot;%&quot;,&quot;size&quot;:35,&quot;sizes&quot;:[]},&quot;pos_y_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_y_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;animation&quot;:&quot;shake&quot;,&quot;animation_tablet&quot;:&quot;&quot;,&quot;animation_mobile&quot;:&quot;&quot;,&quot;item_opacity&quot;:&quot;1&quot;,&quot;animation_speed&quot;:100,&quot;animation_iteration_count&quot;:&quot;infinite&quot;,&quot;animation_direction&quot;:&quot;normal&quot;,&quot;parallax_speed&quot;:null,&quot;parallax_transform&quot;:null,&quot;parallax_transform_value&quot;:null,&quot;smoothness&quot;:null,&quot;offsettop&quot;:null,&quot;offsetbottom&quot;:null,&quot;maxtilt&quot;:null,&quot;scale&quot;:null,&quot;disableaxis&quot;:null,&quot;zindex&quot;:&quot;2&quot;,&quot;_id&quot;:&quot;89bcc13&quot;},{&quot;parallax_style&quot;:&quot;animation&quot;,&quot;item_source&quot;:&quot;image&quot;,&quot;image&quot;:{&quot;url&quot;:&quot;https:\/\/demo-themewinter.com\/turitor\/wp-content\/uploads\/2019\/12\/image7.png&quot;,&quot;id&quot;:3696,&quot;size&quot;:&quot;&quot;},&quot;shape&quot;:null,&quot;shape_color&quot;:null,&quot;width_type&quot;:&quot;&quot;,&quot;width_type_tablet&quot;:&quot;&quot;,&quot;width_type_mobile&quot;:&quot;&quot;,&quot;custom_width&quot;:null,&quot;custom_width_tablet&quot;:null,&quot;custom_width_mobile&quot;:null,&quot;source_rotate&quot;:{&quot;unit&quot;:&quot;deg&quot;,&quot;size&quot;:0,&quot;sizes&quot;:[]},&quot;source_rotate_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;source_rotate_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;parallax_blur_effect&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:0,&quot;sizes&quot;:[]},&quot;parallax_blur_effect_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;parallax_blur_effect_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_x&quot;:{&quot;unit&quot;:&quot;%&quot;,&quot;size&quot;:60,&quot;sizes&quot;:[]},&quot;pos_x_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_x_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_y&quot;:{&quot;unit&quot;:&quot;%&quot;,&quot;size&quot;:21,&quot;sizes&quot;:[]},&quot;pos_y_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_y_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;animation&quot;:&quot;ekit-fade&quot;,&quot;animation_tablet&quot;:&quot;&quot;,&quot;animation_mobile&quot;:&quot;&quot;,&quot;item_opacity&quot;:&quot;1&quot;,&quot;animation_speed&quot;:&quot;5&quot;,&quot;animation_iteration_count&quot;:&quot;infinite&quot;,&quot;animation_direction&quot;:&quot;normal&quot;,&quot;parallax_speed&quot;:null,&quot;parallax_transform&quot;:null,&quot;parallax_transform_value&quot;:null,&quot;smoothness&quot;:null,&quot;offsettop&quot;:null,&quot;offsetbottom&quot;:null,&quot;maxtilt&quot;:null,&quot;scale&quot;:null,&quot;disableaxis&quot;:null,&quot;zindex&quot;:2,&quot;_id&quot;:&quot;bf5cd4a&quot;},{&quot;parallax_style&quot;:&quot;animation&quot;,&quot;item_source&quot;:&quot;image&quot;,&quot;image&quot;:{&quot;url&quot;:&quot;https:\/\/demo-themewinter.com\/turitor\/wp-content\/uploads\/2019\/12\/image8.png&quot;,&quot;id&quot;:3697,&quot;size&quot;:&quot;&quot;},&quot;shape&quot;:null,&quot;shape_color&quot;:null,&quot;width_type&quot;:&quot;&quot;,&quot;width_type_tablet&quot;:&quot;&quot;,&quot;width_type_mobile&quot;:&quot;&quot;,&quot;custom_width&quot;:null,&quot;custom_width_tablet&quot;:null,&quot;custom_width_mobile&quot;:null,&quot;source_rotate&quot;:{&quot;unit&quot;:&quot;deg&quot;,&quot;size&quot;:0,&quot;sizes&quot;:[]},&quot;source_rotate_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;source_rotate_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;parallax_blur_effect&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:0,&quot;sizes&quot;:[]},&quot;parallax_blur_effect_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;parallax_blur_effect_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_x&quot;:{&quot;unit&quot;:&quot;%&quot;,&quot;size&quot;:80,&quot;sizes&quot;:[]},&quot;pos_x_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_x_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_y&quot;:{&quot;unit&quot;:&quot;%&quot;,&quot;size&quot;:20,&quot;sizes&quot;:[]},&quot;pos_y_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_y_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;animation&quot;:&quot;ekit-left-right&quot;,&quot;animation_tablet&quot;:&quot;&quot;,&quot;animation_mobile&quot;:&quot;&quot;,&quot;item_opacity&quot;:&quot;1&quot;,&quot;animation_speed&quot;:100,&quot;animation_iteration_count&quot;:&quot;infinite&quot;,&quot;animation_direction&quot;:&quot;normal&quot;,&quot;parallax_speed&quot;:null,&quot;parallax_transform&quot;:null,&quot;parallax_transform_value&quot;:null,&quot;smoothness&quot;:null,&quot;offsettop&quot;:null,&quot;offsetbottom&quot;:null,&quot;maxtilt&quot;:null,&quot;scale&quot;:null,&quot;disableaxis&quot;:null,&quot;zindex&quot;:&quot;2&quot;,&quot;_id&quot;:&quot;5786e5a&quot;},{&quot;parallax_style&quot;:&quot;animation&quot;,&quot;item_source&quot;:&quot;image&quot;,&quot;image&quot;:{&quot;url&quot;:&quot;https:\/\/demo-themewinter.com\/turitor\/wp-content\/uploads\/2019\/12\/image9.png&quot;,&quot;id&quot;:3698,&quot;size&quot;:&quot;&quot;},&quot;shape&quot;:null,&quot;shape_color&quot;:null,&quot;width_type&quot;:&quot;&quot;,&quot;width_type_tablet&quot;:&quot;&quot;,&quot;width_type_mobile&quot;:&quot;&quot;,&quot;custom_width&quot;:null,&quot;custom_width_tablet&quot;:null,&quot;custom_width_mobile&quot;:null,&quot;source_rotate&quot;:{&quot;unit&quot;:&quot;deg&quot;,&quot;size&quot;:0,&quot;sizes&quot;:[]},&quot;source_rotate_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;source_rotate_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;parallax_blur_effect&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:0,&quot;sizes&quot;:[]},&quot;parallax_blur_effect_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;parallax_blur_effect_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_x&quot;:{&quot;unit&quot;:&quot;%&quot;,&quot;size&quot;:75,&quot;sizes&quot;:[]},&quot;pos_x_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_x_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_y&quot;:{&quot;unit&quot;:&quot;%&quot;,&quot;size&quot;:20,&quot;sizes&quot;:[]},&quot;pos_y_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_y_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;animation&quot;:&quot;ekit-rotate&quot;,&quot;animation_tablet&quot;:&quot;&quot;,&quot;animation_mobile&quot;:&quot;&quot;,&quot;item_opacity&quot;:2,&quot;animation_speed&quot;:&quot;5&quot;,&quot;animation_iteration_count&quot;:&quot;infinite&quot;,&quot;animation_direction&quot;:&quot;normal&quot;,&quot;parallax_speed&quot;:null,&quot;parallax_transform&quot;:null,&quot;parallax_transform_value&quot;:null,&quot;smoothness&quot;:null,&quot;offsettop&quot;:null,&quot;offsetbottom&quot;:null,&quot;maxtilt&quot;:null,&quot;scale&quot;:null,&quot;disableaxis&quot;:null,&quot;zindex&quot;:3,&quot;_id&quot;:&quot;f28cdca&quot;},{&quot;parallax_style&quot;:&quot;animation&quot;,&quot;item_source&quot;:&quot;image&quot;,&quot;image&quot;:{&quot;url&quot;:&quot;https:\/\/demo-themewinter.com\/turitor\/wp-content\/uploads\/2019\/12\/image10.png&quot;,&quot;id&quot;:3699,&quot;size&quot;:&quot;&quot;},&quot;shape&quot;:null,&quot;shape_color&quot;:null,&quot;width_type&quot;:&quot;&quot;,&quot;width_type_tablet&quot;:&quot;&quot;,&quot;width_type_mobile&quot;:&quot;&quot;,&quot;custom_width&quot;:null,&quot;custom_width_tablet&quot;:null,&quot;custom_width_mobile&quot;:null,&quot;source_rotate&quot;:{&quot;unit&quot;:&quot;deg&quot;,&quot;size&quot;:0,&quot;sizes&quot;:[]},&quot;source_rotate_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;source_rotate_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;parallax_blur_effect&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:0,&quot;sizes&quot;:[]},&quot;parallax_blur_effect_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;parallax_blur_effect_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_x&quot;:{&quot;unit&quot;:&quot;%&quot;,&quot;size&quot;:83.5,&quot;sizes&quot;:[]},&quot;pos_x_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_x_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_y&quot;:{&quot;unit&quot;:&quot;%&quot;,&quot;size&quot;:28,&quot;sizes&quot;:[]},&quot;pos_y_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_y_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;animation&quot;:&quot;ekit-rotate&quot;,&quot;animation_tablet&quot;:&quot;&quot;,&quot;animation_mobile&quot;:&quot;&quot;,&quot;item_opacity&quot;:&quot;1&quot;,&quot;animation_speed&quot;:&quot;5&quot;,&quot;animation_iteration_count&quot;:&quot;infinite&quot;,&quot;animation_direction&quot;:&quot;normal&quot;,&quot;parallax_speed&quot;:null,&quot;parallax_transform&quot;:null,&quot;parallax_transform_value&quot;:null,&quot;smoothness&quot;:null,&quot;offsettop&quot;:null,&quot;offsetbottom&quot;:null,&quot;maxtilt&quot;:null,&quot;scale&quot;:null,&quot;disableaxis&quot;:null,&quot;zindex&quot;:&quot;2&quot;,&quot;_id&quot;:&quot;756e1e8&quot;},{&quot;parallax_style&quot;:&quot;animation&quot;,&quot;item_source&quot;:&quot;image&quot;,&quot;image&quot;:{&quot;url&quot;:&quot;https:\/\/demo-themewinter.com\/turitor\/wp-content\/uploads\/2019\/12\/image11.png&quot;,&quot;id&quot;:3700,&quot;size&quot;:&quot;&quot;},&quot;shape&quot;:null,&quot;shape_color&quot;:null,&quot;width_type&quot;:&quot;&quot;,&quot;width_type_tablet&quot;:&quot;&quot;,&quot;width_type_mobile&quot;:&quot;&quot;,&quot;custom_width&quot;:null,&quot;custom_width_tablet&quot;:null,&quot;custom_width_mobile&quot;:null,&quot;source_rotate&quot;:{&quot;unit&quot;:&quot;deg&quot;,&quot;size&quot;:0,&quot;sizes&quot;:[]},&quot;source_rotate_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;source_rotate_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;parallax_blur_effect&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:0,&quot;sizes&quot;:[]},&quot;parallax_blur_effect_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;parallax_blur_effect_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_x&quot;:{&quot;unit&quot;:&quot;%&quot;,&quot;size&quot;:92,&quot;sizes&quot;:[]},&quot;pos_x_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_x_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_y&quot;:{&quot;unit&quot;:&quot;%&quot;,&quot;size&quot;:30,&quot;sizes&quot;:[]},&quot;pos_y_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_y_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;animation&quot;:&quot;ekit-left-right&quot;,&quot;animation_tablet&quot;:&quot;&quot;,&quot;animation_mobile&quot;:&quot;&quot;,&quot;item_opacity&quot;:&quot;1&quot;,&quot;animation_speed&quot;:&quot;5&quot;,&quot;animation_iteration_count&quot;:&quot;infinite&quot;,&quot;animation_direction&quot;:&quot;normal&quot;,&quot;parallax_speed&quot;:null,&quot;parallax_transform&quot;:null,&quot;parallax_transform_value&quot;:null,&quot;smoothness&quot;:null,&quot;offsettop&quot;:null,&quot;offsetbottom&quot;:null,&quot;maxtilt&quot;:null,&quot;scale&quot;:null,&quot;disableaxis&quot;:null,&quot;zindex&quot;:&quot;2&quot;,&quot;_id&quot;:&quot;e485a86&quot;},{&quot;parallax_style&quot;:&quot;animation&quot;,&quot;item_source&quot;:&quot;image&quot;,&quot;image&quot;:{&quot;url&quot;:&quot;https:\/\/demo-themewinter.com\/turitor\/wp-content\/uploads\/2019\/12\/image12.png&quot;,&quot;id&quot;:3701,&quot;size&quot;:&quot;&quot;},&quot;shape&quot;:null,&quot;shape_color&quot;:null,&quot;width_type&quot;:&quot;&quot;,&quot;width_type_tablet&quot;:&quot;&quot;,&quot;width_type_mobile&quot;:&quot;&quot;,&quot;custom_width&quot;:null,&quot;custom_width_tablet&quot;:null,&quot;custom_width_mobile&quot;:null,&quot;source_rotate&quot;:{&quot;unit&quot;:&quot;deg&quot;,&quot;size&quot;:0,&quot;sizes&quot;:[]},&quot;source_rotate_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;source_rotate_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;parallax_blur_effect&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:0,&quot;sizes&quot;:[]},&quot;parallax_blur_effect_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;parallax_blur_effect_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_x&quot;:{&quot;unit&quot;:&quot;%&quot;,&quot;size&quot;:67.5,&quot;sizes&quot;:[]},&quot;pos_x_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_x_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_y&quot;:{&quot;unit&quot;:&quot;%&quot;,&quot;size&quot;:39,&quot;sizes&quot;:[]},&quot;pos_y_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_y_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;animation&quot;:&quot;ekit-zoom&quot;,&quot;animation_tablet&quot;:&quot;&quot;,&quot;animation_mobile&quot;:&quot;&quot;,&quot;item_opacity&quot;:10,&quot;animation_speed&quot;:50,&quot;animation_iteration_count&quot;:&quot;infinite&quot;,&quot;animation_direction&quot;:&quot;normal&quot;,&quot;parallax_speed&quot;:null,&quot;parallax_transform&quot;:null,&quot;parallax_transform_value&quot;:null,&quot;smoothness&quot;:null,&quot;offsettop&quot;:null,&quot;offsetbottom&quot;:null,&quot;maxtilt&quot;:null,&quot;scale&quot;:null,&quot;disableaxis&quot;:null,&quot;zindex&quot;:5,&quot;_id&quot;:&quot;44aa538&quot;},{&quot;parallax_style&quot;:&quot;animation&quot;,&quot;item_source&quot;:&quot;image&quot;,&quot;image&quot;:{&quot;url&quot;:&quot;https:\/\/demo-themewinter.com\/turitor\/wp-content\/uploads\/2019\/12\/image13.png&quot;,&quot;id&quot;:3702,&quot;size&quot;:&quot;&quot;},&quot;shape&quot;:null,&quot;shape_color&quot;:null,&quot;width_type&quot;:&quot;&quot;,&quot;width_type_tablet&quot;:&quot;&quot;,&quot;width_type_mobile&quot;:&quot;&quot;,&quot;custom_width&quot;:null,&quot;custom_width_tablet&quot;:null,&quot;custom_width_mobile&quot;:null,&quot;source_rotate&quot;:{&quot;unit&quot;:&quot;deg&quot;,&quot;size&quot;:0,&quot;sizes&quot;:[]},&quot;source_rotate_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;source_rotate_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;parallax_blur_effect&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:0,&quot;sizes&quot;:[]},&quot;parallax_blur_effect_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;parallax_blur_effect_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_x&quot;:{&quot;unit&quot;:&quot;%&quot;,&quot;size&quot;:65,&quot;sizes&quot;:[]},&quot;pos_x_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_x_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_y&quot;:{&quot;unit&quot;:&quot;%&quot;,&quot;size&quot;:45,&quot;sizes&quot;:[]},&quot;pos_y_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_y_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;animation&quot;:&quot;ekit-rotate&quot;,&quot;animation_tablet&quot;:&quot;&quot;,&quot;animation_mobile&quot;:&quot;&quot;,&quot;item_opacity&quot;:&quot;1&quot;,&quot;animation_speed&quot;:8,&quot;animation_iteration_count&quot;:&quot;infinite&quot;,&quot;animation_direction&quot;:&quot;normal&quot;,&quot;parallax_speed&quot;:null,&quot;parallax_transform&quot;:null,&quot;parallax_transform_value&quot;:null,&quot;smoothness&quot;:null,&quot;offsettop&quot;:null,&quot;offsetbottom&quot;:null,&quot;maxtilt&quot;:null,&quot;scale&quot;:null,&quot;disableaxis&quot;:null,&quot;zindex&quot;:&quot;2&quot;,&quot;_id&quot;:&quot;8401b8a&quot;},{&quot;parallax_style&quot;:&quot;animation&quot;,&quot;item_source&quot;:&quot;image&quot;,&quot;image&quot;:{&quot;url&quot;:&quot;https:\/\/demo-themewinter.com\/turitor\/wp-content\/uploads\/2019\/12\/image14.png&quot;,&quot;id&quot;:3703,&quot;size&quot;:&quot;&quot;},&quot;shape&quot;:null,&quot;shape_color&quot;:null,&quot;width_type&quot;:&quot;&quot;,&quot;width_type_tablet&quot;:&quot;&quot;,&quot;width_type_mobile&quot;:&quot;&quot;,&quot;custom_width&quot;:null,&quot;custom_width_tablet&quot;:null,&quot;custom_width_mobile&quot;:null,&quot;source_rotate&quot;:{&quot;unit&quot;:&quot;deg&quot;,&quot;size&quot;:0,&quot;sizes&quot;:[]},&quot;source_rotate_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;source_rotate_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;parallax_blur_effect&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:0,&quot;sizes&quot;:[]},&quot;parallax_blur_effect_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;parallax_blur_effect_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_x&quot;:{&quot;unit&quot;:&quot;%&quot;,&quot;size&quot;:61,&quot;sizes&quot;:[]},&quot;pos_x_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_x_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_y&quot;:{&quot;unit&quot;:&quot;%&quot;,&quot;size&quot;:50,&quot;sizes&quot;:[]},&quot;pos_y_tablet&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;pos_y_mobile&quot;:{&quot;unit&quot;:&quot;px&quot;,&quot;size&quot;:&quot;&quot;,&quot;sizes&quot;:[]},&quot;animation&quot;:&quot;tada&quot;,&quot;animation_tablet&quot;:&quot;&quot;,&quot;animation_mobile&quot;:&quot;&quot;,&quot;item_opacity&quot;:&quot;1&quot;,&quot;animation_speed&quot;:&quot;5&quot;,&quot;animation_iteration_count&quot;:&quot;infinite&quot;,&quot;animation_direction&quot;:&quot;normal&quot;,&quot;parallax_speed&quot;:null,&quot;parallax_transform&quot;:null,&quot;parallax_transform_value&quot;:null,&quot;smoothness&quot;:null,&quot;offsettop&quot;:null,&quot;offsetbottom&quot;:null,&quot;maxtilt&quot;:null,&quot;scale&quot;:null,&quot;disableaxis&quot;:null,&quot;zindex&quot;:2,&quot;_id&quot;:&quot;1f74ea1&quot;}],&quot;ekit_section_parallax_multi&quot;:&quot;yes&quot;}">
+            <!-- Parallax layers -->
+            <div class="ekit-section-parallax-mousemove ekit-section-parallax-layer elementor-repeater-item-1f74ea1 ekit-section-parallax-type-animation">
+                <img class="elementskit-parallax-graphic" src="{% static 'images/image14.png' %}">
+            </div>
+
+            <div class="ekit-section-parallax-mousemove ekit-section-parallax-layer elementor-repeater-item-8401b8a ekit-section-parallax-type-animation">
+                <img class="elementskit-parallax-graphic" src="{% static 'images/image13.png' %}">
+            </div>
+
+            <div class="ekit-section-parallax-mousemove ekit-section-parallax-layer elementor-repeater-item-44aa538 ekit-section-parallax-type-animation">
+                <img class="elementskit-parallax-graphic" src="{% static 'images/image12.png' %}">
+            </div>
+
+            <div class="ekit-section-parallax-mousemove ekit-section-parallax-layer elementor-repeater-item-e485a86 ekit-section-parallax-type-animation">
+                <img class="elementskit-parallax-graphic" src="{% static 'images/image11.png' %}">
+            </div>
+
+            <div class="ekit-section-parallax-mousemove ekit-section-parallax-layer elementor-repeater-item-756e1e8 ekit-section-parallax-type-animation">
+                <img class="elementskit-parallax-graphic" src="{% static 'images/image10.png' %}">
+            </div>
+
+            <div class="ekit-section-parallax-mousemove ekit-section-parallax-layer elementor-repeater-item-f28cdca ekit-section-parallax-type-animation">
+                <img class="elementskit-parallax-graphic" src="{% static 'images/image9.png' %}">
+            </div>
+
+            <div class="ekit-section-parallax-mousemove ekit-section-parallax-layer elementor-repeater-item-5786e5a ekit-section-parallax-type-animation">
+                <img class="elementskit-parallax-graphic" src="{% static 'images/image8.png' %}">
+            </div>
+
+            <div class="ekit-section-parallax-mousemove ekit-section-parallax-layer elementor-repeater-item-bf5cd4a ekit-section-parallax-type-animation">
+                <img class="elementskit-parallax-graphic" src="{% static 'images/image7.png' %}">
+            </div>
+
+            <div class="ekit-section-parallax-mousemove ekit-section-parallax-layer elementor-repeater-item-89bcc13 ekit-section-parallax-type-animation">
+                <img class="elementskit-parallax-graphic" src="{% static 'images/image6.png' %}">
+            </div>
+
+            <div class="ekit-section-parallax-mousemove ekit-section-parallax-layer elementor-repeater-item-c9d0402 ekit-section-parallax-type-mousemove" style="transform: translate3d(11.9554px, 14.836px, 0px);">
+                <img class="elementskit-parallax-graphic" src="{% static 'images/image5.png' %}">
+            </div>
+
+            <div class="ekit-section-parallax-mousemove ekit-section-parallax-layer elementor-repeater-item-13967bb ekit-section-parallax-type-mousemove" style="transform: translate3d(7.97027px, 9.89069px, 0px);">
+                <img class="elementskit-parallax-graphic" src="{% static 'images/image4.png' %}">
+            </div>
+
+            <div class="ekit-section-parallax-mousemove ekit-section-parallax-layer elementor-repeater-item-86be4b2 ekit-section-parallax-type-animation">
+                <img class="elementskit-parallax-graphic" src="{% static 'images/image3.png' %}">
+            </div>
+
+            <div class="ekit-section-parallax-mousemove ekit-section-parallax-layer elementor-repeater-item-ba9dbc3 ekit-section-parallax-type-mousemove" style="transform: translate3d(7.97027px, 9.89069px, 0px);">
+                <img class="elementskit-parallax-graphic" src="{% static 'images/image2.png' %}">
+            </div>
+
+            <div class="ekit-section-parallax-mousemove ekit-section-parallax-layer elementor-repeater-item-ae7bc19 ekit-section-parallax-type-mousemove" style="transform: translate3d(19.9257px, 24.7267px, 0px);">
+                <img class="elementskit-parallax-graphic" src="{% static 'images/image1.png' %}">
+            </div>
+
+            <!-- Section content -->
+            <div class="elementor-background-overlay"></div>
+            <div class="elementor-container elementor-column-gap-default">
+                <div class="elementor-column elementor-col-50 elementor-top-column elementor-element elementor-element-d47df61" data-id="d47df61" data-element_type="column" data-e-type="column">
+                    <div class="elementor-widget-wrap elementor-element-populated">
+                        <div class="elementor-element elementor-element-09f071e elementor-widget elementor-widget-elementskit-heading" data-id="09f071e" data-element_type="widget" data-e-type="widget" data-settings="{&quot;ekit_we_effect_on&quot;:&quot;none&quot;}" data-widget_type="elementskit-heading.default">
+                            <div class="elementor-widget-container">
+                                <div class="ekit-wid-con">
+                                    <div class="ekit-heading elementskit-section-title-wraper text_left ekit_heading_tablet- ekit_heading_mobile-">
+                                        <h2 class="ekit-heading--title elementskit-section-title">We Envision World's Best Learning Experience.</h2>
+                                        <div class="ekit-heading__description">
+                                            <p>Turitor's courses is for every one from different age groups and with various level of skills.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,207 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign Up - Course Platform{% endblock %}
+
+{% block extra_css %}
+<style>
+.auth-container {
+    background: #ffffff;
+    min-height: calc(100vh - 70px - 200px);
+    display: flex;
+    align-items: center;
+    padding: 30px 0;
+}
+
+.auth-card {
+    background: white;
+    padding: 20px;
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.auth-header h2 {
+    margin: 0;
+    font-weight: 700;
+    font-size: 1.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.auth-header p {
+    margin: 8px 0 0;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.modern-input {
+    border: 2px solid #e0e0e0;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    width: 100%;
+}
+
+.modern-input:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.15);
+    outline: none;
+}
+
+.modern-label {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 5px;
+    font-size: 0.9rem;
+}
+
+.modern-btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    color: white;
+}
+
+.modern-btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+}
+
+.auth-links {
+    text-align: center;
+    margin-top: 15px;
+}
+
+.auth-links a {
+    color: #667eea;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.auth-links a:hover {
+    color: #764ba2;
+    text-decoration: underline;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 12px 0;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.divider span {
+    padding: 0 10px;
+    color: #999;
+    font-size: 0.85rem;
+}
+
+.password-hint {
+    font-size: 0.8rem;
+    color: #666;
+    margin-top: 3px;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="auth-card">
+                    <div class="auth-header">
+                        <i class="bi bi-person-plus-fill" style="font-size: 2rem; color: #667eea;"></i>
+                        <h2 class="mt-2">Create Account</h2>
+                        <p>Join us and start your learning journey today</p>
+                    </div>
+                        <form method="post">
+                            {% csrf_token %}
+                            
+                            {% if form.non_field_errors %}
+                                <div class="alert alert-danger border-0 rounded-3">
+                                    {{ form.non_field_errors }}
+                                </div>
+                            {% endif %}
+                            
+                            <div class="mb-2">
+                                <label for="id_username" class="form-label modern-label">Username</label>
+                                <input type="text" name="username" class="modern-input" id="id_username" placeholder="Choose a username" required>
+                                {% if form.username.errors %}
+                                    <div class="text-danger small mt-1">{{ form.username.errors }}</div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="mb-2">
+                                <label for="id_email" class="form-label modern-label">Email</label>
+                                <input type="email" name="email" class="modern-input" id="id_email" placeholder="your.email@example.com" required>
+                                {% if form.email.errors %}
+                                    <div class="text-danger small mt-1">{{ form.email.errors }}</div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-2">
+                                    <label for="id_first_name" class="form-label modern-label">First Name</label>
+                                    <input type="text" name="first_name" class="modern-input" id="id_first_name" placeholder="First name">
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                    <label for="id_last_name" class="form-label modern-label">Last Name</label>
+                                    <input type="text" name="last_name" class="modern-input" id="id_last_name" placeholder="Last name">
+                                </div>
+                            </div>
+                            
+                            <div class="mb-2">
+                                <label for="id_password1" class="form-label modern-label">Password</label>
+                                <input type="password" name="password1" class="modern-input" id="id_password1" placeholder="Create a strong password" required>
+                                <div class="password-hint">
+                                    <i class="bi bi-info-circle"></i> At least 8 characters
+                                </div>
+                                {% if form.password1.errors %}
+                                    <div class="text-danger small mt-1">{{ form.password1.errors }}</div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="id_password2" class="form-label modern-label">Confirm Password</label>
+                                <input type="password" name="password2" class="modern-input" id="id_password2" placeholder="Re-enter your password" required>
+                                {% if form.password2.errors %}
+                                    <div class="text-danger small mt-1">{{ form.password2.errors }}</div>
+                                {% endif %}
+                            </div>
+                            
+                            <button type="submit" class="btn modern-btn-primary w-100">
+                                <i class="bi bi-person-plus me-2"></i>Create Account
+                            </button>
+                        </form>
+                        
+                        <div class="divider">
+                            <span>OR</span>
+                        </div>
+                        
+                        <div class="auth-links">
+                            <p class="mb-0">Already have an account? <a href="{% url 'accounts:login' %}">Login here</a></p>
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

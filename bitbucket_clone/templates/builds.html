@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}Builds - COLPLM-7828 procedure code display{% endblock %}
+
+{% block content %}
+<div class="build-header">
+    <h1>Builds</h1>
+    <div class="header-actions">
+        <button class="btn-merge">Start review</button>
+    </div>
+</div>
+
+<div class="build-filters">
+    <button class="filter-btn active">All changes in this pull request</button>
+    <span class="filter-count">2 commits</span>
+</div>
+
+<div class="build-list">
+    {% for build in builds %}
+    <div class="build-item">
+        <div class="build-status {{ build.status }}">
+            {% if build.status == 'in-progress' %}
+                <i class="fas fa-clock"></i>
+            {% elif build.status == 'passed' %}
+                <i class="fas fa-check"></i>
+            {% elif build.status == 'failed' %}
+                <i class="fas fa-times"></i>
+            {% endif %}
+        </div>
+        
+        <div class="build-info">
+            <a href="#" class="build-title">{{ build.title }}</a>
+            <div class="build-meta">
+                <span>Published by {{ build.author }}</span>
+                <span>{{ build.branch }}</span>
+                <span>{{ build.commit_id }}</span>
+            </div>
+        </div>
+        
+        <div class="build-actions">
+            <span class="status-badge {{ build.status }}">{{ build.status_text }}</span>
+        </div>
+        
+        <div class="build-time">
+            {{ build.updated }}
+        </div>
+    </div>
+    {% empty %}
+    <div class="build-item">
+        <div class="build-info">
+            <p>No builds found for this pull request.</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="build-details-section">
+    <h3>Build Details</h3>
+    <div class="build-details">
+        <div class="build-status-summary">
+            <div class="status-item">
+                <span class="status-badge in-progress">In Progress</span>
+                <span>1 build</span>
+            </div>
+            <div class="status-item">
+                <span class="status-badge passed">Passed</span>
+                <span>1 build</span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

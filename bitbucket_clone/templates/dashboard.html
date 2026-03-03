@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard - Your work{% endblock %}
+
+{% block content %}
+<div class="dashboard-header">
+    <h1>Your work</h1>
+    <p>Stay updated on your projects, repositories, and pull requests</p>
+</div>
+
+<div class="dashboard-grid">
+    <div class="dashboard-section">
+        <h3>Recent Pull Requests</h3>
+        <div class="pr-list">
+            <div class="pr-item">
+                <div class="pr-info">
+                    <h4><a href="{% url 'overview' %}">COLPLM-7828 procedure code display</a></h4>
+                    <div class="pr-meta">
+                        <span class="pr-repo">patient-payment-collection</span>
+                        <span class="pr-status open">Open</span>
+                        <span class="pr-date">Created 2 days ago</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-section">
+        <h3>Recent Repositories</h3>
+        <div class="repo-list">
+            <div class="repo-item">
+                <div class="repo-info">
+                    <h4>patient-payment-collection</h4>
+                    <p>Main repository for patient liability management</p>
+                    <div class="repo-meta">
+                        <span>Updated 2 hours ago</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

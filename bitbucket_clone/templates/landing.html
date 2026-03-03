@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitbucket Clone · Landing</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body class="landing-body">
+    <header class="landing-hero">
+        <h1>Ship secure code faster</h1>
+        <p>Collaborate across teams, automate your pipelines, and manage pull requests with a Bitbucket-inspired experience built in Django.</p>
+        <div class="landing-actions">
+            <a href="{% url 'login' %}" class="btn-merge">Sign in</a>
+            <a href="{% url 'dashboard' %}" class="btn-secondary" style="color:#fff;border-color:#fff;">View dashboard</a>
+        </div>
+    </header>
+
+    <main class="landing-content">
+        <section class="landing-section">
+            <h2>Why teams choose us</h2>
+            <p>From pull request reviews to automated build pipelines, this workspace mirrors the Bitbucket workflow so you can prototype UI ideas quickly.</p>
+            <ul>
+                <li>Modern, responsive UI components</li>
+                <li>Data-driven dashboards for PRs, commits, and builds</li>
+                <li>Ready-to-use Django pages with realistic sample data</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer class="landing-footer">
+        <p>&copy; 2026 Bitbucket Clone · Crafted with Django & Atlassian-inspired design</p>
+    </footer>
+</body>
+</html>

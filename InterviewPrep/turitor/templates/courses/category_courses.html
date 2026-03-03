@@ -1,0 +1,68 @@
+{% extends 'courses/base.html' %}
+{% load static %}
+
+{% block title %}{{ category.name }} Courses - Turitor{% endblock %}
+
+{% block content %}
+
+<div class="pt-32 pb-20 bg-gradient-hero">
+    <div class="container mx-auto px-4">
+        <div class="flex items-center mb-4">
+            <span class="text-5xl mr-4">{{ category.icon_class }}</span>
+            <div>
+                <h1 class="text-4xl md:text-5xl font-bold text-gray-900 mb-2">{{ category.name }}</h1>
+                <p class="text-xl text-gray-600">{{ courses|length }} courses available</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="py-16 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {% for course in courses %}
+                {% include 'courses/includes/course_card.html' %}
+            {% empty %}
+            <div class="col-span-full text-center py-12">
+                <p class="text-gray-600 text-lg">No courses available in this category yet.</p>
+                <a href="{% url 'course_list' %}" class="btn btn-primary mt-4 inline-block">
+                    View All Courses
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+
+        {% if is_paginated %}
+        <div class="flex justify-center mt-12">
+            <nav class="flex space-x-2">
+                {% if page_obj.has_previous %}
+                <a href="?page={{ page_obj.previous_page_number }}" 
+                   class="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-primary-50">
+                    Previous
+                </a>
+                {% endif %}
+                
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                    <span class="px-4 py-2 bg-primary-600 text-white rounded-lg">{{ num }}</span>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                    <a href="?page={{ num }}" 
+                       class="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-primary-50">
+                        {{ num }}
+                    </a>
+                    {% endif %}
+                {% endfor %}
+                
+                {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" 
+                   class="px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-primary-50">
+                    Next
+                </a>
+                {% endif %}
+            </nav>
+        </div>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}

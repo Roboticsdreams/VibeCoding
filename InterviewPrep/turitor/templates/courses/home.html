@@ -1,0 +1,447 @@
+{% extends 'courses/base.html' %}
+{% load static %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="relative pt-32 pb-24 overflow-hidden" style="background: linear-gradient(135deg, #0d9488 0%, #14b8a6 50%, #2dd4bf 100%);">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div class="relative z-10">
+                <h1 class="text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-tight mb-6">
+                    We Envision World's Best Learning Experience.
+                </h1>
+                <p class="text-lg text-white/90 mb-8 max-w-xl">
+                    Turitor's courses is for every one from different age groups and with various level of skills.
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4">
+                    <a href="{% url 'course_list' %}" class="inline-flex items-center justify-center px-8 py-3 bg-white text-primary-700 font-semibold rounded-full hover:bg-gray-50 transition-all duration-300 shadow-lg hover:shadow-xl">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        VIEW COURSES
+                    </a>
+                    <a href="#" class="inline-flex items-center justify-center px-8 py-3 border-2 border-white text-white font-semibold rounded-full hover:bg-white hover:text-primary-700 transition-all duration-300">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                        </svg>
+                        START TRIAL
+                    </a>
+                </div>
+            </div>
+            <div class="relative hidden lg:block">
+                <div class="relative z-10">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=600&fit=crop" 
+                         alt="Students learning online" 
+                         class="rounded-2xl shadow-2xl">
+                </div>
+                <!-- Floating elements -->
+                <div class="absolute top-10 -right-10 bg-white/20 backdrop-blur-sm rounded-full p-4 animate-bounce">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Wave decoration -->
+    <div class="absolute bottom-0 left-0 right-0">
+        <svg viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M0 120L60 110C120 100 240 80 360 70C480 60 600 60 720 65C840 70 960 80 1080 80C1200 80 1320 70 1380 65L1440 60V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z" fill="white"/>
+        </svg>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div>
+                <h2 class="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
+                    We are Turitor.
+                    <span class="block">An online learning community</span>
+                </h2>
+                <p class="text-gray-600 mb-8 leading-relaxed">
+                    At Turitor, we believe everyone should have the opportunity to create progress through technology and develop the skills of tomorrow. With assessments, learning paths and courses authored by industry experts.
+                </p>
+            </div>
+            <div class="grid grid-cols-3 gap-6">
+                <div class="bg-gradient-to-br from-primary-50 to-primary-100 rounded-2xl p-6 text-center hover:shadow-lg transition-all duration-300">
+                    <div class="text-primary-600 text-4xl mb-3">📚</div>
+                    <div class="text-3xl font-bold text-gray-900 mb-1">5016+</div>
+                    <div class="text-sm text-gray-600">Online Courses</div>
+                </div>
+                <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-6 text-center hover:shadow-lg transition-all duration-300">
+                    <div class="text-blue-600 text-4xl mb-3">🏆</div>
+                    <div class="text-3xl font-bold text-gray-900 mb-1">Award</div>
+                    <div class="text-sm text-gray-600">Winning</div>
+                </div>
+                <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-6 text-center hover:shadow-lg transition-all duration-300">
+                    <div class="text-green-600 text-4xl mb-3">🎓</div>
+                    <div class="text-3xl font-bold text-gray-900 mb-1">15600+</div>
+                    <div class="text-sm text-gray-600">Students</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Popular Subjects Section -->
+<section class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <p class="text-primary-600 font-semibold mb-2 uppercase tracking-wide text-sm">Find Your Course</p>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Popular Subjects</h2>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            {% for category in categories %}
+                {% include 'courses/includes/category_card.html' %}
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Featured Courses Section -->
+<section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12 max-w-3xl mx-auto">
+            <h2 class="section-title">Featured Courses</h2>
+            <p class="section-subtitle">Explore our most popular and highly-rated courses.</p>
+        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {% for course in courses %}
+                {% include 'courses/includes/course_card.html' %}
+            {% endfor %}
+        </div>
+        <div class="text-center mt-12">
+            <a href="{% url 'course_list' %}" class="btn btn-primary text-lg">
+                View All Courses
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us Section -->
+<section class="py-20 bg-gray-900 text-white">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">Why Choose Turitor</h2>
+            <p class="text-xl text-gray-400 mb-12">Learn with flexibility and excellence</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="text-center p-8">
+                <div class="w-16 h-16 bg-primary-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Expert Instructors</h3>
+                <p class="text-gray-400">Learn from industry experts with years of practical experience.</p>
+            </div>
+            <div class="text-center p-8">
+                <div class="w-16 h-16 bg-primary-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Lifetime Access</h3>
+                <p class="text-gray-400">Learn at your own pace with unlimited access to course materials.</p>
+            </div>
+            <div class="text-center p-8">
+                <div class="w-16 h-16 bg-primary-600 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold mb-3">Certified Courses</h3>
+                <p class="text-gray-400">Earn certificates recognized by leading companies worldwide.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12 max-w-3xl mx-auto">
+            <h2 class="section-title">What Our Students Say</h2>
+            <p class="section-subtitle">Real stories from real learners achieving their goals.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div class="bg-gray-50 rounded-xl p-8">
+                <div class="flex items-center text-yellow-400 mb-4">
+                    {% for i in "12345" %}
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                        <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                    </svg>
+                    {% endfor %}
+                </div>
+                <p class="text-gray-600 mb-6 italic">
+                    "The courses are incredibly well-structured and the instructors are top-notch. I've learned more in 3 months than I did in a year of self-study."
+                </p>
+                <div class="flex items-center">
+                    <img src="https://i.pravatar.cc/100?img=1" alt="Student" class="w-12 h-12 rounded-full mr-4">
+                    <div>
+                        <p class="font-bold text-gray-900">Sarah Johnson</p>
+                        <p class="text-gray-600 text-sm">Web Developer</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-50 rounded-xl p-8">
+                <div class="flex items-center text-yellow-400 mb-4">
+                    {% for i in "12345" %}
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                        <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                    </svg>
+                    {% endfor %}
+                </div>
+                <p class="text-gray-600 mb-6 italic">
+                    "Turitor has transformed my career. The practical approach and real-world projects helped me land my dream job."
+                </p>
+                <div class="flex items-center">
+                    <img src="https://i.pravatar.cc/100?img=12" alt="Student" class="w-12 h-12 rounded-full mr-4">
+                    <div>
+                        <p class="font-bold text-gray-900">Michael Chen</p>
+                        <p class="text-gray-600 text-sm">Data Scientist</p>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-gray-50 rounded-xl p-8">
+                <div class="flex items-center text-yellow-400 mb-4">
+                    {% for i in "12345" %}
+                    <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20">
+                        <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                    </svg>
+                    {% endfor %}
+                </div>
+                <p class="text-gray-600 mb-6 italic">
+                    "The flexibility to learn at my own pace while working full-time has been a game-changer. Highly recommended!"
+                </p>
+                <div class="flex items-center">
+                    <img src="https://i.pravatar.cc/100?img=5" alt="Student" class="w-12 h-12 rounded-full mr-4">
+                    <div>
+                        <p class="font-bold text-gray-900">Emily Rodriguez</p>
+                        <p class="text-gray-600 text-sm">UX Designer</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Pages/Services Section -->
+<section id="pages" class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <p class="text-primary-600 font-semibold mb-2 uppercase tracking-wide text-sm">Our Services</p>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900">What We Offer</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="bg-white rounded-xl p-6 hover:shadow-xl transition-all duration-300">
+                <div class="w-14 h-14 bg-blue-100 rounded-lg flex items-center justify-center mb-4">
+                    <svg class="w-7 h-7 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Online Learning</h3>
+                <p class="text-gray-600">Access courses anytime, anywhere with our flexible online platform.</p>
+            </div>
+            <div class="bg-white rounded-xl p-6 hover:shadow-xl transition-all duration-300">
+                <div class="w-14 h-14 bg-green-100 rounded-lg flex items-center justify-center mb-4">
+                    <svg class="w-7 h-7 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Community Support</h3>
+                <p class="text-gray-600">Join a vibrant community of learners and mentors.</p>
+            </div>
+            <div class="bg-white rounded-xl p-6 hover:shadow-xl transition-all duration-300">
+                <div class="w-14 h-14 bg-purple-100 rounded-lg flex items-center justify-center mb-4">
+                    <svg class="w-7 h-7 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">Certification</h3>
+                <p class="text-gray-600">Earn industry-recognized certificates upon completion.</p>
+            </div>
+            <div class="bg-white rounded-xl p-6 hover:shadow-xl transition-all duration-300">
+                <div class="w-14 h-14 bg-orange-100 rounded-lg flex items-center justify-center mb-4">
+                    <svg class="w-7 h-7 text-orange-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/>
+                    </svg>
+                </div>
+                <h3 class="text-xl font-bold text-gray-900 mb-3">24/7 Support</h3>
+                <p class="text-gray-600">Get help whenever you need it with our dedicated support team.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Blog Section -->
+<section id="blog" class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+            <p class="text-primary-600 font-semibold mb-2 uppercase tracking-wide text-sm">Latest News</p>
+            <h2 class="text-3xl md:text-4xl font-bold text-gray-900">From The Blog</h2>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <article class="bg-gray-50 rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300">
+                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&h=400&fit=crop" alt="Blog post" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <div class="flex items-center text-sm text-gray-600 mb-3">
+                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                        <span>Dec 15, 2025</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 hover:text-primary-600 transition-colors">
+                        <a href="#">10 Tips for Effective Online Learning</a>
+                    </h3>
+                    <p class="text-gray-600 mb-4">Discover proven strategies to maximize your online learning experience and achieve your goals.</p>
+                    <a href="#" class="text-primary-600 font-semibold hover:text-primary-700">Read More →</a>
+                </div>
+            </article>
+            <article class="bg-gray-50 rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300">
+                <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&h=400&fit=crop" alt="Blog post" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <div class="flex items-center text-sm text-gray-600 mb-3">
+                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                        <span>Dec 10, 2025</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 hover:text-primary-600 transition-colors">
+                        <a href="#">Career Growth Through Continuous Learning</a>
+                    </h3>
+                    <p class="text-gray-600 mb-4">Learn how investing in education can accelerate your career advancement and opportunities.</p>
+                    <a href="#" class="text-primary-600 font-semibold hover:text-primary-700">Read More →</a>
+                </div>
+            </article>
+            <article class="bg-gray-50 rounded-xl overflow-hidden hover:shadow-xl transition-all duration-300">
+                <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=600&h=400&fit=crop" alt="Blog post" class="w-full h-48 object-cover">
+                <div class="p-6">
+                    <div class="flex items-center text-sm text-gray-600 mb-3">
+                        <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        </svg>
+                        <span>Dec 5, 2025</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900 mb-3 hover:text-primary-600 transition-colors">
+                        <a href="#">The Future of Remote Education</a>
+                    </h3>
+                    <p class="text-gray-600 mb-4">Explore emerging trends and technologies shaping the future of online education.</p>
+                    <a href="#" class="text-primary-600 font-semibold hover:text-primary-700">Read More →</a>
+                </div>
+            </article>
+        </div>
+        <div class="text-center mt-12">
+            <a href="#" class="btn btn-outline text-lg">View All Posts</a>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-12">
+                <p class="text-primary-600 font-semibold mb-2 uppercase tracking-wide text-sm">Get In Touch</p>
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Contact Us</h2>
+                <p class="text-gray-600 mt-4">Have questions? We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div>
+                    <form class="space-y-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Your Name</label>
+                            <input type="text" id="name" name="name" required
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                   placeholder="John Doe">
+                        </div>
+                        <div>
+                            <label for="contact-email" class="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
+                            <input type="email" id="contact-email" name="email" required
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                   placeholder="john@example.com">
+                        </div>
+                        <div>
+                            <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">Subject</label>
+                            <input type="text" id="subject" name="subject" required
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                   placeholder="How can we help?">
+                        </div>
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                            <textarea id="message" name="message" rows="5" required
+                                      class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+                                      placeholder="Your message..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-primary-600 text-white py-3 rounded-lg font-semibold hover:bg-primary-700 transition-colors shadow-lg hover:shadow-xl">
+                            Send Message
+                        </button>
+                    </form>
+                </div>
+                <div class="space-y-6">
+                    <div class="bg-white rounded-xl p-6 shadow-md">
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                                <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">Office Address</h3>
+                                <p class="text-gray-600">123 Learning Street,<br>Education City, EC 12345</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl p-6 shadow-md">
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                                <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">Email Us</h3>
+                                <p class="text-gray-600">info@turitor.com<br>support@turitor.com</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-xl p-6 shadow-md">
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                                <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-bold text-gray-900 mb-2">Call Us</h3>
+                                <p class="text-gray-600">+1 (555) 123-4567<br>+1 (555) 987-6543</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-20" style="background: linear-gradient(135deg, #0d9488 0%, #14b8a6 50%, #2dd4bf 100%);">
+    <div class="container mx-auto px-4 text-center">
+        <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
+            Start Learning Today
+        </h2>
+        <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+            Join thousands of students already learning on Turitor. Get unlimited access to all courses.
+        </p>
+        <a href="{% url 'register' %}" class="inline-flex items-center justify-center px-8 py-4 bg-white text-primary-700 font-semibold rounded-full hover:bg-gray-50 transition-all duration-300 shadow-lg hover:shadow-xl text-lg">
+            Get Started Now
+        </a>
+    </div>
+</section>
+
+{% endblock %}

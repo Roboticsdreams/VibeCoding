@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+{% block title %}Welcome{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold text-primary mb-4">Track Your Wealth with Confidence</h1>
+                <p class="lead mb-4">A comprehensive platform to monitor your investments, track expenses, and plan your financial future.</p>
+                <div class="d-grid gap-2 d-md-flex">
+                    <a href="{% url 'register' %}" class="btn btn-primary btn-lg px-4 me-md-2">Get Started</a>
+                    <a href="#features" class="btn btn-outline-secondary btn-lg px-4">Learn More</a>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <img src="https://via.placeholder.com/600x400" alt="Dashboard Preview" class="img-fluid rounded shadow-lg">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5 bg-light" id="features">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold">Key Features</h2>
+            <p class="lead">Everything you need to take control of your finances</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="mb-3">
+                            <i class="fas fa-chart-line fa-3x text-primary"></i>
+                        </div>
+                        <h4 class="card-title">Track Investments</h4>
+                        <p class="card-text">Monitor your stocks, bonds, mutual funds, and other investment vehicles in real-time.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="mb-3">
+                            <i class="fas fa-wallet fa-3x text-primary"></i>
+                        </div>
+                        <h4 class="card-title">Budget Manager</h4>
+                        <p class="card-text">Set up budgets, track expenses, and get insights on your spending habits.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body text-center p-4">
+                        <div class="mb-3">
+                            <i class="fas fa-lock fa-3x text-primary"></i>
+                        </div>
+                        <h4 class="card-title">Secure & Private</h4>
+                        <p class="card-text">Bank-level security ensures your financial data remains private and protected.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="display-5 fw-bold">What Our Users Say</h2>
+        </div>
+        <div class="row">
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100 shadow">
+                    <div class="card-body p-4">
+                        <div class="mb-3 text-warning">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="card-text fst-italic">"WealthTracker has completely transformed how I manage my finances. The interface is intuitive and the insights are invaluable."</p>
+                        <div class="d-flex align-items-center">
+                            <div class="ms-3">
+                                <h6 class="mb-0">John D.</h6>
+                                <small class="text-muted">Investor</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100 shadow">
+                    <div class="card-body p-4">
+                        <div class="mb-3 text-warning">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <p class="card-text fst-italic">"I've tried many financial apps, but WealthTracker stands out with its comprehensive features and user-friendly design."</p>
+                        <div class="d-flex align-items-center">
+                            <div class="ms-3">
+                                <h6 class="mb-0">Sarah M.</h6>
+                                <small class="text-muted">Financial Advisor</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100 shadow">
+                    <div class="card-body p-4">
+                        <div class="mb-3 text-warning">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star-half-alt"></i>
+                        </div>
+                        <p class="card-text fst-italic">"Since using WealthTracker, I've gained better visibility of my finances and improved my investment decisions."</p>
+                        <div class="d-flex align-items-center">
+                            <div class="ms-3">
+                                <h6 class="mb-0">Michael R.</h6>
+                                <small class="text-muted">Small Business Owner</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="py-5 bg-primary text-white">
+    <div class="container text-center">
+        <h2 class="display-6 fw-bold mb-3">Ready to Take Control of Your Finances?</h2>
+        <p class="lead mb-4">Join thousands of users who are already benefiting from WealthTracker.</p>
+        <a href="{% url 'register' %}" class="btn btn-light btn-lg">Create Free Account</a>
+    </div>
+</section>
+{% endblock %}

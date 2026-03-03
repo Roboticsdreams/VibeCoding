@@ -1,0 +1,663 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Turitor - Online Learning Platform{% endblock %}
+
+{% block content %}
+<style>
+/* Hero Section - Matching Turitor Reference */
+.hero-section-turitor {
+    background: linear-gradient(135deg, #16a085 0%, #0d7a6e 100%);
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding: 100px 0;
+}
+
+/* Parallax Container */
+.parallax-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+/* Parallax Layer Base */
+.parallax-layer {
+    position: absolute;
+    pointer-events: none;
+}
+
+.parallax-layer img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Animation Keyframes */
+@keyframes ekit-fade {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+}
+
+@keyframes ekit-rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+    20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+@keyframes ekit-left-right {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(15px); }
+}
+
+@keyframes ekit-zoom {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+@keyframes tada {
+    0% { transform: scale3d(1, 1, 1); }
+    10%, 20% { transform: scale3d(.9, .9, .9) rotate3d(0, 0, 1, -3deg); }
+    30%, 50%, 70%, 90% { transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, 3deg); }
+    40%, 60%, 80% { transform: scale3d(1.1, 1.1, 1.1) rotate3d(0, 0, 1, -3deg); }
+    100% { transform: scale3d(1, 1, 1); }
+}
+
+/* Animation Classes */
+.anim-fade { animation: ekit-fade 5s ease-in-out infinite; }
+.anim-rotate { animation: ekit-rotate 5s linear infinite; }
+.anim-shake { animation: shake 100s ease-in-out infinite; }
+.anim-left-right { animation: ekit-left-right 100s ease-in-out infinite; }
+.anim-zoom { animation: ekit-zoom 50s ease-in-out infinite; }
+.anim-tada { animation: tada 5s ease-in-out infinite; }
+
+/* About Section */
+.about-section {
+    padding: 80px 0;
+    background: white;
+}
+.about-img-container {
+    position: relative;
+    margin-bottom: 30px;
+}
+.about-stats {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    padding: 30px;
+    margin-top: 30px;
+    position: relative;
+}
+.stat-item {
+    text-align: center;
+    padding: 15px 10px;
+}
+.stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #16a085;
+    margin-bottom: 5px;
+    line-height: 1.2;
+}
+.stat-label {
+    color: #718096;
+    font-size: 0.9rem;
+    line-height: 1.3;
+}
+
+/* Categories Section */
+.categories-section {
+    padding: 80px 0;
+    background: #f8f9fb;
+}
+.category-card {
+    background: white;
+    border-radius: 12px;
+    padding: 30px 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+    margin-bottom: 20px;
+}
+.category-card:hover {
+    border-color: #16a085;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(22, 160, 133, 0.15);
+}
+.category-icon {
+    font-size: 3rem;
+    color: #16a085;
+    margin-bottom: 15px;
+}
+.category-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: #2d3748;
+}
+.category-count {
+    color: #718096;
+    font-size: 0.9rem;
+}
+
+/* Course Card */
+.course-card-turitor {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    margin-bottom: 30px;
+}
+.course-card-turitor:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+}
+.course-img-turitor {
+    height: 220px;
+    object-fit: cover;
+    width: 100%;
+}
+.course-img-placeholder {
+    height: 220px;
+    background: linear-gradient(135deg, #5b4cdb 0%, #4834d4 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 3rem;
+}
+.course-meta {
+    padding: 20px;
+}
+.course-category-badge {
+    background: #c8e6e0;
+    color: #16a085;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+.course-title-turitor {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+.course-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-top: 1px solid #e2e8f0;
+}
+.course-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #16a085;
+}
+
+/* Testimonial Section */
+.testimonial-section {
+    padding: 80px 0;
+    background: white;
+}
+.testimonial-card {
+    background: #f8f9fb;
+    padding: 30px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    border-left: 4px solid #16a085;
+}
+.testimonial-text {
+    font-style: italic;
+    color: #4a5568;
+    margin-bottom: 20px;
+    line-height: 1.8;
+}
+.testimonial-author {
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 5px;
+}
+.testimonial-role {
+    color: #718096;
+    font-size: 0.9rem;
+}
+
+/* News Section */
+.news-section {
+    padding: 80px 0;
+    background: #f8f9fb;
+}
+.news-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    margin-bottom: 30px;
+}
+.news-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+}
+.news-img {
+    height: 200px;
+    object-fit: cover;
+    width: 100%;
+}
+.news-content {
+    padding: 25px;
+}
+.news-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 10px;
+}
+.news-excerpt {
+    color: #718096;
+    font-size: 0.95rem;
+    margin-bottom: 15px;
+}
+
+/* Section Headers */
+.section-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+.section-tag {
+    color: #16a085;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+}
+.section-title-main {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2d3748;
+    margin-bottom: 15px;
+}
+.section-description {
+    color: #718096;
+    font-size: 1.05rem;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Buttons */
+.btn-turitor-primary {
+    background: #16a085;
+    color: white;
+    padding: 12px 32px;
+    border-radius: 8px;
+    font-weight: 600;
+    border: none;
+    transition: all 0.3s ease;
+}
+.btn-turitor-primary:hover {
+    background: #0d7a6e;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(22, 160, 133, 0.4);
+    color: white;
+}
+.btn-turitor-outline {
+    background: transparent;
+    color: white;
+    padding: 12px 32px;
+    border-radius: 8px;
+    font-weight: 600;
+    border: 2px solid white;
+    transition: all 0.3s ease;
+}
+.btn-turitor-outline:hover {
+    background: white;
+    color: #16a085;
+}
+</style>
+
+<!-- Hero Section - Exact Turitor Reference Structure -->
+<section class="hero-section-turitor">
+    <!-- Parallax Layers Container -->
+    <div class="parallax-container">
+        <!-- Image 14 -->
+        <div class="parallax-layer anim-tada" style="top: 50%; right: 39%; width: 85px; z-index: 2;">
+            <img src="https://demo-themewinter.com/turitor/wp-content/uploads/2019/12/image14.png" alt="">
+        </div>
+        
+        <!-- Image 13 -->
+        <div class="parallax-layer anim-rotate" style="top: 45%; right: 35%; width: 75px; z-index: 2;">
+            <img src="https://demo-themewinter.com/turitor/wp-content/uploads/2019/12/image13.png" alt="">
+        </div>
+        
+        <!-- Image 12 -->
+        <div class="parallax-layer anim-zoom" style="top: 39%; right: 32.5%; width: 110px; z-index: 5;">
+            <img src="https://demo-themewinter.com/turitor/wp-content/uploads/2019/12/image12.png" alt="">
+        </div>
+        
+        <!-- Image 11 -->
+        <div class="parallax-layer anim-left-right" style="top: 30%; right: 8%; width: 60px; z-index: 2;">
+            <img src="https://demo-themewinter.com/turitor/wp-content/uploads/2019/12/image11.png" alt="">
+        </div>
+        
+        <!-- Image 10 -->
+        <div class="parallax-layer anim-rotate" style="top: 28%; right: 16.5%; width: 50px; z-index: 2;">
+            <img src="https://demo-themewinter.com/turitor/wp-content/uploads/2019/12/image10.png" alt="">
+        </div>
+        
+        <!-- Image 9 -->
+        <div class="parallax-layer anim-rotate" style="top: 20%; right: 25%; width: 55px; z-index: 3;">
+            <img src="https://demo-themewinter.com/turitor/wp-content/uploads/2019/12/image9.png" alt="">
+        </div>
+        
+        <!-- Image 8 -->
+        <div class="parallax-layer anim-left-right" style="top: 20%; right: 20%; width: 65px; z-index: 2;">
+            <img src="https://demo-themewinter.com/turitor/wp-content/uploads/2019/12/image8.png" alt="">
+        </div>
+        
+        <!-- Image 7 -->
+        <div class="parallax-layer anim-fade" style="top: 21%; right: 40%; width: 70px; z-index: 2;">
+            <img src="https://demo-themewinter.com/turitor/wp-content/uploads/2019/12/image7.png" alt="">
+        </div>
+        
+        <!-- Image 6 -->
+        <div class="parallax-layer anim-shake" style="top: 35%; right: 25%; width: 90px; z-index: 2;">
+            <img src="https://demo-themewinter.com/turitor/wp-content/uploads/2019/12/image6.png" alt="">
+        </div>
+        
+        <!-- Image 5 -->
+        <div class="parallax-layer" style="top: 24%; right: 29%; width: 75px; z-index: 2;">
+            <img src="https://demo-themewinter.com/turitor/wp-content/uploads/2019/12/image5.png" alt="">
+        </div>
+        
+        <!-- Image 4 -->
+        <div class="parallax-layer" style="top: 26%; right: 34%; width: 70px; z-index: 3;">
+            <img src="https://demo-themewinter.com/turitor/wp-content/uploads/2019/12/image4.png" alt="">
+        </div>
+        
+        <!-- Image 3 -->
+        <div class="parallax-layer anim-fade" style="top: 25%; right: 40%; width: 65px; z-index: 1;">
+            <img src="https://demo-themewinter.com/turitor/wp-content/uploads/2019/12/image3.png" alt="">
+        </div>
+        
+        <!-- Image 2 -->
+        <div class="parallax-layer" style="top: 46%; right: 28%; width: 250px; z-index: 9;">
+            <img src="https://demo-themewinter.com/turitor/wp-content/uploads/2019/12/image2.png" alt="">
+        </div>
+        
+        <!-- Image 1 - Main Illustration -->
+        <div class="parallax-layer" style="top: 20%; right: 15%; width: 320px; max-width: 35%; z-index: 2;">
+            <img src="https://demo-themewinter.com/turitor/wp-content/uploads/2019/12/image1.png" alt="">
+        </div>
+    </div>
+    
+    <!-- Content Container -->
+    <div class="container" style="position: relative; z-index: 10;">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="hero-content" style="color: white;">
+                    <h2 style="font-size: 3rem; font-weight: 700; margin-bottom: 20px; line-height: 1.2;">
+                        We Envision World's Best Learning Experience.
+                    </h2>
+                    <p style="font-size: 1.1rem; margin-bottom: 30px; opacity: 0.95;">
+                        Turitor's courses is for every one from different age groups and with various level of skills.
+                    </p>
+                    <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                        <a href="{% url 'courses:list' %}" class="btn btn-turitor-primary btn-lg">
+                            <i class="fas fa-plus-circle" style="margin-right: 8px;"></i>view courses
+                        </a>
+                        <a href="{% url 'accounts:signup' %}" class="btn btn-turitor-outline btn-lg">
+                            <i class="bi bi-person-plus" style="margin-right: 8px;"></i>Start trial
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <!-- Right column for parallax illustrations -->
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- About Section -->
+<section class="about-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0">
+                <div class="about-img-container">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=400&fit=crop" alt="Students collaborating" class="img-fluid rounded shadow-lg" style="width: 100%; height: 400px; object-fit: cover;">
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <h2 class="display-5 fw-bold mb-4">We are Turitor. An online learning community</h2>
+                <p class="text-muted mb-4">At Turitor, we believe everyone should have the opportunity to create progress through technology and develop the skills of tomorrow. With assessments, learning paths and courses authored by industry experts.</p>
+                
+                <div class="about-stats">
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="stat-item">
+                                <div class="stat-number">5016+</div>
+                                <div class="stat-label">Courses</div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="stat-item">
+                                <div class="stat-number">Award</div>
+                                <div class="stat-label">Winner</div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="stat-item">
+                                <div class="stat-number">15600+</div>
+                                <div class="stat-label">Students</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Categories Section -->
+<section class="categories-section">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-tag">#Top categories</div>
+            <h2 class="section-title-main">Popular Subjects</h2>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="category-card">
+                    <div class="category-icon"><i class="bi bi-laptop"></i></div>
+                    <h5 class="category-title">Computer Science</h5>
+                    <p class="category-count">{{ total_courses }} Courses</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="category-card">
+                    <div class="category-icon"><i class="bi bi-code-slash"></i></div>
+                    <h5 class="category-title">Web Development</h5>
+                    <p class="category-count">{{ total_courses }} Courses</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="category-card">
+                    <div class="category-icon"><i class="bi bi-graph-up"></i></div>
+                    <h5 class="category-title">Data Science</h5>
+                    <p class="category-count">{{ total_courses }} Courses</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="category-card">
+                    <div class="category-icon"><i class="bi bi-gear"></i></div>
+                    <h5 class="category-title">Engineering</h5>
+                    <p class="category-count">{{ total_courses }} Courses</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="category-card">
+                    <div class="category-icon"><i class="bi bi-building"></i></div>
+                    <h5 class="category-title">Architecture</h5>
+                    <p class="category-count">2 Courses</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="category-card">
+                    <div class="category-icon"><i class="bi bi-palette"></i></div>
+                    <h5 class="category-title">Art & Design</h5>
+                    <p class="category-count">{{ total_courses }} Courses</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="category-card">
+                    <div class="category-icon"><i class="bi bi-briefcase"></i></div>
+                    <h5 class="category-title">Business Study</h5>
+                    <p class="category-count">{{ total_courses }} Courses</p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="category-card">
+                    <div class="category-icon"><i class="bi bi-brain"></i></div>
+                    <h5 class="category-title">Psychology</h5>
+                    <p class="category-count">6 Courses</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="{% url 'courses:list' %}" class="btn btn-turitor-primary btn-lg">Browse All</a>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Courses Section -->
+<section class="about-section">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-tag">#Courses</div>
+            <h2 class="section-title-main">Featured Courses</h2>
+        </div>
+        
+        <div class="row">
+            {% for course in featured_courses %}
+            <div class="col-lg-4 col-md-6">
+                <div class="course-card-turitor">
+                    {% if course.thumbnail %}
+                        <img src="{{ course.thumbnail.url }}" class="course-img-turitor" alt="{{ course.title }}">
+                    {% else %}
+                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=220&fit=crop" class="course-img-turitor" alt="{{ course.title }}">
+                    {% endif %}
+                    <div class="course-meta">
+                        <span class="course-category-badge">Featured</span>
+                        <h5 class="course-title-turitor">
+                            <a href="{% url 'courses:detail' course.slug %}" class="text-decoration-none text-dark">
+                                {{ course.title }}
+                            </a>
+                        </h5>
+                        <p class="text-muted small">{{ course.short_description|truncatewords:12 }}</p>
+                    </div>
+                    <div class="course-footer">
+                        <span class="course-price">₹{{ course.price }}</span>
+                        <a href="{% url 'courses:detail' course.slug %}" class="btn btn-sm btn-outline-primary">View Course</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center py-5">
+                <i class="bi bi-inbox display-1 text-muted"></i>
+                <p class="text-muted mt-3">No courses available yet</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonial-section">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-tag">#Testimonial</div>
+            <h2 class="section-title-main">What Students Says</h2>
+            <p class="section-description">Discover how to anticipate and adapt to the latest trends and digital</p>
+        </div>
+        
+        <div class="row">
+            <div class="col-md-4">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"People program enabled me to be a fuller me, using differe skills and behaviors..."</p>
+                    <h6 class="testimonial-author">Lucas Vázquez</h6>
+                    <p class="testimonial-role">Student</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Using differe skills and behaviors People program enabled me to be a fuller me..."</p>
+                    <h6 class="testimonial-author">Mario Mandžukić</h6>
+                    <p class="testimonial-role">Student</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">"Differe Using skills and behaviors People program enabled me to be a fuller me..."</p>
+                    <h6 class="testimonial-author">Blaise Matuidi</h6>
+                    <p class="testimonial-role">Student</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- News & Events Section -->
+<section class="news-section">
+    <div class="container">
+        <div class="section-header">
+            <div class="section-tag">#News</div>
+            <h2 class="section-title-main">News & Events</h2>
+            <p class="section-description">Discover how to anticipate and adapt to the latest trends and digital</p>
+        </div>
+        
+        <div class="row">
+            {% for blog in recent_blogs %}
+            <div class="col-md-4">
+                <div class="news-card">
+                    {% if blog.cover_image %}
+                        <img src="{{ blog.cover_image.url }}" class="news-img" alt="{{ blog.title }}">
+                    {% else %}
+                        <img src="https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=400&h=200&fit=crop" class="news-img" alt="{{ blog.title }}">
+                    {% endif %}
+                    <div class="news-content">
+                        <h5 class="news-title">{{ blog.title }}</h5>
+                        <p class="news-excerpt">{{ blog.excerpt|truncatewords:15 }}</p>
+                        <a href="{% url 'blog:detail' blog.slug %}" class="btn btn-sm btn-turitor-primary">Read More</a>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12 text-center py-5">
+                <i class="bi bi-inbox display-1 text-muted"></i>
+                <p class="text-muted mt-3">No news available yet</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+{% endblock %}

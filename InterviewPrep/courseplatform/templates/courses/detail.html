@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ course.title }} - Course Platform{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8">
+            {% if course.thumbnail %}
+                <img src="{{ course.thumbnail.url }}" class="img-fluid rounded mb-4" alt="{{ course.title }}">
+            {% else %}
+                <div class="bg-secondary text-white p-5 text-center rounded mb-4">
+                    <i class="bi bi-book display-1"></i>
+                </div>
+            {% endif %}
+            
+            <h1>{{ course.title }}</h1>
+            <p class="lead">{{ course.short_description }}</p>
+            
+            <hr>
+            
+            <h3>About This Course</h3>
+            <div class="mb-4">{{ course.description|linebreaks }}</div>
+            
+            {% if has_purchased %}
+                <div class="alert alert-success">
+                    <i class="bi bi-check-circle"></i> You have purchased this course! You now have full access to all course materials.
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="card shadow-sm sticky-top" style="top: 20px;">
+                <div class="card-body">
+                    <h3 class="text-primary mb-3">₹{{ course.price }}</h3>
+                    
+                    {% if user.is_authenticated %}
+                        {% if has_purchased %}
+                            <a href="#" class="btn btn-success w-100 disabled">
+                                <i class="bi bi-check-circle"></i> Already Purchased
+                            </a>
+                        {% else %}
+                            <form method="POST" action="{% url 'payments:checkout_course' course.id %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-primary w-100 btn-lg">
+                                    <i class="bi bi-cart-plus"></i> Buy Now
+                                </button>
+                            </form>
+                        {% endif %}
+                    {% else %}
+                        <a href="{% url 'accounts:login' %}?next={{ request.path }}" class="btn btn-primary w-100 btn-lg">
+                            Login to Purchase
+                        </a>
+                    {% endif %}
+                    
+                    <hr>
+                    
+                    <h6>This course includes:</h6>
+                    <ul class="list-unstyled">
+                        <li><i class="bi bi-check-circle text-success"></i> Lifetime access</li>
+                        <li><i class="bi bi-check-circle text-success"></i> Expert instruction</li>
+                        <li><i class="bi bi-check-circle text-success"></i> Comprehensive content</li>
+                        <li><i class="bi bi-check-circle text-success"></i> Learn at your own pace</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

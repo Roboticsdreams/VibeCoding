@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Repositories - Bitbucket Clone{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <p class="page-breadcrumb">Dashboard / Repositories</p>
+        <h1>Repositories</h1>
+        <p class="page-subtitle">Track repository activity, pull requests, and branches across teams.</p>
+    </div>
+    <button class="btn-merge">Create repository</button>
+</div>
+
+<div class="repo-table">
+    <div class="repo-table-header">
+        <span>Repository</span>
+        <span>Project</span>
+        <span>Branches</span>
+        <span>Pull requests</span>
+        <span>Updated</span>
+    </div>
+    {% for repo in repositories %}
+    <div class="repo-table-row">
+        <div>
+            <a href="#" class="repo-name">{{ repo.name }}</a>
+        </div>
+        <div>{{ repo.project }}</div>
+        <div>{{ repo.branches }}</div>
+        <div>{{ repo.pull_requests }}</div>
+        <div>{{ repo.updated }}</div>
+    </div>
+    {% empty %}
+    <div class="repo-table-row">
+        <div colspan="5">No repositories found.</div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

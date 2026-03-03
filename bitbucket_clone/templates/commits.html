@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Commits - COLPLM-7828 procedure code display{% endblock %}
+
+{% block content %}
+<div class="commits-header">
+    <h1>Commits</h1>
+    <div class="commits-summary">
+        <span class="commits-count">{{ commits|length }} commits</span>
+        <span class="commits-changes">+212 additions, -35 deletions</span>
+    </div>
+</div>
+
+<div class="commits-list">
+    {% for commit in commits %}
+    <div class="commit-item">
+        <div class="commit-avatar">
+            <img src="{% static 'images/user-avatar.png' %}"
+                 alt="{{ commit.author }}"
+                 class="avatar-img"
+                 data-name="{{ commit.author }}"
+                 onerror="handleAvatarError(this)">
+        </div>
+        <div class="commit-info">
+            <div class="commit-message">
+                <a href="#" class="commit-link">{{ commit.message }}</a>
+            </div>
+            <div class="commit-meta">
+                <span class="commit-author">{{ commit.author }}</span>
+                <span class="commit-date">{{ commit.date }}</span>
+                <span class="commit-changes">{{ commit.changes }}</span>
+            </div>
+        </div>
+        <div class="commit-actions">
+            <div class="commit-id">
+                <code>{{ commit.id }}</code>
+            </div>
+            <button class="btn-browse" title="Browse repository at this commit">
+                <i class="fas fa-code"></i>
+            </button>
+        </div>
+    </div>
+    {% empty %}
+    <div class="commit-item">
+        <div class="commit-info">
+            <p>No commits found for this pull request.</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="commits-timeline">
+    <div class="timeline-item">
+        <div class="timeline-marker"></div>
+        <div class="timeline-content">
+            <div class="timeline-header">
+                <strong>Pull request created</strong>
+                <span class="timeline-date">5 February 2026</span>
+            </div>
+            <p>Initial pull request for procedure code display implementation</p>
+        </div>
+    </div>
+    
+    <div class="timeline-item">
+        <div class="timeline-marker active"></div>
+        <div class="timeline-content">
+            <div class="timeline-header">
+                <strong>Latest commit</strong>
+                <span class="timeline-date">{{ commits.0.date }}</span>
+            </div>
+            <p>{{ commits.0.message }}</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

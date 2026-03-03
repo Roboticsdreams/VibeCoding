@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Projects - Bitbucket Clone{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <p class="page-breadcrumb">Dashboard / Projects</p>
+        <h1>Projects</h1>
+        <p class="page-subtitle">Access the workspaces that house repositories, pipelines, and pull requests.</p>
+    </div>
+    <button class="btn-merge">Create project</button>
+</div>
+
+<div class="projects-grid">
+    {% for project in projects %}
+    <div class="project-card">
+        <div class="project-badge">{{ project.key }}</div>
+        <div class="project-card-body">
+            <div class="project-card-header">
+                <h3>{{ project.name }}</h3>
+                <span class="status-badge {% if project.status == 'Active' %}passed{% elif project.status == 'In review' %}in-progress{% else %}failed{% endif %}">{{ project.status }}</span>
+            </div>
+            <p>{{ project.description }}</p>
+            <div class="project-card-meta">
+                <span>{{ project.updated }}</span>
+                <a href="{% url 'repositories' %}" class="link">View repos</a>
+            </div>
+        </div>
+    </div>
+    {% empty %}
+    <p>No projects available.</p>
+    {% endfor %}
+</div>
+{% endblock %}

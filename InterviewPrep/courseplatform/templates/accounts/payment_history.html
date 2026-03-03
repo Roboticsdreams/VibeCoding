@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+
+{% block title %}Payment History - Crack IT{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h2><i class="bi bi-receipt"></i> Payment History</h2>
+                <a href="{% url 'accounts:dashboard' %}" class="btn btn-outline-secondary">
+                    <i class="bi bi-arrow-left"></i> Back to Dashboard
+                </a>
+            </div>
+
+            {% if orders %}
+            <div class="card shadow-sm">
+                <div class="card-body p-0">
+                    <div class="table-responsive">
+                        <table class="table table-hover mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>Date</th>
+                                    <th>Items</th>
+                                    <th>Amount</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for order in orders %}
+                                <tr>
+                                    <td>
+                                        <strong>#{{ order.id }}</strong>
+                                    </td>
+                                    <td>{{ order.created_at|date:"M d, Y" }}</td>
+                                    <td>
+                                        {% for item in order.items.all %}
+                                            {% if item.course %}
+                                                <div class="mb-1">
+                                                    <i class="bi bi-book text-primary"></i>
+                                                    <small>{{ item.course.title|truncatewords:5 }}</small>
+                                                </div>
+                                            {% elif item.blog_post %}
+                                                <div class="mb-1">
+                                                    <i class="bi bi-file-earmark-text text-info"></i>
+                                                    <small>{{ item.blog_post.title|truncatewords:5 }}</small>
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </td>
+                                    <td>
+                                        <strong>₹{% widthratio order.total_cents 100 1 %}</strong>
+                                    </td>
+                                    <td>
+                                        {% if order.status == 'PAID' %}
+                                            <span class="badge bg-success">Paid</span>
+                                        {% elif order.status == 'PAYMENT_PENDING' %}
+                                            <span class="badge bg-warning text-dark">Pending</span>
+                                        {% elif order.status == 'CANCELLED' %}
+                                            <span class="badge bg-danger">Cancelled</span>
+                                        {% elif order.status == 'REFUNDED' %}
+                                            <span class="badge bg-secondary">Refunded</span>
+                                        {% else %}
+                                            <span class="badge bg-info">{{ order.status }}</span>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        {% if order.status == 'PAID' %}
+                                            {% for item in order.items.all %}
+                                                {% if item.course %}
+                                                    <a href="{% url 'courses:detail' item.course.slug %}" class="btn btn-sm btn-outline-primary" title="View Course">
+                                                        <i class="bi bi-eye"></i>
+                                                    </a>
+                                                {% elif item.blog_post %}
+                                                    <a href="{% url 'blog:detail' item.blog_post.slug %}" class="btn btn-sm btn-outline-info" title="View Blog">
+                                                        <i class="bi bi-eye"></i>
+                                                    </a>
+                                                {% endif %}
+                                            {% endfor %}
+                                        {% else %}
+                                            <span class="text-muted">-</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <div class="alert alert-info">
+                    <i class="bi bi-info-circle"></i>
+                    <strong>Note:</strong> This page shows all your orders and payment history. Successfully paid orders grant you access to the purchased content.
+                </div>
+            </div>
+            {% else %}
+            <div class="card shadow-sm">
+                <div class="card-body text-center py-5">
+                    <i class="bi bi-inbox display-1 text-muted mb-3"></i>
+                    <h4>No Payment History</h4>
+                    <p class="text-muted">You haven't made any purchases yet.</p>
+                    <a href="{% url 'courses:list' %}" class="btn btn-primary mt-3">
+                        <i class="bi bi-book"></i> Browse Courses
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

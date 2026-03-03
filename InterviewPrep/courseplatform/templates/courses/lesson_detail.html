@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ lesson.title }} - {{ course.title }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'courses:list' %}">Courses</a></li>
+            <li class="breadcrumb-item"><a href="{{ course.get_absolute_url }}">{{ course.title }}</a></li>
+            <li class="breadcrumb-item active">{{ lesson.title }}</li>
+        </ol>
+    </nav>
+    
+    <div class="row">
+        <div class="col-lg-8">
+            <h1>{{ lesson.title }}</h1>
+            {% if lesson.is_preview %}
+                <span class="badge bg-info mb-3">Free Preview</span>
+            {% endif %}
+            
+            {% if lesson.video_url %}
+                <div class="ratio ratio-16x9 mb-4">
+                    <iframe src="{{ lesson.video_url }}" allowfullscreen></iframe>
+                </div>
+            {% endif %}
+            
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h4>Lesson Content</h4>
+                    <div class="lesson-content">
+                        {{ lesson.content|linebreaks }}
+                    </div>
+                </div>
+            </div>
+            
+            {% if lesson.attachment %}
+                <div class="alert alert-info">
+                    <i class="bi bi-paperclip"></i> 
+                    <a href="{{ lesson.attachment.url }}" download>Download Attachment</a>
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">Course Lessons</h5>
+                </div>
+                <div class="list-group list-group-flush">
+                    {% for l in all_lessons %}
+                        <a href="{% url 'courses:lesson_detail' course.slug l.pk %}" 
+                           class="list-group-item list-group-item-action {% if l.pk == lesson.pk %}active{% endif %}">
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span>{{ l.order }}. {{ l.title }}</span>
+                                {% if l.is_preview %}
+                                    <span class="badge bg-info">Preview</span>
+                                {% endif %}
+                            </div>
+                        </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

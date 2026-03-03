@@ -1,0 +1,179 @@
+{% extends 'custom_admin/dashboard.html' %}
+
+{% block title %}{% if is_edit %}Edit{% else %}Create{% endif %} Blog Post - Admin{% endblock %}
+
+{% block extra_css %}
+<style>
+.admin-blog-wrapper {
+    background: #f8f9fa;
+    min-height: calc(100vh - 70px - 200px);
+    padding: 40px 0;
+}
+
+.admin-blog-card {
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 15px 40px rgba(15, 23, 42, 0.08);
+    padding: 32px;
+}
+
+.admin-blog-card h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1f2a37;
+}
+
+.admin-blog-card p {
+    color: #6b7280;
+}
+
+.admin-blog-card .form-label {
+    font-weight: 600;
+    color: #1f2933;
+}
+
+.admin-blog-card .form-control,
+.admin-blog-card .form-select {
+    border-radius: 12px;
+    border: 2px solid #e5e7eb;
+    padding: 12px 14px;
+}
+
+.admin-blog-card .form-control:focus,
+.admin-blog-card .form-select:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.15rem rgba(102, 126, 234, 0.2);
+}
+
+.btn-admin-submit {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 12px;
+    padding: 12px 20px;
+    font-weight: 600;
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+.btn-admin-submit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(102, 126, 234, 0.35);
+    color: #fff;
+}
+
+.badge-admin {
+    background: rgba(102, 126, 234, 0.15);
+    color: #4c51bf;
+    border-radius: 30px;
+    padding: 6px 16px;
+    font-weight: 600;
+}
+</style>
+{% endblock %}
+
+{% block admin_content %}
+<section class="admin-blog-wrapper">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="admin-blog-card">
+                    <div class="d-flex justify-content-between flex-wrap align-items-center mb-4">
+                        <div>
+                            <span class="badge-admin mb-2 d-inline-flex align-items-center">
+                                <i class="bi bi-pencil-square me-2"></i> Admin Blog {% if is_edit %}Editor{% else %}Creator{% endif %}
+                            </span>
+                            <h1>{% if is_edit %}Edit Blog Post{% else %}Create a New Blog Post{% endif %}</h1>
+                            <p>{% if is_edit %}Update your blog post content and settings.{% else %}Share updates, publish announcements, or add new tutorials in minutes.{% endif %}</p>
+                        </div>
+                        <a href="{% url 'custom_admin:blog_list' %}" class="btn btn-outline-secondary mt-3 mt-md-0">
+                            <i class="bi bi-arrow-left me-1"></i> Back to Blogs
+                        </a>
+                    </div>
+
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <form method="post" enctype="multipart/form-data" novalidate>
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label class="form-label" for="id_title">Title</label>
+                            {{ form.title }}
+                            {% if form.title.errors %}
+                                <div class="text-danger small mt-1">{{ form.title.errors|striptags }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="id_excerpt">Excerpt</label>
+                            {{ form.excerpt }}
+                            {% if form.excerpt.errors %}
+                                <div class="text-danger small mt-1">{{ form.excerpt.errors|striptags }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="id_content">Content</label>
+                            {{ form.content }}
+                            {% if form.content.errors %}
+                                <div class="text-danger small mt-1">{{ form.content.errors|striptags }}</div>
+                            {% endif %}
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label class="form-label" for="id_status">Status</label>
+                                {{ form.status }}
+                                {% if form.status.errors %}
+                                    <div class="text-danger small mt-1">{{ form.status.errors|striptags }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-8">
+                                <label class="form-label" for="id_cover_image">Cover Image</label>
+                                {{ form.cover_image }}
+                                {% if form.cover_image.errors %}
+                                    <div class="text-danger small mt-1">{{ form.cover_image.errors|striptags }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mt-2">
+                            <div class="col-md-4">
+                                <div class="form-check">
+                                    {{ form.is_paid }}
+                                    <label class="form-check-label" for="id_is_paid">
+                                        Paid Blog Post
+                                    </label>
+                                </div>
+                                {% if form.is_paid.errors %}
+                                    <div class="text-danger small mt-1">{{ form.is_paid.errors|striptags }}</div>
+                                {% endif %}
+                            </div>
+                            <div class="col-md-8">
+                                <label class="form-label" for="id_price">Price (₹)</label>
+                                {{ form.price }}
+                                <small class="text-muted d-block mt-1">Leave as 0 for free blogs</small>
+                                {% if form.price.errors %}
+                                    <div class="text-danger small mt-1">{{ form.price.errors|striptags }}</div>
+                                {% endif %}
+                            </div>
+                        </div>
+
+                        <div class="d-flex justify-content-end mt-4">
+                            <button type="submit" class="btn btn-admin-submit">
+                                <i class="bi bi-check2-circle me-2"></i>{% if is_edit %}Update Blog{% else %}Publish Blog{% endif %}
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

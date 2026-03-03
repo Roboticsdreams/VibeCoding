@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+
+{% block title %}Checkout - {% if course %}{{ course.title }}{% else %}{{ blog_post.title }}{% endif %}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow-sm">
+                <div class="card-header" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                    <h4 class="mb-0"><i class="bi bi-cart-check"></i> Complete Your Purchase</h4>
+                </div>
+                <div class="card-body">
+                    {% if course %}
+                        <h5><i class="bi bi-book"></i> {{ course.title }}</h5>
+                        <p class="text-muted">{{ course.short_description }}</p>
+                    {% else %}
+                        <h5><i class="bi bi-file-earmark-text"></i> {{ blog_post.title }}</h5>
+                        <p class="text-muted">{{ blog_post.excerpt|truncatewords:20 }}</p>
+                    {% endif %}
+                    
+                    <hr>
+                    
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Subtotal:</span>
+                        <strong>₹{% widthratio order.subtotal_cents 100 1 %}</strong>
+                    </div>
+                    
+                    {% if order.discount_cents > 0 %}
+                    <div class="d-flex justify-content-between mb-2 text-success">
+                        <span>Discount:</span>
+                        <strong>-₹{% widthratio order.discount_cents 100 1 %}</strong>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="d-flex justify-content-between mb-2">
+                        <span>Tax (GST 18%):</span>
+                        <strong>₹{% widthratio order.tax_cents 100 1 %}</strong>
+                    </div>
+                    
+                    <hr>
+                    
+                    <div class="d-flex justify-content-between mb-4">
+                        <span class="h5">Total Amount:</span>
+                        <span class="h5" style="color: #667eea;">₹{% widthratio order.total_cents 100 1 %}</span>
+                    </div>
+                    
+                    {% if test_mode %}
+                    <div class="alert alert-warning mb-3">
+                        <i class="bi bi-exclamation-triangle"></i> 
+                        <strong>Demo Mode:</strong> Razorpay not configured. Using test payment simulation.
+                    </div>
+                    
+                    <button id="test-pay-button" class="btn w-100 btn-lg btn-warning">
+                        <i class="bi bi-lightning"></i> Simulate Payment (Demo)
+                    </button>
+                    
+                    <div class="text-center mt-3">
+                        <small class="text-muted">
+                            Configure Razorpay credentials in .env to enable real payments
+                        </small>
+                    </div>
+                    {% else %}
+                    <button id="rzp-button" class="btn w-100 btn-lg" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none;">
+                        <i class="bi bi-shield-check"></i> Pay ₹{{ order.total_amount|floatformat:2 }}
+                    </button>
+                    
+                    <div class="text-center mt-3">
+                        <small class="text-muted">
+                            <i class="bi bi-lock"></i> Secure payment powered by Razorpay
+                        </small>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<form id="payment-form" action="{% url 'payments:verify_payment' %}" method="POST">
+    {% csrf_token %}
+    <input type="hidden" name="razorpay_order_id" id="razorpay_order_id">
+    <input type="hidden" name="razorpay_payment_id" id="razorpay_payment_id">
+    <input type="hidden" name="razorpay_signature" id="razorpay_signature">
+</form>
+{% endblock %}
+
+{% block extra_js %}
+{% if test_mode %}
+<script>
+    // Test mode - simulate payment
+    document.getElementById('test-pay-button').onclick = function(e) {
+        e.preventDefault();
+        
+        if (confirm('Simulate successful payment? This will grant you access immediately.')) {
+            // Simulate Razorpay response
+            document.getElementById('razorpay_order_id').value = "{{ razorpay_order_id }}";
+            document.getElementById('razorpay_payment_id').value = "pay_TEST_" + Date.now();
+            document.getElementById('razorpay_signature').value = "sig_TEST_" + Date.now();
+            document.getElementById('payment-form').submit();
+        }
+    };
+</script>
+{% else %}
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+    var options = {
+        "key": "{{ razorpay_key_id }}",
+        "amount": "{{ amount }}",
+        "currency": "{{ currency }}",
+        "name": "Course Platform",
+        "description": "{% if course %}{{ course.title }}{% else %}{{ blog_post.title }}{% endif %}",
+        "order_id": "{{ razorpay_order_id }}",
+        "prefill": {
+            "name": "{{ user_name }}",
+            "email": "{{ user_email }}"
+        },
+        "theme": {
+            "color": "#667eea"
+        },
+        "handler": function (response) {
+            document.getElementById('razorpay_order_id').value = response.razorpay_order_id;
+            document.getElementById('razorpay_payment_id').value = response.razorpay_payment_id;
+            document.getElementById('razorpay_signature').value = response.razorpay_signature;
+            document.getElementById('payment-form').submit();
+        },
+        "modal": {
+            "ondismiss": function() {
+                alert('Payment cancelled. You can try again.');
+            }
+        }
+    };
+    
+    var rzp = new Razorpay(options);
+    
+    document.getElementById('rzp-button').onclick = function(e) {
+        e.preventDefault();
+        rzp.open();
+    };
+</script>
+{% endif %}
+{% endblock %}

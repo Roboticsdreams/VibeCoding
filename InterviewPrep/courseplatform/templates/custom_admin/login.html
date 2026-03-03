@@ -1,0 +1,128 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Login - Crack IT{% endblock %}
+
+{% block extra_css %}
+<style>
+.admin-login-wrapper {
+    background: #ffffff;
+    min-height: calc(100vh - 70px - 200px);
+    display: flex;
+    align-items: center;
+    padding: 40px 0;
+}
+
+.admin-login-card {
+    padding: 30px;
+    max-width: 520px;
+    width: 100%;
+}
+
+.admin-login-card h2 {
+    font-weight: 700;
+    color: #1f2a37;
+}
+
+.admin-login-card p {
+    color: #6b7280;
+}
+
+.admin-login-card .form-label {
+    font-weight: 600;
+    color: #1f2933;
+}
+
+.admin-login-card .form-control {
+    border-radius: 12px;
+    border: 2px solid #e5e7eb;
+    padding: 12px 16px;
+}
+
+.admin-login-card .form-control:focus {
+    border-color: #667eea;
+    box-shadow: 0 0 0 0.15rem rgba(102, 126, 234, 0.2);
+}
+
+.admin-login-card .btn-admin {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 12px;
+    padding: 12px;
+    font-weight: 600;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.admin-login-card .btn-admin:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 18px rgba(118, 75, 162, 0.3);
+}
+
+.admin-login-card .back-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.admin-login-card .back-link a {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.admin-login-card .back-link a:hover {
+    text-decoration: underline;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="admin-login-wrapper">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="admin-login-card">
+                    <div class="mb-4">
+                        <span class="badge bg-light text-primary mb-2" style="border-radius: 30px; padding: 8px 16px;">
+                            <i class="bi bi-shield-lock"></i> Admin Portal
+                        </span>
+                        <h2>Secure Access</h2>
+                        <p>Login to manage courses, blogs, and learners.</p>
+                    </div>
+
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+
+                    <form method="post">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <label for="username" class="form-label">
+                                <i class="bi bi-person-fill me-2"></i>Username
+                            </label>
+                            <input type="text" name="username" class="form-control" id="username" placeholder="Enter your admin username" required autofocus>
+                        </div>
+
+                        <div class="mb-4">
+                            <label for="password" class="form-label">
+                                <i class="bi bi-lock-fill me-2"></i>Password
+                            </label>
+                            <input type="password" name="password" class="form-control" id="password" placeholder="Enter your password" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-admin w-100">
+                            <i class="bi bi-box-arrow-in-right me-2"></i>Login to Dashboard
+                        </button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

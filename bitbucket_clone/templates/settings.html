@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Settings - Bitbucket Clone{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <div>
+        <p class="page-breadcrumb">Account / Settings</p>
+        <h1>Settings</h1>
+        <p class="page-subtitle">Configure your workspace preferences and notifications.</p>
+    </div>
+    <button class="btn-merge">Save changes</button>
+</div>
+
+<div class="settings-grid">
+    <div class="settings-card">
+        <h3>Notifications</h3>
+        <label class="setting-item">
+            <input type="checkbox" {% if preferences.notifications %}checked{% endif %} disabled>
+            <span>Email me when someone mentions me</span>
+        </label>
+        <label class="setting-item">
+            <input type="checkbox" checked disabled>
+            <span>Digest summary ({{ preferences.email_updates }})</span>
+        </label>
+    </div>
+
+    <div class="settings-card">
+        <h3>Appearance</h3>
+        <label class="setting-item">
+            <input type="checkbox" {% if preferences.dark_mode %}checked{% endif %} disabled>
+            <span>Enable dark mode</span>
+        </label>
+        <p class="setting-helper">Toggle coming soon. Stay tuned.</p>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,108 @@
+{% extends 'custom_admin/dashboard.html' %}
+
+{% block admin_content %}
+<div class="container-fluid">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2><i class="bi bi-file-earmark-text"></i> Manage Blog Posts</h2>
+        <a href="{% url 'custom_admin:blog_create' %}" class="btn btn-primary">
+            <i class="bi bi-plus-circle"></i> Create New Blog
+        </a>
+    </div>
+
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form method="GET" class="row g-3 mb-4">
+                <div class="col-md-6">
+                    <input type="text" name="q" class="form-control" placeholder="Search blogs..." value="{{ query }}">
+                </div>
+                <div class="col-md-3">
+                    <select name="status" class="form-select">
+                        <option value="">All Status</option>
+                        <option value="draft" {% if status_filter == 'draft' %}selected{% endif %}>Draft</option>
+                        <option value="published" {% if status_filter == 'published' %}selected{% endif %}>Published</option>
+                    </select>
+                </div>
+                <div class="col-md-3">
+                    <button type="submit" class="btn btn-outline-primary w-100">
+                        <i class="bi bi-search"></i> Search
+                    </button>
+                </div>
+            </form>
+
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Author</th>
+                            <th>Status</th>
+                            <th>Price</th>
+                            <th>Created</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for blog in blogs %}
+                        <tr>
+                            <td>
+                                <strong>{{ blog.title }}</strong>
+                                <br>
+                                <small class="text-muted">{{ blog.excerpt|truncatewords:10 }}</small>
+                            </td>
+                            <td>{{ blog.author.username }}</td>
+                            <td>
+                                {% if blog.status == 'published' %}
+                                    <span class="badge bg-success">Published</span>
+                                {% else %}
+                                    <span class="badge bg-secondary">Draft</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if blog.is_paid %}
+                                    <span class="badge bg-warning text-dark">₹{{ blog.price }}</span>
+                                {% else %}
+                                    <span class="badge bg-success">Free</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ blog.created_at|date:"M d, Y" }}</td>
+                            <td>
+                                <div class="btn-group btn-group-sm">
+                                    <a href="{% url 'blog:detail' blog.slug %}" class="btn btn-outline-info" target="_blank" title="View">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    <a href="{% url 'custom_admin:blog_edit' blog.id %}" class="btn btn-outline-primary" title="Edit">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    <form method="POST" action="{% url 'custom_admin:blog_delete' blog.id %}" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this blog post?');">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-outline-danger" title="Delete">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="6" class="text-center text-muted py-4">
+                                <i class="bi bi-inbox display-4"></i>
+                                <p class="mt-2">No blog posts found.</p>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block body_class %}auth-body{% endblock %}
+{% block title %}Sign in · Bitbucket Clone{% endblock %}
+
+{% block layout %}
+<main class="auth-page">
+    <header class="auth-top">
+        <div class="auth-top-logo">
+            <i class="fab fa-bitbucket"></i>
+            <span>Bitbucket Clone</span>
+        </div>
+        <p>Sign in</p>
+    </header>
+
+    <div class="auth-wrapper">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h1>Welcome back</h1>
+                <p>Sign in to continue to your workspaces.</p>
+            </div>
+            <form class="auth-form">
+                <label>Email</label>
+                <input type="email" placeholder="name@example.com" required>
+                <label>Password</label>
+                <input type="password" placeholder="••••••••" required>
+                <button type="submit" class="btn-merge full-width">Sign in</button>
+            </form>
+            <p class="auth-footer">Need an account? <a href="{% url 'landing' %}">Visit the landing page</a></p>
+        </div>
+    </div>
+</main>
+
+<script src="{% static 'js/main.js' %}"></script>
+{% endblock %}
